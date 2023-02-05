@@ -1,0 +1,115 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "prefer-const": [
+            "error"
+        ],
+        "no-var": [
+            "error"
+        ],
+        "prefer-object-spread": [
+            "error"
+        ],
+        "array-callback-return": [
+            "error"
+        ],
+        "prefer-template": [
+            "error"
+        ],
+        "no-eval": [
+            "error"
+        ],
+        "no-loop-func": [
+            "error"
+        ],
+        "default-param-last": [
+            "error"
+        ],
+        "no-new-func": [
+            "error"
+        ],
+        "space-before-blocks": [
+            "error"
+        ],
+        "no-param-reassign": [
+            "error"
+        ],
+        "prefer-spread": [
+            "error"
+        ],
+        "prefer-arrow-callback": [
+            "error"
+        ],
+        "arrow-spacing": [
+            "error"
+        ],
+        "no-confusing-arrow": [
+            "error"
+        ],
+        "implicit-arrow-linebreak": [
+            "error"
+        ],
+        "no-duplicate-imports": [
+            "error"
+        ],
+        "object-curly-newline": [
+            "error"
+        ],
+        "no-iterator": [
+            "error"
+        ],
+        "dot-notation": [
+            "error"
+        ],
+        "no-undef": [
+            "error"
+        ],
+        "no-unused-vars": [
+            "error"
+        ],
+        "eqeqeq": [
+            "error"
+        ],
+        "no-unneeded-ternary": [
+            "error"
+        ],
+        "space-infix-ops": [
+            "error"
+        ],
+        "no-multiple-empty-lines": [
+            "error"
+        ],
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "comma-spacing": [
+            "error"
+        ],
+        "key-spacing": [
+            "error"
+        ],
+        "comma-style": [
+            "error"
+        ],
+        "camelcase": [
+            "error"
+        ]
+    }
+}
