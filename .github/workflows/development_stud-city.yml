@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - stud-city
 on:
   push:
     branches:
-      - development
+      - main
   workflow_dispatch:
 
 jobs:
@@ -23,6 +23,7 @@ jobs:
 
       - name: npm install, build, and test
         run: |
+          cd StudCity.Frontend
           npm install
           npm run build --if-present
           npm run test --if-present
@@ -31,7 +32,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: StudCity.Frontend/build/
+          
+   
 
   deploy:
     runs-on: ubuntu-latest
@@ -52,5 +55,5 @@ jobs:
         with:
           app-name: 'stud-city'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B6362D4AFDCB4680A533531DCE60ADC9 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_68F4F89EF1484336BA6F5E7FBA63417D }}
           package: .
