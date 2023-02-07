@@ -23,14 +23,10 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run:
-            cd StudCity.Backend
-            dotnet build --configuration Release
+        run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: 
-            cd StudCity.Backend
-            dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -57,5 +53,5 @@ jobs:
         with:
           app-name: 'stud-city-api'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_075848A6903C44C1816779308FB6F955 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DDF817E095204C1B94818804C5A52815 }}
           package: .
