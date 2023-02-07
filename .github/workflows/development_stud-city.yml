@@ -50,7 +50,7 @@ jobs:
               id: deploy-to-webapp
               uses: azure/webapps-deploy@v2
               with:
-                  app-name: "stud-city"
-                  slot-name: "Production"
+                  app-name: 'stud-city'
+                  slot-name: 'Production'
                   publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_68F4F89EF1484336BA6F5E7FBA63417D }}
                   package: .
