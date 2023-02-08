@@ -1,7 +1,9 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using StudCity.Core.Enums;
 
 namespace StudCity.Core.Entities;
 
+[Table("Settings")]
 public class Settings : BaseEntity
 {
     public InterfaceLanguage Language { get; set; }

@@ -2,7 +2,7 @@ using StudCity.Core.Enums;
 
 namespace StudCity.Core.Entities;
 
-public class AccountToken
+public class AccountToken : BaseEntity
 {
     public Guid AccountId { get; set; }
     public Account Account { get; set; }

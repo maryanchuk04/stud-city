@@ -8,7 +8,6 @@ public class StudCityContext : DbContext
 {
     public StudCityContext(DbContextOptions<StudCityContext> options) : base(options)
     {
-        Database.EnsureCreated();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -16,7 +15,7 @@ public class StudCityContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
-    
+
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<AccountRole> AccountRoles { get; set; }
     public virtual DbSet<Account> Accounts { get; set; }

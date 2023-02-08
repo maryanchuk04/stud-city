@@ -7,13 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 #region ConfigureServices
-
+Console.WriteLine(builder.Configuration.GetConnectionString("ApplicationDbConnectionString"));
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDbContext<StudCityContext>(
+builder.Services.AddDbContextFactory<StudCityContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationDbConnectionString"),
-        b => b.MigrationsAssembly("StudCity.Db")));
+        b => b.MigrationsAssembly("StudCity.Db")), ServiceLifetime.Scoped);
 
 #endregion
 
@@ -44,7 +43,7 @@ builder.Services.AddSwaggerGen(options =>
             },
             new List<string>()
         }
-        
+
     });
 });
 
@@ -59,7 +58,7 @@ app.UseSwaggerUI();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-   
+
 }
 
 app.UseSwagger();
@@ -76,17 +75,5 @@ app.UseAuthorization();
 app.UseHttpsRedirection();
 
 app.MapControllers();
-
-try
-{
-    var db = app.Services.GetRequiredService<StudCityContext>();
-    db.Database.Migrate();
-    db.Database.EnsureCreated();
-}
-catch (Exception e)
-{
-    Console.WriteLine(e.Message);
-}
-
 
 app.Run();
