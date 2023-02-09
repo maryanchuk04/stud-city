@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using StudCity.Application.Helpers;
@@ -59,9 +60,10 @@ builder.Services.AddSwaggerGen(options =>
                 }
             },
             new List<string>()
-        }
-
+        },
     });
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
 

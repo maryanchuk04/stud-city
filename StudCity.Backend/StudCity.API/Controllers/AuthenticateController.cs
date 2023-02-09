@@ -5,6 +5,9 @@ using StudCity.Core.Interfaces;
 
 namespace StudCity.API.Controllers;
 
+/// <summary>
+/// Authenticate user API controller
+/// </summary>
 [ApiController]
 [Route("[controller]")]
 public class AuthenticateController : ControllerBase
@@ -16,6 +19,13 @@ public class AuthenticateController : ControllerBase
         _authenticateService = authenticateService;
     }
 
+    /// <summary>
+    /// Registration begin.
+    /// Method create new account and send confirmation token to email
+    /// </summary>
+    /// <param name="authenticateViewModel">This model contain email and password</param>
+    /// <response code='200'>When account created</response>
+    /// <response code='400'>When something went wrong</response>
     [HttpPost("/registration")]
     public async Task<IActionResult> RegistrationBegin([FromBody] AuthenticateViewModel authenticateViewModel)
     {
@@ -34,8 +44,14 @@ public class AuthenticateController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// This method verify email confirmation token and authenticate new user
+    /// </summary>
+    /// <param name="id">Account id</param>
+    /// <param name="token">confirmation token from mail</param>
+    /// <returns></returns>
     [HttpPut("/verity-token/{id}/{token}")]
-    public async Task<IActionResult> Verify(Guid id, string token)
+    public async Task<IActionResult> ConfirmationAuthenticate(Guid id, string token)
     {
         try
         {
