@@ -19,13 +19,17 @@ var jwtConfiguration = new JwtConfiguration();
 builder.Configuration.GetSection("Jwt").Bind(jwtConfiguration);
 
 #endregion
+
 #region ConfigureServices
 builder.Services.AddSingleton(jwtConfiguration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContextFactory<StudCityContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationDbConnectionString"),
-        b => b.MigrationsAssembly("StudCity.Db")), ServiceLifetime.Scoped);
+    options => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("ApplicationDbConnectionString"),
+        b => b.MigrationsAssembly("StudCity.Db")),
+        ServiceLifetime.Scoped
+    );
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasherService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateServices>();
 builder.Services.AddScoped<ITokenService, TokenService>();

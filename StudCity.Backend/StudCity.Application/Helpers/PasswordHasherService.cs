@@ -8,6 +8,6 @@ public class PasswordHasherService : IPasswordHasher
     
     public bool VerifyPassword(string password, string hashingString)
     {
-        return BCrypt.Net.BCrypt.Verify(password,hashingString);
+        return BCrypt.Net.BCrypt.Verify(password, hashingString);
     }
 }

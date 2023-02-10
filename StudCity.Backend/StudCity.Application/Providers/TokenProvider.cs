@@ -24,7 +24,6 @@ public class TokenProvider : ITokenProvider
             AccountId = accountId,
             Type = TokenType.EmailConfirmationType
         };
- 
     }
 
     public AccountToken ProvideRefreshToken(byte[] bytes)
