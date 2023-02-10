@@ -6,6 +6,7 @@ import Button from "../../UI/Button";
 import GoogleButton from "../../UI/GoogleButton";
 function Authenticate() {
 	const [disabled, setDisabled] = useState(false)
+
 	return (
 		<div className="w-1/1 h-screen flex">
 			<div className="form w-1/2 h-screen flex bg-[#f9fcf8]">
