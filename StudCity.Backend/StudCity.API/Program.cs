@@ -12,15 +12,9 @@ using StudCity.Db.Context;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-#region Binding
-
 var jwtConfiguration = new JwtConfiguration();
 builder.Configuration.GetSection("Jwt").Bind(jwtConfiguration);
 
-#endregion
-
-#region ConfigureServices
 builder.Services.AddSingleton(jwtConfiguration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -28,18 +22,12 @@ builder.Services.AddDbContextFactory<StudCityContext>(
     options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("ApplicationDbConnectionString"),
         b => b.MigrationsAssembly("StudCity.Db")),
-        ServiceLifetime.Scoped
-    );
+    ServiceLifetime.Scoped);
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasherService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateServices>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<IPinGenerator, PinGenerator>();
-
-#endregion
-
-
-#region SwaggerConfiguration
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -50,7 +38,7 @@ builder.Services.AddSwaggerGen(options =>
         In = ParameterLocation.Header,
         Name = "Authorization",
         Description = "Bearer Authentication with JWT Token",
-        Type = SecuritySchemeType.Http
+        Type = SecuritySchemeType.Http,
     });
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -60,8 +48,8 @@ builder.Services.AddSwaggerGen(options =>
                 Reference = new OpenApiReference
                 {
                     Id = "Bearer",
-                    Type = ReferenceType.SecurityScheme
-                }
+                    Type = ReferenceType.SecurityScheme,
+                },
             },
             new List<string>()
         },
@@ -70,18 +58,13 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
-
-
-#endregion
-
-
 var app = builder.Build();
 
 app.UseSwaggerUI();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-
 }
 
 app.UseSwagger();

@@ -22,17 +22,16 @@ public class TokenService : ITokenService
 
     public TokenService(
         StudCityContext context,
-        IPinGenerator pinGenerator, 
-        ITokenProvider provider, 
-        JwtConfiguration jwtConfiguration
-        )
+        IPinGenerator pinGenerator,
+        ITokenProvider provider,
+        JwtConfiguration jwtConfiguration)
     {
         _context = context;
         _pinGenerator = pinGenerator;
         _provider = provider;
         _jwtConfiguration = jwtConfiguration;
     }
-    
+
     public async Task<AccountToken> GenerateEmailConfirmationTokenAsync(Guid accountId)
     {
         var token = _provider.ProvideEmailConfirmationToken(accountId);
@@ -47,16 +46,20 @@ public class TokenService : ITokenService
     {
         var accountTokens = await _context.AccountTokens
             .Include(x => x.Account)
-                .ThenInclude(x=>x.AccountRoles)
-                    .ThenInclude(x=>x.Role)
+                .ThenInclude(x => x.AccountRoles)
+                    .ThenInclude(x => x.Role)
             .FirstOrDefaultAsync(x => x.AccountId == accountId && x.Token.Equals(token));
-        
+
         if (accountTokens == null)
+        {
             throw new TokenException("Error in confirmation token");
+        }
 
         if (DateTime.UtcNow >= accountTokens.Expires)
+        {
             throw new TokenException("Confirmation token time is over");
-        
+        }
+
         return accountTokens.Account;
     }
 
@@ -65,12 +68,13 @@ public class TokenService : ITokenService
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfiguration.Key));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
         var claims = GetClaims(account);
-        var token = new JwtSecurityToken(_jwtConfiguration.Issuer,
+        var token = new JwtSecurityToken(
+            _jwtConfiguration.Issuer,
             _jwtConfiguration.Audience,
             claims,
             expires: DateTime.Now.AddMinutes(30000),
             signingCredentials: credentials);
-        
+
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
@@ -86,7 +90,7 @@ public class TokenService : ITokenService
     private IEnumerable<Claim> GetClaims(Account account)
     {
         var claims = new List<Claim>();
-        if (account.UserId != null)
+        if (account.UserId == Guid.Empty)
         {
             claims.Add(new Claim(ClaimTypes.Name, $"{account.UserId}"));
         }

@@ -40,7 +40,7 @@ namespace StudCity.Db.Migrations
                     { 0, "Student" },
                     { 1, "Teacher" },
                     { 2, "User" },
-                    { 3, "Admin" }
+                    { 3, "Admin" },
                 });
 
             migrationBuilder.CreateIndex(

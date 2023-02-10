@@ -13,7 +13,7 @@ public class AuthenticateServices : IAuthenticateService
     private readonly StudCityContext _context;
     private readonly IPasswordHasher _passwordHasher;
     private readonly ITokenService _tokenService;
-    
+
     public AuthenticateServices(StudCityContext context, IPasswordHasher passwordHasher, ITokenService tokenService)
     {
         _context = context;
@@ -28,28 +28,29 @@ public class AuthenticateServices : IAuthenticateService
             Email = email,
             Password = _passwordHasher.HashPassword(password),
             AccountRoles = new[] { new AccountRole { RoleId = Role.User } },
-            IsBlocked = true
+            IsBlocked = true,
         };
 
         var result = await _context.Accounts.AddAsync(account);
         var confirmationToken = await _tokenService.GenerateEmailConfirmationTokenAsync(result.Entity.Id);
-        
-        //TODO Email sender 
+
+        // TODO Email sender
         return result.Entity.Id;
     }
-    
-    //Authenticate after with verification token
+
+    // Authenticate after with verification token
     public async Task<AuthenticateResponseModel> AuthenticateAsync(Guid accountId, string verificationToken)
     {
         try
         {
             var account = await _tokenService.VerifyEmailConfirmationToken(accountId, verificationToken);
-            //unblocked account
+
+            // unblocked account
             account.IsBlocked = false;
-            
+
             var jwtToken = _tokenService.GenerateAccessToken(account);
             var refreshToken = _tokenService.GenerateRefreshToken();
-            
+
             await _context.SaveChangesAsync();
 
             return new AuthenticateResponseModel(jwtToken, refreshToken.Token);
