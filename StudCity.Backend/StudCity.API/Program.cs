@@ -1,18 +1,40 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using StudCity.Application.Helpers;
+using StudCity.Application.Providers;
+using StudCity.Application.Services;
+using StudCity.Core.ConfigurationModels;
+using StudCity.Core.Interfaces;
+using StudCity.Core.Interfaces.Providers;
 using StudCity.Db.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+#region Binding
+
+var jwtConfiguration = new JwtConfiguration();
+builder.Configuration.GetSection("Jwt").Bind(jwtConfiguration);
+
+#endregion
+
 #region ConfigureServices
-Console.WriteLine(builder.Configuration.GetConnectionString("ApplicationDbConnectionString"));
+builder.Services.AddSingleton(jwtConfiguration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContextFactory<StudCityContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationDbConnectionString"),
-        b => b.MigrationsAssembly("StudCity.Db")), ServiceLifetime.Scoped);
+    options => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("ApplicationDbConnectionString"),
+        b => b.MigrationsAssembly("StudCity.Db")),
+        ServiceLifetime.Scoped
+    );
+builder.Services.AddSingleton<IPasswordHasher, PasswordHasherService>();
+builder.Services.AddScoped<IAuthenticateService, AuthenticateServices>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<ITokenProvider, TokenProvider>();
+builder.Services.AddScoped<IPinGenerator, PinGenerator>();
 
 #endregion
 
@@ -42,9 +64,10 @@ builder.Services.AddSwaggerGen(options =>
                 }
             },
             new List<string>()
-        }
-
+        },
     });
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
 
