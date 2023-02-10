@@ -48,7 +48,7 @@ namespace StudCity.Db.Migrations
                         .IsUnique()
                         .HasFilter("[UserId] IS NOT NULL");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Accounts", (string)null);
                 });
 
             modelBuilder.Entity("StudCity.Core.Entities.AccountRole", b =>
@@ -63,7 +63,7 @@ namespace StudCity.Db.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AccountRoles");
+                    b.ToTable("AccountRoles", (string)null);
                 });
 
             modelBuilder.Entity("StudCity.Core.Entities.AccountToken", b =>
@@ -98,7 +98,7 @@ namespace StudCity.Db.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("AccountTokens");
+                    b.ToTable("AccountTokens", (string)null);
                 });
 
             modelBuilder.Entity("StudCity.Core.Entities.Image", b =>
@@ -113,7 +113,7 @@ namespace StudCity.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("StudCity.Core.Entities.Role", b =>
@@ -128,7 +128,7 @@ namespace StudCity.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
 
                     b.HasData(
                         new
@@ -173,7 +173,7 @@ namespace StudCity.Db.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Settings");
+                    b.ToTable("Settings", (string)null);
                 });
 
             modelBuilder.Entity("StudCity.Core.Entities.User", b =>
@@ -210,7 +210,7 @@ namespace StudCity.Db.Migrations
 
                     b.HasIndex("ImageId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("StudCity.Core.Entities.Account", b =>

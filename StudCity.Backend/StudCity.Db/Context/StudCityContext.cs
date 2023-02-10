@@ -6,7 +6,8 @@ namespace StudCity.Db.Context;
 
 public class StudCityContext : DbContext
 {
-    public StudCityContext(DbContextOptions<StudCityContext> options) : base(options)
+    public StudCityContext(DbContextOptions<StudCityContext> options)
+        : base(options)
     {
     }
 
@@ -17,10 +18,16 @@ public class StudCityContext : DbContext
     }
 
     public virtual DbSet<User> Users { get; set; }
+
     public virtual DbSet<AccountRole> AccountRoles { get; set; }
+
     public virtual DbSet<Account> Accounts { get; set; }
+
     public virtual DbSet<Image> Images { get; set; }
+
     public virtual DbSet<Role> Roles { get; set; }
+
     public virtual DbSet<AccountToken> AccountTokens { get; set; }
+
     public virtual DbSet<Settings> SettingsSet { get; set; }
 }

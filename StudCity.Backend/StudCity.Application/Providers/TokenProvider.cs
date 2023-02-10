@@ -22,7 +22,7 @@ public class TokenProvider : ITokenProvider
             Expires = DateTime.Now.AddDays(7),
             Created = DateTime.Now,
             AccountId = accountId,
-            Type = TokenType.EmailConfirmationType
+            Type = TokenType.EmailConfirmationType,
         };
     }
 

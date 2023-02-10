@@ -16,7 +16,7 @@ namespace StudCity.Db.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsBlocked = table.Column<bool>(type: "bit", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -28,7 +28,7 @@ namespace StudCity.Db.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -40,7 +40,7 @@ namespace StudCity.Db.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -58,7 +58,7 @@ namespace StudCity.Db.Migrations
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Revoked = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ReplacedByToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Type = table.Column<int>(type: "int", nullable: false)
+                    Type = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -82,7 +82,7 @@ namespace StudCity.Db.Migrations
                     DateOfBirthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
-                    ImageId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    ImageId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                 },
                 constraints: table =>
                 {
@@ -105,7 +105,7 @@ namespace StudCity.Db.Migrations
                 columns: table => new
                 {
                     RoleId = table.Column<int>(type: "int", nullable: false),
-                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -131,7 +131,7 @@ namespace StudCity.Db.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Language = table.Column<int>(type: "int", nullable: false),
                     Theme = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                 },
                 constraints: table =>
                 {
