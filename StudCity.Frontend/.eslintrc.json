@@ -50,6 +50,7 @@
         "no-param-reassign": [
             "error"
         ],
+        "react/prop-types": "off",
         "prefer-spread": [
             "error"
         ],
