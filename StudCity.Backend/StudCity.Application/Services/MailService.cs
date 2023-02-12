@@ -18,10 +18,11 @@ public class MailService : IMailService
     public async Task SendRegistrationMessageAsync(string email, string token)
     {
         const string subject = "Welcome to WayToDev";
-        using var streamReader = File.OpenText($"StudCity.Application/Templates/ConfirmationLetter.html");
+        using var streamReader = File.OpenText($"./Templates/ConfirmationLetter.html");
         var pin = token.Select(x => x.ToString()).ToArray();
+        var fileContent = await streamReader.ReadToEndAsync();
         var htmlContent = string.Format(
-            await streamReader.ReadToEndAsync(),
+            fileContent,
             pin[0],
             pin[1],
             pin[2],

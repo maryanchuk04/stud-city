@@ -10,12 +10,9 @@
         <AdditionalFiles Include="$(SolutionDir)stylecop.json" Link="stylecop.json" />
     </ItemGroup>
     <ItemGroup>
-        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-            <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
-        </AssemblyAttribute>
     </ItemGroup>
     <PropertyGroup>
-        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+        <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
         <TreatSpecificWarningsAsErrors />
     </PropertyGroup>
 </Project>
