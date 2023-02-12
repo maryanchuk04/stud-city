@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 
 import Authenticate from "./pages/authenticate/Authenticate";
 function App() {

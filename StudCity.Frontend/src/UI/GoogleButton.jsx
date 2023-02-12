@@ -2,7 +2,7 @@ import React from "react";
 
 function GoogleButton() {
     return (
-		<button type='button' className='flex break-inside bg-white text-[#486645] border-2 border-[#486645] rounded-3xl px-6 py-3 mb-4 w-full h-16'>
+		<button type='button' className='flex break-inside bg-white text-primaryGreen border-2 border-primaryGreen rounded-3xl px-6 py-3 mb-4 w-full h-16'>
 			<div className='m-auto'>
 				<div className='flex items-center justify-start flex-1 space-x-4'>
 					<svg width='25' height='25' viewBox='0 0 24 24'>

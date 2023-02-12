@@ -9,8 +9,9 @@ module.exports = {
       boxShadow: {
         'md': '0 3px 10px rgba(0, 0, 0, 0.2)',
       },
-      color: {
-        "darkGreen": '#486645'
+      colors: {
+        "primaryGreen": '#486645',
+        "primatyWhite": "#f9fcf8"
       }
     }
   },

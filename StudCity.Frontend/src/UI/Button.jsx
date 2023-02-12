@@ -1,11 +1,11 @@
 import React from "react";
 
-function Button({ children, className, disabled = false }) {
+function Button({ children, className = "", disabled = false }) {
     return (
        <button  
-            className={`rounded-2xl bg-darkGreen disabled:cursor-not-allowed text-[#F9FCF8] mt-3 h-16 w-1/1 font-normal ${className}`} 
+            className={`rounded-2xl bg-primaryGreen disabled:cursor-not-allowed text-primatyWhite mt-3 h-16 w-1/1 font-normal ${className}`} 
             disabled = { disabled } 
-            type="submit"
+            type = "submit"
         >
             { children }
         </button>
