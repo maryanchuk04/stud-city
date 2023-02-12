@@ -44,7 +44,7 @@ public class AuthenticateServices : IAuthenticateService
         return result.Entity.Id;
     }
 
-    // Authenticate after with verification token
+    // Authenticate after with verification token.
     public async Task<AuthenticateResponseModel> AuthenticateAsync(Guid accountId, string verificationToken)
     {
         try
@@ -65,6 +65,33 @@ public class AuthenticateServices : IAuthenticateService
         {
             throw new AuthenticateException(e.Message);
         }
+    }
+
+    // Authenticate with email and password.
+    public async Task<AuthenticateResponseModel> AuthenticateAsync(string email, string password)
+    {
+        var account = _context.Accounts
+            .Include(x => x.RefreshTokens)
+            .Include(x => x.AccountRoles)
+                .ThenInclude(x => x.Role)
+            .FirstOrDefault(acc => acc.Email == email);
+
+        if (account == null)
+        {
+            throw new AuthenticateException("Account with this email is not exist");
+        }
+
+        if (_passwordHasher.VerifyPassword(password, account.Password))
+        {
+            throw new AuthenticateException("Incorrect email or password");
+        }
+
+        var jwtToken = _tokenService.GenerateAccessToken(account);
+        var refreshToken = _tokenService.GenerateRefreshToken();
+
+        await _context.SaveChangesAsync();
+
+        return new AuthenticateResponseModel(jwtToken, refreshToken.Token);
     }
 
     public async Task<bool> CanRegisterAsync(string email)

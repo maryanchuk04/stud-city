@@ -9,4 +9,6 @@ public interface IAuthenticateService
     Task<bool> CanRegisterAsync(string email);
 
     Task<AuthenticateResponseModel> AuthenticateAsync(Guid accountId, string verificationToken);
+
+    Task<AuthenticateResponseModel> AuthenticateAsync(string email, string password);
 }

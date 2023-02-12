@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using StudCity.API.Extensions;
 using StudCity.API.ViewModels;
 using StudCity.Core.Exceptions;
 using StudCity.Core.Interfaces;
@@ -9,7 +10,7 @@ namespace StudCity.API.Controllers;
 /// Authenticate user API controller.
 /// </summary>
 [ApiController]
-[Route("[controller]")]
+[Route("/authenticate")]
 public class AuthenticateController : ControllerBase
 {
     private readonly IAuthenticateService _authenticateService;
@@ -30,7 +31,7 @@ public class AuthenticateController : ControllerBase
     /// <param name="authenticateViewModel">This model contain email and password.</param>
     /// <response code='200'>When account created.</response>
     /// <response code='400'>When something went wrong.</response>
-    [HttpPost("/registration")]
+    [HttpPost("registration")]
     public async Task<IActionResult> RegistrationBegin([FromBody] AuthenticateViewModel authenticateViewModel)
     {
         try
@@ -40,7 +41,8 @@ public class AuthenticateController : ControllerBase
                 return BadRequest(new ErrorResponseModel("Account is already exist"));
             }
 
-            var accountId = await _authenticateService.RegistrationBeginAsync(authenticateViewModel.Email, authenticateViewModel.Password);
+            var accountId = await _authenticateService.RegistrationBeginAsync(
+                authenticateViewModel.Email, authenticateViewModel.Password);
 
             return Ok(new { accountId });
         }
@@ -56,17 +58,43 @@ public class AuthenticateController : ControllerBase
     /// <param name="id">Account id.</param>
     /// <param name="token">confirmation token from mail.</param>
     /// <returns>Ok.</returns>
-    [HttpPut("/verity-token/{id}/{token}")]
+    [HttpPut("verity-token/{id}/{token}")]
     public async Task<IActionResult> ConfirmationAuthenticate(Guid id, string token)
     {
         try
         {
             var responseModel = await _authenticateService.AuthenticateAsync(id, token);
+            HttpContext.SetTokenCookie(responseModel);
+
             return Ok(new { Token = responseModel.JwtToken });
         }
         catch (AuthenticateException e)
         {
-            return BadRequest(e.Message);
+            return BadRequest(new ErrorResponseModel(e.Message));
+        }
+    }
+
+    /// <summary>
+    /// Authenticate user by email and password.
+    /// </summary>
+    /// <param name="authenticateViewModel">Authenticate model (Email and Password).</param>
+    /// <response code ='200'>New JWT token.</response>
+    /// <response code ='400'>Error with message.</response>
+    [HttpPost]
+    public async Task<IActionResult> Authenticate([FromBody] AuthenticateViewModel authenticateViewModel)
+    {
+        try
+        {
+            var responseModel = await _authenticateService.AuthenticateAsync(
+                    authenticateViewModel.Email,
+                    authenticateViewModel.Password);
+            HttpContext.SetTokenCookie(responseModel);
+
+            return Ok(new { Token = responseModel.JwtToken });
+        }
+        catch (AuthenticateException e)
+        {
+            return BadRequest(new ErrorResponseModel(e.Message));
         }
     }
 }
