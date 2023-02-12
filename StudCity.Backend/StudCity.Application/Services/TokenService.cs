@@ -16,18 +16,15 @@ namespace StudCity.Application.Services;
 public class TokenService : ITokenService
 {
     private readonly StudCityContext _context;
-    private readonly IPinGenerator _pinGenerator;
     private readonly ITokenProvider _provider;
     private readonly JwtConfiguration _jwtConfiguration;
 
     public TokenService(
         StudCityContext context,
-        IPinGenerator pinGenerator,
         ITokenProvider provider,
         JwtConfiguration jwtConfiguration)
     {
         _context = context;
-        _pinGenerator = pinGenerator;
         _provider = provider;
         _jwtConfiguration = jwtConfiguration;
     }

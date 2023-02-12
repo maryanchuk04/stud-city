@@ -13,12 +13,18 @@ public class AuthenticateServices : IAuthenticateService
     private readonly StudCityContext _context;
     private readonly IPasswordHasher _passwordHasher;
     private readonly ITokenService _tokenService;
+    private readonly IMailService _mailService;
 
-    public AuthenticateServices(StudCityContext context, IPasswordHasher passwordHasher, ITokenService tokenService)
+    public AuthenticateServices(
+        StudCityContext context,
+        IPasswordHasher passwordHasher,
+        ITokenService tokenService,
+        IMailService mailService)
     {
         _context = context;
         _passwordHasher = passwordHasher;
         _tokenService = tokenService;
+        _mailService = mailService;
     }
 
     public async Task<Guid> RegistrationBeginAsync(string email, string password)
@@ -34,7 +40,7 @@ public class AuthenticateServices : IAuthenticateService
         var result = await _context.Accounts.AddAsync(account);
         var confirmationToken = await _tokenService.GenerateEmailConfirmationTokenAsync(result.Entity.Id);
 
-        // TODO Email sender
+        await _mailService.SendRegistrationMessageAsync(email, confirmationToken.Token);
         return result.Entity.Id;
     }
 

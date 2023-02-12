@@ -6,10 +6,18 @@ using StudCity.Application.Providers;
 using StudCity.Application.Services;
 using StudCity.Core.ConfigurationModels;
 using StudCity.Core.Interfaces;
+using StudCity.Core.Interfaces.Infrastructure;
 using StudCity.Core.Interfaces.Providers;
 using StudCity.Db.Context;
+using StudCity.Infrastructure.Configuration;
+using StudCity.Infrastructure.MailSender;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// binding configuration mail client
+var mailConfig = new MailSenderConfiguration();
+builder.Configuration.GetSection("MailClient").Bind(mailConfig);
+builder.Services.AddSingleton(mailConfig);
 
 // Add services to the container.
 var jwtConfiguration = new JwtConfiguration();
@@ -28,7 +36,8 @@ builder.Services.AddScoped<IAuthenticateService, AuthenticateServices>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<IPinGenerator, PinGenerator>();
-
+builder.Services.AddScoped<IMailService, MailService>();
+builder.Services.AddScoped<IMailClient, MailClient>();
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -72,7 +81,7 @@ app.UseCors(x =>
 {
     x.AllowAnyMethod()
         .AllowAnyHeader()
-        .SetIsOriginAllowed(origin => true)
+        .AllowAnyOrigin()
         .AllowCredentials();
 });
 app.UseAuthentication();

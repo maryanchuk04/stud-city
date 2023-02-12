@@ -20,6 +20,7 @@
     <ItemGroup>
         <ProjectReference Include="..\StudCity.Application\StudCity.Application.csproj" />
         <ProjectReference Include="..\StudCity.Db\StudCity.Db.csproj" />
+        <ProjectReference Include="..\StudCity.Infrastructure\StudCity.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
