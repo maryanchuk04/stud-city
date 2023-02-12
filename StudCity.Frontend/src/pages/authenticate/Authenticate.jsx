@@ -4,6 +4,7 @@ import TextField from "../../UI/fields/TextField";
 import PasswordTextField from "../../UI/fields/PasswordTextField";
 import Button from "../../UI/Button";
 import GoogleButton from "../../UI/GoogleButton";
+import { passwordValidation } from "../../utils/validators/validators";
 
 function Authenticate() {
 	const [disabled, setDisabled] = useState(false)
@@ -29,6 +30,7 @@ function Authenticate() {
 							type = "password" 
 							required = {true}
 							setDisabled = {setDisabled}
+							validate = { passwordValidation }
 						/>
 						<a className="w-full text-center ml-1 font-medium text-base text-primaryAuthentication" href="">Forgot password</a>
 						<Button 

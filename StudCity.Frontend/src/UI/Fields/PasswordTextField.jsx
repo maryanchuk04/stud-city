@@ -5,11 +5,6 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled,
 	const [passwordError, setPasswordErr] = useState("");
 	const primaryGray = "#506466";
 
-	const onChange = (evnt) => {
-		handleValidation(evnt);
-		handleChange(evnt);
-	}
-
 	const handleValidation = (evnt) => {
 		let errMsg = '';
 		if (secondValue === "") {
@@ -24,6 +19,8 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled,
 			setDisabled(false);
 
 		setPasswordErr(errMsg);
+		
+		handleChange(evnt);
 	}
 
 	return (
@@ -51,7 +48,7 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled,
 				type={!hidden ? "password" : "text"}
 				placeholder={placeholder}
 				required={required}
-				onChange={onChange}
+				onChange={handleValidation}
 			/>
 			<p className="text-center text-[#eb4848] mb-1">{passwordError}</p>
 		</div>

@@ -12,7 +12,11 @@ function Registration() {
 		password: "",
 		confirmPassword: ""
 	})
-	
+
+	const handleChange = (evnt) => {
+		setPasswords({ ...passwords, password: evnt.target.value })
+	}
+
 	return (
 		<div className="w-1/1 h-screen flex">
 			<div className="w-1/2 h-screen ">
@@ -36,8 +40,7 @@ function Registration() {
 							className = "" 
 							required = {true}
 							setDisabled = {setDisabled}
-							handleChange = {(evnt) => setPasswords({ ...passwords, 
-								password: evnt.target.value })}
+							handleChange = {(evnt) => handleChange(evnt)}
 							secondValue = {passwords.confirmPassword}
 							validate = { passwordValidation }
 						/>
@@ -47,8 +50,7 @@ function Registration() {
 							className = "" 
 							required = {true}
 							setDisabled = {setDisabled}
-							handleChange = {(evnt) => setPasswords({ ...passwords, 
-								confirmPassword: evnt.target.value })}
+							handleChange = {(evnt) => handleChange(evnt)}
 							secondValue = {passwords.password}
 							validate = { passwordMatchValidation }
 						/>
