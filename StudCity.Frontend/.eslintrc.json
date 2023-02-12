@@ -17,6 +17,7 @@
         "react"
     ],
     "rules": {
+        "react/prop-types": "off",
         "prefer-const": [
             "error"
         ],
@@ -50,7 +51,6 @@
         "no-param-reassign": [
             "error"
         ],
-        "react/prop-types": "off",
         "prefer-spread": [
             "error"
         ],
