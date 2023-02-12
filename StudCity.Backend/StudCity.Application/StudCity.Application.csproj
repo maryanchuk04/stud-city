@@ -3,25 +3,16 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>disable</Nullable>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\StudCity.Core\StudCity.Core.csproj" />
-      <ProjectReference Include="..\StudCity.Db\StudCity.Db.csproj" />
+        <ProjectReference Include="..\StudCity.Core\StudCity.Core.csproj" />
+        <ProjectReference Include="..\StudCity.Db\StudCity.Db.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
-      <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Remove="StyleCop.Analyzers" />
-      <PackageReference Update="StyleCop.Analyzers" Version="1.1.118">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
+        <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
     </ItemGroup>
 
 </Project>
