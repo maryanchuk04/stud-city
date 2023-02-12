@@ -16,7 +16,7 @@ public class AccountToken : BaseEntity
 
     public DateTime? Revoked { get; set; }
 
-    public string ReplacedByToken { get; set; } = String.Empty;
+    public string ReplacedByToken { get; set; } = string.Empty;
 
     public TokenType Type { get; set; } = TokenType.RefreshToken;
 }

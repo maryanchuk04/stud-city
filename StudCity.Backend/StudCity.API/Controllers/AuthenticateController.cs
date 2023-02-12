@@ -14,6 +14,10 @@ public class AuthenticateController : ControllerBase
 {
     private readonly IAuthenticateService _authenticateService;
 
+    /// <summary>
+    /// Authenticate DI.
+    /// </summary>
+    /// <param name="authenticateService">DI auth service.</param>
     public AuthenticateController(IAuthenticateService authenticateService)
     {
         _authenticateService = authenticateService;

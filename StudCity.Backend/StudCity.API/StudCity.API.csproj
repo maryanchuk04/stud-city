@@ -3,32 +3,24 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>disable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-      <UserSecretsId>07ac944d-4549-4ca8-9973-86c907ab0acb</UserSecretsId>
+        <UserSecretsId>07ac944d-4549-4ca8-9973-86c907ab0acb</UserSecretsId>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <DocumentationFile>bin\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
-        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-        <PackageReference Remove="StyleCop.Analyzers" />
-        <PackageReference Update="StyleCop.Analyzers" Version="1.1.118">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\StudCity.Application\StudCity.Application.csproj" />
-      <ProjectReference Include="..\StudCity.Db\StudCity.Db.csproj" />
+        <ProjectReference Include="..\StudCity.Application\StudCity.Application.csproj" />
+        <ProjectReference Include="..\StudCity.Db\StudCity.Db.csproj" />
+        <ProjectReference Include="..\StudCity.Infrastructure\StudCity.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

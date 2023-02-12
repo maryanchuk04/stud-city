@@ -1,9 +1,19 @@
 namespace StudCity.API.ViewModels;
 
+/// <summary>
+/// Model for show errors in response.
+/// </summary>
 public class ErrorResponseModel
 {
-    public string Error { get; }
+    /// <summary>
+    /// Error message.
+    /// </summary>
+    protected string Error { get; }
 
+    /// <summary>
+    /// Simple constructor.
+    /// </summary>
+    /// <param name="error">error message.</param>
     public ErrorResponseModel(string error)
     {
         Error = error;

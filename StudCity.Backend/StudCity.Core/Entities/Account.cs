@@ -17,5 +17,3 @@ public class Account : BaseEntity
     public ICollection<AccountToken> RefreshTokens { get; set; }
 }
 
-
-
