@@ -4,8 +4,22 @@ import TextField from "../../UI/Fields/TextField";
 import PasswordTextField from "../../UI/Fields/PasswordTextField";
 import Button from "../../UI/Button";
 import GoogleButton from "../../UI/GoogleButton";
+import { AuthenticateService } from "../../services/authenticateService";
 function Authenticate() {
-	const [disabled, setDisabled] = useState(false)
+	const authenticateSerivice = new AuthenticateService();
+
+	const [disabled, setDisabled] = useState(false);
+	const [formState, setFormState] = useState({ 
+		email: "",
+		password: ""
+	});
+	
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		const res = await authenticateSerivice.authenticate(formState);
+		
+		console.log(res);
+	}
 
 	return (
 		<div className="w-1/1 h-screen flex">
@@ -13,13 +27,14 @@ function Authenticate() {
 				<div className="container flex flex-col w-4/5 m-auto h-[85%] bg-primatyWhite rounded-3xl p-11 shadow-md ">
 					<h1 className="w-full text-center font-bold text-4xl my-3 text-primaryGreen">Welcome back</h1>
 					<h6 className="w-full text-center font-normal text-lg text-primaryGreen">Please enter your details</h6>
-					<form className="flex flex-col w-1/1">
+					<form className="flex flex-col w-1/1" onSubmit = {handleSubmit}>
 						<Label>Email</Label>
 						<TextField 
 							placeholder = "Enter your email" 
 							className = "" 
 							type = "email" 
 							required = {true}
+							onChange = { (event) => setFormState({ ...formState, email: event.target.value }) }
 						/>
 						<Label>Password</Label>
 						<PasswordTextField 
@@ -28,6 +43,7 @@ function Authenticate() {
 							type = "password" 
 							required = {true}
 							setDisabled = {setDisabled}
+							onChange = { (event) => setFormState({ ...formState, password: event.target.value }) }
 						/>
 						<a className="w-full text-center ml-1 font-medium text-base text-primaryGreen" href="">Forgot password</a>
 						<Button 
