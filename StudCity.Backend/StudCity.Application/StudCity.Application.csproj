@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\StudCity.Core\StudCity.Core.csproj" />
+        <ProjectReference Include="..\StudCity.Db\StudCity.Db.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
+    </ItemGroup>
+
+</Project>
