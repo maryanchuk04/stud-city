@@ -31,7 +31,6 @@ function Authenticate() {
 						/>
 						<a className="w-full text-center ml-1 font-medium text-base text-primaryGreen" href="">Forgot password</a>
 						<Button 
-							className = ""
 							disabled = {disabled}
 						>Submit</Button>
 						<div className="flex justify-between my-2 items-center">

@@ -30,8 +30,6 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled 
 				errMsg = "At least one Special Characters";
 		}else if(!minLengthPassword) {
 				errMsg = "At least minumum 8 characters";
-		}else{
-			errMsg = "";
 		}
 
 		if (errMsg.length !== 0) setDisabled(true) 
