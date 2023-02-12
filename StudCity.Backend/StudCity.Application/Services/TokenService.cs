@@ -87,7 +87,7 @@ public class TokenService : ITokenService
     private IEnumerable<Claim> GetClaims(Account account)
     {
         var claims = new List<Claim>();
-        if (account.UserId == Guid.Empty)
+        if (account.UserId != null)
         {
             claims.Add(new Claim(ClaimTypes.Name, $"{account.UserId}"));
         }

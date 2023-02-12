@@ -8,7 +8,7 @@ public class ErrorResponseModel
     /// <summary>
     /// Error message.
     /// </summary>
-    protected string Error { get; }
+    public string Error { get; }
 
     /// <summary>
     /// Simple constructor.
