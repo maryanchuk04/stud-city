@@ -1,13 +1,14 @@
 import axios from 'axios';
-// import { TokenService } from './tokenService';
+import { TokenService } from './tokenService';
 
 export class BaseService {
 	constructor() {
-		// const tokenService = new TokenService();
+		const tokenService = new TokenService();
 		this.axios = axios.create({
 			baseURL: process.env.REACT_APP_BASE_API_URL,
+			withCredentials: true,
 			headers: {
-				// Authorization: `Bearer ${tokenService.getToken() || ""}`
+				Authorization: `Bearer ${tokenService.getToken() || ""}`
 			}
 		}) 
 	}
