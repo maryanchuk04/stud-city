@@ -1,24 +1,26 @@
 import React, { useState } from "react";
 
-function PasswordTextField({ className = "", placeholder, required, setDisabled, handleChange, secondValue = "", validate }) {
+function PasswordTextField({ className = "", placeholder, required, setDisabled, handleChange, secondValue = "", validate = null }) {
 	const [hidden, setHidden] = useState(false);
 	const [passwordError, setPasswordErr] = useState("");
 	const primaryGray = "#506466";
 
-	const handleValidation = (evnt) => {
-		let errMsg = '';
-		if (secondValue === "") {
-			errMsg = validate(evnt.target.value);
-		} else {
-			errMsg = validate(evnt.target.value, secondValue);
+	const onChange = (evnt) => {
+		if(validate) {
+			let errMsg = "";
+			if (secondValue === "") {
+				errMsg = validate(evnt.target.value);
+			} else {
+				errMsg = validate(evnt.target.value, secondValue);
+			}
+	
+			if (errMsg.length !== 0) 
+				setDisabled(true)
+			else  
+				setDisabled(false);
+	
+			setPasswordErr(errMsg);
 		}
-
-		if (errMsg.length !== 0) 
-			setDisabled(true)
-		else  
-			setDisabled(false);
-
-		setPasswordErr(errMsg);
 		
 		handleChange(evnt);
 	}
@@ -48,7 +50,7 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled,
 				type={!hidden ? "password" : "text"}
 				placeholder={placeholder}
 				required={required}
-				onChange={handleValidation}
+				onChange={onChange}
 			/>
 			<p className="text-center text-[#eb4848] mb-1">{passwordError}</p>
 		</div>

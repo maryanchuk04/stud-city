@@ -81,7 +81,7 @@ public class AuthenticateServices : IAuthenticateService
             throw new AuthenticateException("Account with this email is not exist");
         }
 
-        if (_passwordHasher.VerifyPassword(password, account.Password))
+        if (!_passwordHasher.VerifyPassword(password, account.Password))
         {
             throw new AuthenticateException("Incorrect email or password");
         }
