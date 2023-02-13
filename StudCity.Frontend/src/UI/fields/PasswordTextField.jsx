@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function PasswordTextField({ className = "", placeholder, required, setDisabled, handleChange, secondValue = "", value = '', validate = null }) {
+function PasswordTextField({ className = "", placeholder, required, setDisabled, handleChange, secondValue = "", value = "", validate = null }) {
 	const [hidden, setHidden] = useState(false);
 	const [passwordError, setPasswordErr] = useState("");
 	const primaryGray = "#506466";

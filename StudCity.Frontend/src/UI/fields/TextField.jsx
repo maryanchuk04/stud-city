@@ -1,6 +1,6 @@
 import React from "react";
 
-function TextField({ className = "", placeholder, type, required, handleChange, value = '' }) {
+function TextField({ className = "", placeholder, type, required, handleChange, value = "" }) {
 	return (
 		<div className="relative text-[#506466]" >
 			<input
