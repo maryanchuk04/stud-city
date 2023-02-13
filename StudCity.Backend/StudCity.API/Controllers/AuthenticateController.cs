@@ -58,7 +58,7 @@ public class AuthenticateController : ControllerBase
     /// <param name="id">Account id.</param>
     /// <param name="token">confirmation token from mail.</param>
     /// <returns>Ok.</returns>
-    [HttpPut("verity-token/{id}/{token}")]
+    [HttpPut("verify-token/{id}/{token}")]
     public async Task<IActionResult> ConfirmationAuthenticate(Guid id, string token)
     {
         try
