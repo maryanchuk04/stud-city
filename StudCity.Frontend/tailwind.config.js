@@ -7,11 +7,12 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        'md': '0 3px 10px rgba(0, 0, 0, 0.2)',
+        'md': '0 3px 10px rgba(0, 0, 0, 0.5)',
       },
       colors: {
-        "primaryGreen": '#486645',
-        "primatyWhite": "#f9fcf8"
+        "primaryAuthentication": '#453e35',
+        "primatyWhite": "#f9fcf8",
+        "primaryRegistration": "#817566"
       }
     }
   },

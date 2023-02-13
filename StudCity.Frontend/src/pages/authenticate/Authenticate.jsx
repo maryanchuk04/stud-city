@@ -5,6 +5,8 @@ import PasswordTextField from "../../UI/fields/PasswordTextField";
 import Button from "../../UI/Button";
 import GoogleButton from "../../UI/GoogleButton";
 import { AuthenticateService } from "../../services/authenticateService";
+import { passwordValidation } from "../../utils/validators/validators";
+
 function Authenticate() {
 	const authenticateSerivice = new AuthenticateService();
 
@@ -23,10 +25,10 @@ function Authenticate() {
 
 	return (
 		<div className="w-1/1 h-screen flex">
-			<div className="form w-1/2 h-screen flex bg-primatyWhite">
+			<div className="w-1/2 h-screen flex bg-primatyWhite">
 				<div className="container flex flex-col w-4/5 m-auto h-[85%] bg-primatyWhite rounded-3xl p-11 shadow-md ">
-					<h1 className="w-full text-center font-bold text-4xl my-3 text-primaryGreen">Welcome back</h1>
-					<h6 className="w-full text-center font-normal text-lg text-primaryGreen">Please enter your details</h6>
+					<h1 className="w-full text-center font-bold text-4xl my-3 text-primaryAuthentication">Welcome back</h1>
+					<h6 className="w-full text-center font-normal text-lg text-primaryAuthentication">Please enter your details</h6>
 					<form className="flex flex-col w-1/1" onSubmit = {handleSubmit}>
 						<Label>Email</Label>
 						<TextField 
@@ -44,8 +46,9 @@ function Authenticate() {
 							required = {true}
 							setDisabled = {setDisabled}
 							onChange = { (event) => setFormState({ ...formState, password: event.target.value }) }
+							validate = { passwordValidation }
 						/>
-						<a className="w-full text-center ml-1 font-medium text-base text-primaryGreen" href="">Forgot password</a>
+						<a className="w-full text-center ml-1 font-medium text-base text-primaryAuthentication" href="">Forgot password</a>
 						<Button 
 							disabled = {disabled}
 						>Submit</Button>
@@ -56,12 +59,11 @@ function Authenticate() {
 						</div>
 						<GoogleButton></GoogleButton>
 					</form>
-					<div className=" w-full text-center ml-1 mt-3 font-medium text-base"><a className="mr-1 cursor-pointer text-[#233a2a]">Don`t have an account?</a><span className="text-primaryGreen">Sign up</span></div>
+					<div className=" w-full text-center ml-1 mt-3 font-medium text-base"><a className="mr-1 cursor-pointer text-[#233a2a]">Don`t have an account?</a><span className="text-primaryAuthentication">Sign up</span></div>
 				</div>
-				
 			</div>
 			<div className="w-1/2 h-screen ">
-				<img className="w-full h-screen object-cover" src="/images/Image-Authenticate-Light.png" alt="404" />
+				<img className="w-full h-screen object-cover object-bottom" src="/images/Image-Authenticate-Light.jpg" alt="404" />
 			</div>
 		</div>
 	);
