@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Label from "../../UI/Label";
-import TextField from "../../UI/Fields/TextField";
-import PasswordTextField from "../../UI/Fields/PasswordTextField";
+import TextField from "../../UI/fields/TextField";
+import PasswordTextField from "../../UI/fields/PasswordTextField";
 import Button from "../../UI/Button";
 import GoogleButton from "../../UI/GoogleButton";
 import { AuthenticateService } from "../../services/authenticateService";
