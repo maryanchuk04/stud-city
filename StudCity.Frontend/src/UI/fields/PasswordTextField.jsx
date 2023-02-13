@@ -13,7 +13,6 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled,
 				errMsg = validate(evnt.target.value);
 			} else {
 				errMsg = validate(evnt.target.value, secondValue);
-				console.log(errMsg)
 			}
 
 			if (errMsg.length === 0) {
