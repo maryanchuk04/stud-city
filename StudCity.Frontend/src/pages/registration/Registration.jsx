@@ -13,9 +13,14 @@ function Registration() {
 		confirmPassword: ""
 	})
 
-	const handleChange = (evnt) => {
+	const handleChangePassword = (evnt) => {
 		setPasswords({ ...passwords, password: evnt.target.value })
 	}
+
+	const handleChangeConfirmPassword = (evnt) => {
+		setPasswords({ ...passwords, confirmPassword: evnt.target.value })
+	}
+
 
 	return (
 		<div className="w-1/1 h-screen flex">
@@ -40,9 +45,9 @@ function Registration() {
 							className = "" 
 							required = {true}
 							setDisabled = {setDisabled}
-							handleChange = {(evnt) => handleChange(evnt)}
+							handleChange = {handleChangePassword}
 							secondValue = {passwords.confirmPassword}
-							validate = { passwordValidation }
+							validate = {passwordValidation}
 						/>
 						<Label>Repeat password</Label>
 						<PasswordTextField 
@@ -50,9 +55,9 @@ function Registration() {
 							className = "" 
 							required = {true}
 							setDisabled = {setDisabled}
-							handleChange = {(evnt) => handleChange(evnt)}
+							handleChange = {handleChangeConfirmPassword}
 							secondValue = {passwords.password}
-							validate = { passwordMatchValidation }
+							validate = {passwordMatchValidation}
 						/>
 						<Button 
 							disabled = {disabled}
