@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthenticateService } from "../../services/authenticateService";
 import Label from "../../UI/Label";
 import TextField from "../../UI/fields/TextField";
 import PasswordTextField from "../../UI/fields/PasswordTextField";
 import Button from "../../UI/Button";
 import GoogleButton from "../../UI/GoogleButton";
-import { AuthenticateService } from "../../services/authenticateService";
-import { passwordValidation } from "../../utils/validators/validators";
 
 function Authenticate() {
 	const authenticateSerivice = new AuthenticateService();
+	const navigate = useNavigate('');
 
 	const [disabled, setDisabled] = useState(false);
 	const [formState, setFormState] = useState({ 
@@ -18,9 +19,11 @@ function Authenticate() {
 	
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		const res = await authenticateSerivice.authenticate(formState);
-		
-		console.log(res);
+			
+		if(await authenticateSerivice.authenticate(formState))
+			navigate("/profile");
+		else 
+			setFormState({ email: "", password: "" });
 	}
 
 	return (
@@ -36,7 +39,7 @@ function Authenticate() {
 							className = "" 
 							type = "email" 
 							required = {true}
-							onChange = { (event) => setFormState({ ...formState, email: event.target.value }) }
+							handleChange = { (event) => setFormState({ ...formState, email: event.target.value }) }
 						/>
 						<Label>Password</Label>
 						<PasswordTextField 
@@ -45,8 +48,7 @@ function Authenticate() {
 							type = "password" 
 							required = {true}
 							setDisabled = {setDisabled}
-							onChange = { (event) => setFormState({ ...formState, password: event.target.value }) }
-							validate = { passwordValidation }
+							handleChange = { (event) => setFormState({ ...formState, password: event.target.value }) }
 						/>
 						<a className="w-full text-center ml-1 font-medium text-base text-primaryAuthentication" href="">Forgot password</a>
 						<Button 
@@ -57,7 +59,7 @@ function Authenticate() {
 							<span className="w-[10%] text-center text-[#506466]">or</span>
 							<hr className="w-[40%] h-0.5 bg-[#D1D7D4] mr-3"/>
 						</div>
-						<GoogleButton></GoogleButton>
+						<GoogleButton />
 					</form>
 					<div className=" w-full text-center ml-1 mt-3 font-medium text-base"><a className="mr-1 cursor-pointer text-[#233a2a]">Don`t have an account?</a><span className="text-primaryAuthentication">Sign up</span></div>
 				</div>

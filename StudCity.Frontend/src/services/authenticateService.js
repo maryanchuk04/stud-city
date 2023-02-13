@@ -1,15 +1,23 @@
 import { BaseService } from "./baseService";
+import { TokenService } from "./tokenService";
 
 export class AuthenticateService {
+	// Inject alert provider service.
 	constructor() {
 		this.service = new BaseService();
+		this.tokenService = new TokenService();
 	}
 
 	async authenticate({ email, password }) {
-		const authenticateResult = await this.service.post("/authenticate", { email, password })
-		if(authenticateResult.status === 200) {
-			return authenticateResult.data;
+		try {
+			const authenticateResult = await this.service.post("/authenticate", { email, password });
+			this.tokenService.setToken(authenticateResult.data.token);
+
+			return true;
 		}
-		else alert(authenticateResult)
+		catch(err) {
+			alert(err.response.data.error);
+			return false;
+		}
 	}
 }

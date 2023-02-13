@@ -1,6 +1,6 @@
 import React from "react";
 
-function TextField({ className = "", placeholder, type, required, onChange }) {
+function TextField({ className = "", placeholder, type, required, handleChange }) {
     return (
 		<div className="relative text-[#506466]" >
 			<input 
@@ -8,7 +8,7 @@ function TextField({ className = "", placeholder, type, required, onChange }) {
 				type={type} 
 				placeholder={placeholder}
 				required={required}
-				onChange = {onChange}
+				onChange = {handleChange}
 			/>
 		</div>
 	);
