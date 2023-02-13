@@ -20,22 +20,21 @@ function Registration() {
 	})
 
 	const handleChangeEmail = (event) => {
-		setFormState({ ...formState, email: event.target.value })
+		setFormState({ ...formState, email: event.target.value });
 	}
 
 	const handleChangePassword = (event) => {
-		setFormState({ ...formState, password: event.target.value })
+		setFormState({ ...formState, password: event.target.value });
 	}
 
 	const handleChangeConfirmPassword = (event) => {
-		setFormState({ ...formState, confirmPassword: event.target.value })
+		setFormState({ ...formState, confirmPassword: event.target.value });
 	}
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
 		const accountId = await service.registration({ email: formState.email, password: formState.password });
-		console.log(accountId);
 		if (accountId)
 			navigate(`/verify-email/${accountId}`);
 		else
@@ -70,7 +69,7 @@ function Registration() {
 							setDisabled={setDisabled}
 							handleChange={handleChangePassword}
 							value={formState.password}
-							secondValue={formState.confirmPassword}
+							confirmationValue={formState.confirmPassword}
 							validate={passwordValidation}
 						/>
 						<Label>Repeat password</Label>
@@ -81,7 +80,7 @@ function Registration() {
 							setDisabled={setDisabled}
 							handleChange={handleChangeConfirmPassword}
 							value={formState.confirmPassword}
-							secondValue={formState.password}
+							confirmationValue={formState.password}
 							validate={passwordMatchValidation}
 						/>
 						<Button
