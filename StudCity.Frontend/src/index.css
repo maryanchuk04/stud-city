@@ -2,8 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-  font-family: "Roboto", sans-serif;
+@layer components {
+	.mainPageGradient {
+	  	@apply bg-[length:400%_400%] bg-fixed bg-mainPageGradient animate-gradientAnimation;
+	}
+}
+
+* {
+	font-family: "Roboto", sans-serif;
 }
 
 body {
