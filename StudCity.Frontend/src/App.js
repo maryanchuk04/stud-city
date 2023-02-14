@@ -5,12 +5,22 @@ import {
 } from "react-router-dom";
 
 import Main from "./pages/Main";
+import Authenticate from "./pages/Authenticate";
+import Registration from "./pages/Registration";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <Main />,
+		element: <Main />
 	},
+	{
+		page: '/authenticate',
+		element: <Authenticate />
+	},
+	{
+		page: '/registration',
+		element: <Registration />
+	}
 ]);
 
 function App() {

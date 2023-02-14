@@ -12,6 +12,11 @@ module.exports = {
 		xl: '1440px'
 	},
 	extend: {
+		colors: {
+			"primaryAuthentication": '#453e35',
+			"primatyWhite": "#f9fcf8",
+			"primaryRegistration": "#817566"
+		},
 		backgroundImage: {
 			mainPageGradient: 'linear-gradient(315deg, #65005E 3%, #3C84CE 38%, #30EEE2 68%, #FF1919 98%)'
 		},
@@ -42,6 +47,7 @@ module.exports = {
 			}
 		},
 		boxShadow: {
+			'md': '0 3px 10px rgba(0, 0, 0, 0.5)',
 			card: '0 15px 25px rgba(129, 124, 124, 0.4)'
 		},
 		borderRadius: {
