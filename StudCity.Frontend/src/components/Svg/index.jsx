@@ -1,5 +1,4 @@
 import React from 'react';
-
 import svgs from '../../assets/svgs';
 
 const Svg = ({ type, className = '' }) => {

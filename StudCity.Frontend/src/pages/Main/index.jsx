@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
+import NavItem from '../../UI/NavItem';
 import Svg from '../../components/Svg';
 
 const Main = () => {
@@ -16,22 +16,13 @@ const Main = () => {
 				<div className='w-fit max-w-sm m-auto relative'>
 					<div className='w-full flex justify-end absolute -top-28'>
 						<NavItem to='contact' className={transparentText}>Contact Us</NavItem>
-						<NavItem to='login' className={transparentText}>Login</NavItem>
-						<NavItem to='register' className={transparentText}>Register</NavItem>
+						<NavItem to='authenticate' className={transparentText}>Login</NavItem>
+						<NavItem to='registration' className={transparentText}>Register</NavItem>
 					</div>
 					<Svg type="welcomeSvg" />
 				</div>
 			</div>
 		</div>
-	)
-}
-
-const NavItem = ({ children, to = '/', className = '' }) => {
-	return (
-		<Link to={to} className={`group w-fit mainPageGradient bg-clip-text text-transparent relative px-5 py-2 font-semibold text-base ${className}`}>
-			<i className='hidden absolute -top-1 left-1/2 -translate-x-1/2 p-1 border-white border-r-2 border-b-2 rotate-45 group-hover:inline-block group-hover:animate-bouncingArrow' />
-			{children}
-		</Link>
 	)
 }
 

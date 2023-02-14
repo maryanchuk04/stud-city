@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthenticateService } from "../../services/authenticateService";
 import Label from "../../UI/Label";
-import TextField from "../../UI/fields/TextField";
-import PasswordTextField from "../../UI/fields/PasswordTextField";
+import TextField from "../../UI/Fields/TextField";
+import PasswordTextField from "../../UI/Fields/PasswordTextField";
 import Button from "../../UI/Button";
 import GoogleButton from "../../UI/GoogleButton";
 
