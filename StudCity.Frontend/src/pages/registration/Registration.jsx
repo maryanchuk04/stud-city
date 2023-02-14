@@ -1,24 +1,44 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Label from "../../UI/Label";
 import TextField from "../../UI/fields/TextField";
 import PasswordTextField from "../../UI/fields/PasswordTextField";
 import Button from "../../UI/Button";
 import GoogleButton from "../../UI/GoogleButton";
 import { passwordMatchValidation, passwordValidation } from "../../utils/validators/validators";
+import { AuthenticateService } from "../../services/authenticateService";
 
 function Registration() {
+	const navigate = useNavigate('');
+	const service = new AuthenticateService();
+
 	const [disabled, setDisabled] = useState(false)
-	const [passwords, setPasswords] = useState({
+	const [formState, setFormState] = useState({
+		email: "",
 		password: "",
 		confirmPassword: ""
 	})
 
-	const handleChangePassword = (evnt) => {
-		setPasswords({ ...passwords, password: evnt.target.value })
+	const handleChangeEmail = (event) => {
+		setFormState({ ...formState, email: event.target.value });
 	}
 
-	const handleChangeConfirmPassword = (evnt) => {
-		setPasswords({ ...passwords, confirmPassword: evnt.target.value })
+	const handleChangePassword = (event) => {
+		setFormState({ ...formState, password: event.target.value });
+	}
+
+	const handleChangeConfirmPassword = (event) => {
+		setFormState({ ...formState, confirmPassword: event.target.value });
+	}
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+
+		const accountId = await service.registration({ email: formState.email, password: formState.password });
+		if (accountId)
+			navigate(`/verify-email/${accountId}`);
+		else
+			setFormState({ email: "", password: "", confirmPassword: "" })
 	}
 
 
@@ -31,42 +51,46 @@ function Registration() {
 				<div className="container flex flex-col w-4/5 m-auto h-[95%] bg-primatyWhite rounded-3xl p-11 shadow-md ">
 					<h1 className="w-full text-center font-bold text-4xl my-3 text-primaryRegistration">Welcome</h1>
 					<h6 className="w-full text-center font-normal text-lg text-primaryRegistration">Please enter your details</h6>
-					<form className="flex flex-col w-1/1">
+					<form className="flex flex-col w-1/1" onSubmit={handleSubmit}>
 						<Label>Email</Label>
-						<TextField 
-							placeholder = "Enter your email" 
-							className = "" 
-							type = "email" 
-							required = {true}
+						<TextField
+							placeholder="Enter your email"
+							className=""
+							type="email"
+							required={true}
+							value={formState.email}
+							handleChange={handleChangeEmail}
 						/>
 						<Label>Password</Label>
-						<PasswordTextField 
-							placeholder = "Enter your password"
-							className = "" 
-							required = {true}
-							setDisabled = {setDisabled}
-							handleChange = {handleChangePassword}
-							secondValue = {passwords.confirmPassword}
-							validate = {passwordValidation}
+						<PasswordTextField
+							placeholder="Enter your password"
+							className=""
+							required={true}
+							setDisabled={setDisabled}
+							handleChange={handleChangePassword}
+							value={formState.password}
+							confirmationValue={formState.confirmPassword}
+							validate={passwordValidation}
 						/>
 						<Label>Repeat password</Label>
-						<PasswordTextField 
-							placeholder = "Repeat your password"
-							className = "" 
-							required = {true}
-							setDisabled = {setDisabled}
-							handleChange = {handleChangeConfirmPassword}
-							secondValue = {passwords.password}
-							validate = {passwordMatchValidation}
+						<PasswordTextField
+							placeholder="Repeat your password"
+							className=""
+							required={true}
+							setDisabled={setDisabled}
+							handleChange={handleChangeConfirmPassword}
+							value={formState.confirmPassword}
+							confirmationValue={formState.password}
+							validate={passwordMatchValidation}
 						/>
-						<Button 
-							disabled = {disabled}
-							className = {"bg-primaryRegistration"}
+						<Button
+							disabled={disabled}
+							className={"bg-primaryRegistration"}
 						>Submit</Button>
 						<div className="flex justify-between my-2 items-center">
-							<hr className="w-[40%] h-0.5 bg-[#D1D7D4] ml-3"  />
+							<hr className="w-[40%] h-0.5 bg-[#D1D7D4] ml-3" />
 							<span className="w-[10%] text-center text-[#506466]">or</span>
-							<hr className="w-[40%] h-0.5 bg-[#D1D7D4] mr-3"/>
+							<hr className="w-[40%] h-0.5 bg-[#D1D7D4] mr-3" />
 						</div>
 						<GoogleButton className={"text-primaryRegistration border-primaryRegistration"} />
 					</form>
