@@ -38,6 +38,7 @@ builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<IPinGenerator, PinGenerator>();
 builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<IMailClient, MailClient>();
+builder.Services.AddScoped<ICryptographer, Base64Cryptographer>();
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
