@@ -1,5 +1,4 @@
 import React from 'react';
-
 import NavItem from '../../UI/NavItem';
 import Svg from '../../components/Svg';
 
