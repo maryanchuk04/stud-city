@@ -5,8 +5,8 @@ namespace StudCity.Application.Services;
 
 public class MailService : IMailService
 {
-    private const string FromEmail = "waytodev@gmail.com";
-    private const string FromName = "WayToDevAcc";
+    private const string FromEmail = "lion20914king@gmail.com";
+    private const string FromName = "StudCityAccount";
 
     private readonly IMailClient _mailClient;
 
@@ -17,7 +17,7 @@ public class MailService : IMailService
 
     public async Task SendRegistrationMessageAsync(string email, string token)
     {
-        const string subject = "Welcome to WayToDev";
+        const string subject = "Welcome to StudCity";
         using var streamReader = File.OpenText($"./Templates/ConfirmationLetter.html");
         var pin = token.Select(x => x.ToString()).ToArray();
         var fileContent = await streamReader.ReadToEndAsync();

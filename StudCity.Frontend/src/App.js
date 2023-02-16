@@ -1,18 +1,36 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom"
-import Authenticate from "./pages/authenticate/Authenticate";
-import Registration from "./pages/registration/Registration";
+import {
+	createBrowserRouter,
+	RouterProvider,
+} from "react-router-dom";
+
+import Main from "./pages/Main";
+import Authenticate from "./pages/Authenticate";
+import Registration from "./pages/Registration";
 import VerifyEmail from "./pages/verify-email/VerifyEmail";
+
+const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <Main />
+	},
+	{
+		path: '/authenticate',
+		element: <Authenticate />
+	},
+	{
+		path: '/registration',
+		element: <Registration />
+	},
+	{
+		path: '/verify-email/:accountId',
+		element: <VerifyEmail />
+	}
+]);
 
 function App() {
     return (
-        <div className="App">
-            <Routes>
-                <Route path="authenticate" element = { <Authenticate /> } />
-                <Route path="registration" element = { <Registration /> } />
-                <Route path="verify-email/:acountId" element = { <VerifyEmail /> } />
-            </Routes>
-        </div>
+		<RouterProvider router={router} />
     );
 }
 

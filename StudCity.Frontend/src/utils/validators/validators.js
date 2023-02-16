@@ -29,7 +29,7 @@ export const passwordValidation = (password) => {
 };
 
 export const passwordMatchValidation = (password, confirmPassword) => {
-	return password !== confirmPassword && "Passwords aren`t matches";
+	return password !== confirmPassword ? "Passwords aren`t matches" : "";
 }	
 
 export const numberValidation = (number) => {
