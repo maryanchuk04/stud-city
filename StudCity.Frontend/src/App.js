@@ -5,8 +5,8 @@ import {
 } from "react-router-dom";
 
 import Main from "./pages/Main";
-import Authenticate from "./pages/Authenticate";
-import Registration from "./pages/Registration";
+import Authenticate from "./pages/authenticate";
+import Registration from "./pages/registration";
 import VerifyEmail from "./pages/verify-email/VerifyEmail";
 
 const router = createBrowserRouter([
