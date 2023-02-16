@@ -1,6 +1,6 @@
 import React from "react";
 
-function TextField({ className = "", placeholder, type, required, handleChange, value = "" }) {
+function TextField({ className = "", placeholder, type, required, handleChange, value = "", readOnly = false }) {
 	return (
 		<div className="relative text-[#506466]" >
 			<input
@@ -10,6 +10,7 @@ function TextField({ className = "", placeholder, type, required, handleChange, 
 				required={required}
 				onChange={handleChange}
 				value={value}
+				readOnly = {readOnly}
 			/>
 		</div>
 	);

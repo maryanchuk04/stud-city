@@ -47,11 +47,14 @@ module.exports = {
 			}
 		},
 		boxShadow: {
-			'md': '0 3px 10px rgba(0, 0, 0, 0.5)',
-			card: '0 15px 25px rgba(129, 124, 124, 0.4)'
+			md: '0 3px 10px rgba(0, 0, 0, 0.5)',
+			card: '0 15px 25px rgba(129, 124, 124, 0.4)',
+			form: '0 3px 10px rgb(0 0 0 / 0.4);'
 		},
 		borderRadius: {
-			learnMore: '65% 35% 74% 26% / 58% 63% 37% 42% '
+			learnMore: '65% 35% 74% 26% / 58% 63% 37% 42% ',
+			formRadius: "20px",
+			circle: "50%"
 		}
 	}
   },
