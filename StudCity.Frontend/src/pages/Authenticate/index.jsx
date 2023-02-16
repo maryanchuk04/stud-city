@@ -36,17 +36,17 @@ function Authenticate() {
 						<Label>Email</Label>
 						<TextField 
 							placeholder = "Enter your email" 
-							className = "" 
 							type = "email" 
 							required = {true}
+							value = {formState.email}
 							handleChange = { (event) => setFormState({ ...formState, email: event.target.value }) }
 						/>
 						<Label>Password</Label>
 						<PasswordTextField 
 							placeholder = "Enter your password"
-							className = "" 
 							type = "password" 
 							required = {true}
+							value = {formState.password}
 							setDisabled = {setDisabled}
 							handleChange = { (event) => setFormState({ ...formState, password: event.target.value }) }
 						/>
