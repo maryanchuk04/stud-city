@@ -29,7 +29,7 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled,
 		<div className={`relative text-[${primaryGray}] flex flex-col`} >
 			{!hidden ? (
 				<svg onClick={() => setHidden(!hidden)}
-					className={`absolute cursor-pointer text-[${primaryGray}] top-8 right-3 `}
+					className={`absolute cursor-pointer text-[${primaryGray}] top-6 right-3 `}
 					width="25"
 					height="25"
 					viewBox="0 0 24 24">
@@ -38,7 +38,7 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled,
 			) : (
 				<svg
 					onClick={() => setHidden(!hidden)}
-					className="absolute cursor-pointer text-primaryAuthentication top-8 right-3"
+					className="absolute cursor-pointer text-primaryAuthentication top-6 right-3"
 					width="24"
 					height="24"
 					viewBox="0 0 24 24">
@@ -46,7 +46,7 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled,
 				</svg>
 			)}
 			<input
-				className={`active:border-none w-full static active:border-primaryAuthentication focus:border-primaryAuthentication text-[#506466] my-3 outline-none h-16 px-3 py-1 font-normal rounded-2xl border-solid border-2 placeholder:decoration-[#A0A9AB] text-base border-[#D1D7D4] ${className}`}
+				className={`active:border-none w-full static active:border-primaryAuthentication focus:border-primaryAuthentication text-[#506466] my-3 outline-none h-12 px-3 py-1 font-normal rounded-2xl border-solid border-2 placeholder:decoration-[#A0A9AB] text-base border-[#D1D7D4] ${className}`}
 				type={!hidden ? "password" : "text"}
 				placeholder={placeholder}
 				required={required}
