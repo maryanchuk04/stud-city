@@ -11,4 +11,8 @@ public interface IAuthenticateService
     Task<AuthenticateResponseModel> AuthenticateAsync(Guid accountId, string verificationToken);
 
     Task<AuthenticateResponseModel> AuthenticateAsync(string email, string password);
+
+    Task ForgotPassword(string email);
+
+    Task RecoveryPassword(string hashingAccountId, string password);
 }
