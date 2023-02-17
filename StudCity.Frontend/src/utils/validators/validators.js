@@ -1,3 +1,6 @@
+const PHONE_EMPTY_MESSAGE = "The phone number cannot be empty";
+const PHONE_LENGTH_MESSAGE = "The length of the phone number should not exceed 7 characters";
+
 export const passwordValidation = (password) => {
 	const passwordInputValue = password.trim();
 	const uppercaseRegExp = /(?=.*?[A-Z])/;
@@ -31,3 +34,17 @@ export const passwordValidation = (password) => {
 export const passwordMatchValidation = (password, confirmPassword) => {
 	return password !== confirmPassword ? "Passwords aren`t matches" : "";
 }	
+
+export const phoneNumberValidator = (text) => {
+	const digitsRegExp = /^\d{9}$/;
+	
+	if(text.length <= codeLength)
+		return PHONE_EMPTY_MESSAGE;
+	
+	if(!digitsRegExp.test(text.slice(codeLength))) {	
+		if(text.length !== length)
+			return PHONE_LENGTH_MESSAGE;
+	}
+	
+	return "";
+}

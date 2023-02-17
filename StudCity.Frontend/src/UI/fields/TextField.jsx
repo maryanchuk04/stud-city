@@ -10,7 +10,7 @@ function TextField({ className = "", placeholder, type, required, handleChange, 
 				required={required}
 				onChange={handleChange}
 				value={value}
-				readOnly = {readOnly}
+				readOnly={readOnly}
 			/>
 		</div>
 	);

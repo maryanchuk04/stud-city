@@ -14,7 +14,7 @@ module.exports = {
 	extend: {
 		colors: {
 			"primaryAuthentication": '#453e35',
-			"primatyWhite": "#f9fcf8",
+			"primaryWhite": "#f9fcf8",
 			"primaryRegistration": "#817566"
 		},
 		backgroundImage: {
