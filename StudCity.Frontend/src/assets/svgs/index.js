@@ -1,4 +1,6 @@
 import welcomeSvg from './undraw_reading_time_re_phf7.svg';
+import googleAuthorized from './google_authorized.svg';
 export default {
-	welcomeSvg
+	welcomeSvg,
+	googleAuthorized
 };
