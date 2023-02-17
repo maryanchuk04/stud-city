@@ -7,7 +7,7 @@ import {
 import Main from "./pages/Main";
 import Authenticate from "./pages/Authenticate";
 import Registration from "./pages/Registration";
-import NotFound from "./pages/NotFound/NotFound";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
 	{
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: '/not-found',
-		element: <NotFound></NotFound>
+		element: <NotFound/>
 	}
 ]);
 
