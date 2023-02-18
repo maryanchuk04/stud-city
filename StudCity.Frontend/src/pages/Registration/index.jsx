@@ -48,8 +48,8 @@ function Registration() {
 				<img className="w-full h-screen object-cover" src="/images/Image-Registration-Light.jpg" alt="404" />
 			</div>
 			<div className="form w-1/2 h-screen flex bg-primatyWhite">
-				<div className="container flex flex-col w-4/5 m-auto h-[95%] bg-primatyWhite rounded-3xl p-11 shadow-md ">
-					<h1 className="w-full text-center font-bold text-4xl my-3 text-primaryRegistration">Welcome</h1>
+				<div className="container flex flex-col w-2/3 m-auto h-[85%] bg-primatyWhite rounded-2xl p-11 justify-between shadow-md ">
+					<h1 className="w-full text-center font-bold text-3xl text-primaryRegistration">Welcome</h1>
 					<h6 className="w-full text-center font-normal text-lg text-primaryRegistration">Please enter your details</h6>
 					<form className="flex flex-col w-1/1" onSubmit={handleSubmit}>
 						<Label>Email</Label>

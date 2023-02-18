@@ -29,8 +29,8 @@ function Authenticate() {
 	return (
 		<div className="w-1/1 h-screen flex">
 			<div className="w-1/2 h-screen flex bg-primatyWhite">
-				<div className="container flex flex-col w-4/5 m-auto h-[85%] bg-primatyWhite rounded-3xl p-11 shadow-md ">
-					<h1 className="w-full text-center font-bold text-4xl my-3 text-primaryAuthentication">Welcome back</h1>
+				<div className="container flex flex-col w-2/3 m-auto h-4/5 justify-between bg-primatyWhite rounded-3xl p-11 shadow-md ">
+					<h1 className="w-full text-center font-bold text-2xl text-primaryAuthentication">Welcome back</h1>
 					<h6 className="w-full text-center font-normal text-lg text-primaryAuthentication">Please enter your details</h6>
 					<form className="flex flex-col w-1/1" onSubmit = {handleSubmit}>
 						<Label>Email</Label>
