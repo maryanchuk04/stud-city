@@ -39,7 +39,7 @@ function VerifyEmail() {
                                 handleChange = {(e) => handleChangeNumber(e, index)}
                                 value = {item}
                                 type = "text"
-                                className='w-14 rounded-none hover:border-stone-500 focus:border-stone-600 focus:outline-none text-4xl text-center h-24  bg-white' 
+                                className='w-14 rounded-none hover:border-stone-500 focus:border-stone-600 focus:outline-none text-4xl text-center h-24 bg-white' 
                             />
                         ))
                     }

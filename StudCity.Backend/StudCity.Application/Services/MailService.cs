@@ -36,4 +36,18 @@ public class MailService : IMailService
             email,
             FromName);
     }
+
+    public async Task SendForgotPasswordMessage(string email, string codedId)
+    {
+        const string subject = "Forgot password";
+        string htmlContent = "<h5>If you really want to change your password, follow the link</h5><br/>" +
+                             $"<a href = 'http://localhost:3000/recover-password/{codedId}'>Link!</a>";
+
+        await _mailClient.SendHtmlMessageAsync(subject, htmlContent, FromEmail, email, FromName);
+    }
+
+    public async Task SendMessage(string email, string subject, string message)
+    {
+        await _mailClient.SendTextMessageAsync(subject, message, FromEmail, email, FromName);
+    }
 }

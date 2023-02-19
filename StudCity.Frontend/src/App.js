@@ -8,6 +8,7 @@ import Main from "./pages/Main";
 import Authenticate from "./pages/authenticate";
 import Registration from "./pages/registration";
 import VerifyEmail from "./pages/verify-email";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
 	{
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
 	{
 		path: '/verify-email/:accountId',
 		element: <VerifyEmail />
+	},
+	{
+		path: "*",
+		element: <NotFound />
 	}
 ]);
 
