@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import registerCompleteReducer from './features/register-complete/registerCompleteSlice';
+import registerCompleteReduce from './features/register-complete/registerCompleteSlice';
 
 export const store = configureStore({
-  reducer: {
-	registrationComplete: registerCompleteReducer
-  },
+	reducer: {
+		registerComplete: registerCompleteReduce
+	},
 });

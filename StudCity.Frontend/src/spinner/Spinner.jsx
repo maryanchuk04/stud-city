@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import DotLoader from "react-spinners/DotLoader";
 
 function Spinner() {
@@ -10,7 +10,7 @@ function Spinner() {
 				data-testid="loader"
 			/>
 		</div>
-	)
+	);
 }
 
-export default Spinner
+export default Spinner;

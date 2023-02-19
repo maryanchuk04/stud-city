@@ -15,7 +15,8 @@ module.exports = {
 		colors: {
 			"primaryAuthentication": '#453e35',
 			"primaryWhite": "#f9fcf8",
-			"primaryRegistration": "#817566"
+			"primaryRegistration": "#817566",
+			"primaryGold": "#b0a464"
 		},
 		backgroundImage: {
 			mainPageGradient: 'linear-gradient(315deg, #65005E 3%, #3C84CE 38%, #30EEE2 68%, #FF1919 98%)'

@@ -1,12 +1,8 @@
-import React from 'react'
-import Container from '../Container'
+import React from "react";
+import StepperSidebar from "./StepperSidebar";
 
-const Stepper = ({ children }) => {
-	return (
-		<Container className="flex flex-col justify-evenly">
-			{children}
-		</Container>
-	)
-}
+const Stepper = ({ labels, activeStep }) => {
+	return <StepperSidebar labels={labels} activeStep={activeStep} />;
+};
 
-export default Stepper
+export default Stepper;

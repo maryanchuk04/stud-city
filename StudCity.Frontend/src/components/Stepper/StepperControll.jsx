@@ -1,19 +1,21 @@
 import React from 'react'
 import Button from '../../UI/Button'
+import StepperStrip from './StepperStrip'
 
 const StepperControll = ({ activeStep, handleNext, handlePrevious }) => {
-
+	const buttonDefaultStyles = "w-24 h-10 hover:enabled:bg-white hover:enabled:text-black  duration-500 border border-primaryRegistration disabled:opacity-0"
 	return (
-		<div className="flex justify-between">
+		<div className="flex justify-between items-center">
 			<Button
-				className="w-24 h-10 hover:bg-white hover:text-black duration-500 border-2 border-primaryRegistration disabled:opacity-60"
+				className={buttonDefaultStyles}
 				onClick={handlePrevious}
 				disabled={activeStep === 1}
 			>
 				Cancel
 			</Button>
+			<StepperStrip activeStep = {activeStep} />
 			<Button
-				className="w-24 h-10 hover:bg-white hover:text-black duration-500 border-2 border-primaryRegistration"
+				className={buttonDefaultStyles}
 				onClick={handleNext}
 			>
 				{activeStep !== 5 ? "Next" : "Finish"}

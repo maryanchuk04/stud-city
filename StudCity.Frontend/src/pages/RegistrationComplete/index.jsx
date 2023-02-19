@@ -1,48 +1,64 @@
-import React, { useState } from 'react'
-import Container from '../../components/Container'
-import Stepper from '../../components/Stepper/Stepper';
-import StepperControll from '../../components/Stepper/StepperControll';
-import StepperHeader from '../../components/Stepper/StepperHeader';
-import Svg from '../../components/Svg';
-import UserInformation from './UserInformation';
+import React from "react";
+import Stepper from "../../components/Stepper/Stepper";
+import UserInformation from "./steps/UserInformation";
+import { useSelector, useDispatch } from "react-redux";
+import {
+	selectActiveStep,
+	changeActiveState,
+} from "../../app/features/register-complete/registerCompleteSlice";
+import StepperControll from "../../components/Stepper/StepperControll";
+import Container from "../../components/Container";
+import { registerCompleteSteps } from "../../utils/constants";
 
 const RegistrationComplete = () => {
-	const [activeStep, setActiveStep] = useState(1);
+	const dispatch = useDispatch();
+	const activeStep = useSelector(selectActiveStep);
 
 	const handleNext = () => {
 		if (activeStep === 5) {
-			setActiveStep(1);
+			dispatch(changeActiveState(1));
 			return;
 		}
 
-		setActiveStep(activeStep + 1);
-	}
+		dispatch(changeActiveState(activeStep + 1));
+	};
 
 	const handlePrevious = () => {
-		setActiveStep(activeStep - 1);
-	}
+		dispatch(changeActiveState(activeStep - 1));
+	};
 
-	const labels = ["User information", "Upload avatar", "Choose role", "Groups", "Settings"];
+	// TODO Add your component to switch statement
+	const renderSteps = () => {
+		switch (activeStep) {
+			case 1:
+				return <UserInformation />;
+			default:
+				return <></>;
+		}
+	};
+
 	return (
-		<div className="h-screen flex relative">
-			<Container className="my-auto h-3/4 z-10 w-3/4">
-				<div className="h-full shadow-form w-full rounded-formRadius p-4 ">
-					<h1 className="text-3xl text-center font-bold my-2 text-primaryAuthentication">Registration complete</h1>
-					<Stepper active={activeStep}>
-						<StepperHeader labels={labels} activeStep={activeStep} />
-						<UserInformation />
-						<StepperControll activeStep={activeStep}
-							handleNext={handleNext}
-							handlePrevious={handlePrevious}
-						/>
-					</Stepper>
-				</div>
-
-			</Container>
-			<Svg type="registerCompleteWave" className="absolute z-0 bottom-0" />
+		<div className="h-screen flex">
+			<div className="w-1/4">
+				<Stepper
+					labels={registerCompleteSteps}
+					activeStep={activeStep}
+					handleNext={handleNext}
+					handlePrevious={handlePrevious}
+				/>
+			</div>
+			<div className="w-3/4 h-full flex">
+				<Container className="my-auto w-3/4">
+					{renderSteps()}
+					<StepperControll
+						activeStep={activeStep}
+						handleNext={handleNext}
+						handlePrevious={handlePrevious}
+					/>
+				</Container>
+			</div>
 		</div>
-
 	);
-}
+};
 
-export default RegistrationComplete
+export default RegistrationComplete;
