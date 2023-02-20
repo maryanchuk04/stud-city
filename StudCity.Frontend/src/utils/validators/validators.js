@@ -33,6 +33,16 @@ export const passwordValidation = (password) => {
 
 export const passwordMatchValidation = (password, confirmPassword) => {
 	return password !== confirmPassword ? "Passwords aren`t matches" : "";
+}
+
+export const numberValidation = (number) => {
+    const numberRegex = new RegExp("^[0-9]*$");
+
+    if (numberRegex.test(number)) {
+        return number;
+    }
+
+    return "";
 };
 
 export const phoneNumberValidator = (value) => {

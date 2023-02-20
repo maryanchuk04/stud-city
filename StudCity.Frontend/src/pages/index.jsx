@@ -4,6 +4,7 @@ import Authenticate from "./Authenticate"
 import Registration from './Registration';
 import RegistrationComplete from "./RegistrationComplete";
 import NotFound from "./NotFound"
+import VerifyEmail from "./Verify-email";
 
 export const routes = [
 	{
@@ -21,6 +22,10 @@ export const routes = [
 	{
 		path: '/registration-complete',
 		element: <RegistrationComplete />
+	},
+	{
+		path: '/verify-email/:accountId',
+		element: <VerifyEmail />
 	},
 	{
 		path: "*",
