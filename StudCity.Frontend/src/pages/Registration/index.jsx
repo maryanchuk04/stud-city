@@ -45,7 +45,7 @@ function Registration() {
 	return (
 		<div className="w-1/1 h-screen flex">
 			<div className="w-1/2 h-screen ">
-				<img className="w-full h-screen object-cover" src="/images/Image-Registration-Light.jpg" alt="404" />
+				<img className="w-full h-screen object-cover" src="/images/Image-Registration-Light.jpg" alt="404" loading="lazy" />
 			</div>
 			<div className="form w-1/2 h-screen flex bg-primatyWhite">
 				<div className="container flex flex-col w-2/3 m-auto h-[85%] bg-primatyWhite rounded-2xl p-11 justify-between shadow-md ">

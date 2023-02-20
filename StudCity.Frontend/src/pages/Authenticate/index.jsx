@@ -68,7 +68,7 @@ function Authenticate() {
 				</div>
 			</div>
 			<div className="w-1/2 h-screen ">
-				<img className="w-full h-screen object-cover object-bottom" src="/images/Image-Authenticate-Light.jpg" alt="404" />
+				<img loading="lazy" className="w-full h-screen object-cover object-bottom" src="/images/Image-Authenticate-Light.jpg" alt="404" />
 			</div>
 		</div>
 	);
