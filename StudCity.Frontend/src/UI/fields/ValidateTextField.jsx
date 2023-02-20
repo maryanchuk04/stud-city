@@ -4,25 +4,28 @@ import TextField from "./TextField";
 const ValidateTextField = ({
 	validator,
 	withErrorMessage = true,
-	handleChange,
+	onChange,
 	...custom
 }) => {
-	const [errorMessage, setErrorMessage] = useState(" ");
+	const [errorMessage, setErrorMessage] = useState("");
 
-	const onChange = (e) => {
+	const handleChange = (e) => {
 		if (withErrorMessage) {
-			handleChange(e.target.value);
+			onChange(e.target.value);
 			setErrorMessage(validator(e.target.value));
 			return;
 		}
 
-		handleChange(validator(e.target.value));
+		onChange(validator(e.target.value));
 	};
 
 	return (
 		<>
-			<TextField handleChange={onChange} {...custom} />
-			<p className="text-center text-[#eb4848] mb-1">{errorMessage}</p>
+			<TextField
+				onChange={handleChange}
+				{...custom}
+			/>
+			{withErrorMessage && <p className="text-center text-[#eb4848] mb-1"> {errorMessage}</p>}
 		</>
 	);
 };

@@ -39,7 +39,7 @@ function Authenticate() {
 							type="email"
 							required={true}
 							value={formState.email}
-							handleChange={(event) => setFormState({ ...formState, email: event.target.value })}
+							onChange={(event) => setFormState({ ...formState, email: event.target.value })}
 						/>
 						<Label>Password</Label>
 						<PasswordTextField
@@ -48,7 +48,7 @@ function Authenticate() {
 							required={true}
 							value={formState.password}
 							setDisabled={setDisabled}
-							handleChange={(event) => setFormState({ ...formState, password: event.target.value })}
+							onChange={(event) => setFormState({ ...formState, password: event.target.value })}
 						/>
 						<a className="w-full text-center ml-1 font-medium text-base text-primaryAuthentication" href="">Forgot password</a>
 						<Button

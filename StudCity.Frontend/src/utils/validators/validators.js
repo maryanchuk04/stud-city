@@ -36,12 +36,9 @@ export const passwordMatchValidation = (password, confirmPassword) => {
 };
 
 export const phoneNumberValidator = (value) => {
-	const pattern = new RegExp("^\\d{9}$");
-	console.log(value.slice(4, value.length))
-	if (pattern.test(value.slice(4, value.length))) {
-		console.log("Not number")
-		return "";
+	if (/^\d{0,9}$/.test(value.slice(4, value.length + 1))) {
+		return value;
+	} else {
+		return value.slice(0, value.length - 1);
 	}
-
-	return value;
 };

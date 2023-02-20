@@ -24,3 +24,27 @@ export const registerCompleteSteps = [
 		description: "Select site settings. (You can change them at any time)"
 	}
 ]
+
+
+export const months = [
+	'January', 'February', 'March', 'April', 'May', 'June',
+	'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+export const getRegisterCompleteDefautlData = (defaultData) => {
+	return {
+		userInformation: {
+			firstName: defaultData.userInformation.firstName || "",
+			lastName: defaultData.userInformation.lastName || "",
+			userName: defaultData.userInformation.userName || "",
+			email: defaultData.userInformation.email || "userEmail@gmail.com",
+			gender: defaultData.userInformation.gender || 1,
+			phoneNumber: defaultData.userInformation.phoneNumber || "+380",
+			birthday: defaultData.userInformation.birthday || "",
+		},
+		avatar: {},
+		role: {},
+		groups: {},
+		settings: {}
+	}
+}

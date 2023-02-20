@@ -2,27 +2,46 @@
 import React, { useRef } from "react";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import TextField from "../fields/TextField";
+import CustomHeader from "./CustomHeader";
 
-const DatePicker = ({ className = "", handleChange, value }) => {
+const DatePicker = ({ className = "", onChange, value }) => {
 	const ref = useRef();
 
 	const ExampleCustomInput = React.forwardRef(({ value, ...props }, ref) => (
-		<input
+		<TextField
 			{...props}
 			ref={ref}
-			placeholder="Date of birth:"
 			value={value}
-			className="active:border-none w-full static active:border-primaryAuthentication focus:border-primaryAuthentication text-primaryAuthentication my-3 outline-none h-12 px-3 py-1 font-normal rounded-2xl border-solid border-2 placeholder:decoration-[#A0A9AB] text-base border-[#D1D7D4]"
 		/>
 	));
 
 	return (
 		<ReactDatePicker
 			className={`w-full ${className}`}
-			onChange={handleChange}
+			onChange={onChange}
 			value={value}
 			placeholderText="Date of bithday: "
 			customInput={<ExampleCustomInput ref={ref} />}
+			renderCustomHeader={({
+				date,
+				changeYear,
+				changeMonth,
+				decreaseMonth,
+				increaseMonth,
+				prevMonthButtonDisabled,
+				nextMonthButtonDisabled,
+			}) => (
+				<CustomHeader
+					date={date}
+					changeYear={changeYear}
+					changeMonth={changeMonth}
+					decreaseMonth={decreaseMonth}
+					increaseMonth={increaseMonth}
+					prevMonthButtonDisabled={prevMonthButtonDisabled}
+					nextMonthButtonDisabled={nextMonthButtonDisabled}
+				/>
+			)}
 		/>
 	);
 };

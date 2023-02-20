@@ -7,9 +7,13 @@ const initialState = {
 		lastName: "",
 		userName: "",
 		email: "",
-		gender: null,
+		gender: 1,
 		phoneNumber: ""
 	},
+	avatar: {},
+	role: {},
+	groups: {},
+	settings: {}
 };
 
 const registerCompleteSlice = createSlice({
@@ -19,15 +23,19 @@ const registerCompleteSlice = createSlice({
 		changeActiveState: (state, action) => {
 			state.activeStep = action.payload;
 		},
-		changeUserInformation: (state, action) => {
-			state.userInformation = action.payload
+		changeRegisterCompleteState: (state, action) => {
+			state.userInformation = action.payload.userInformation;
+			state.avatar = action.payload.avatar;
+			state.role = action.payload.role;
+			state.groups = action.payload.groups;
+			state.settings = action.payload.settings;
 		}
 	}
 })
 
-export const { changeActiveState, changeUserInformation } = registerCompleteSlice.actions;
+export const { changeActiveState, changeRegisterCompleteState } = registerCompleteSlice.actions;
 
-export const selectRegisterCompleteUserInformation = (state) => state.registerComplete.userInformation;
+export const selectRegisterCompleteDefaultInfo = (state) => state.registerComplete;
 
 export const selectActiveStep = (state) => state.registerComplete.activeStep; 
 

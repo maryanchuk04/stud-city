@@ -59,7 +59,7 @@ function Registration() {
 							type="email"
 							required={true}
 							value={formState.email}
-							handleChange={handleChangeEmail}
+							onChange={handleChangeEmail}
 						/>
 						<Label>Password</Label>
 						<PasswordTextField
@@ -67,7 +67,7 @@ function Registration() {
 							className=""
 							required={true}
 							setDisabled={setDisabled}
-							handleChange={handleChangePassword}
+							onChange={handleChangePassword}
 							value={formState.password}
 							confirmationValue={formState.confirmPassword}
 							validate={passwordValidation}
@@ -78,7 +78,7 @@ function Registration() {
 							className=""
 							required={true}
 							setDisabled={setDisabled}
-							handleChange={handleChangeConfirmPassword}
+							onChange={handleChangeConfirmPassword}
 							value={formState.confirmPassword}
 							confirmationValue={formState.password}
 							validate={passwordMatchValidation}
