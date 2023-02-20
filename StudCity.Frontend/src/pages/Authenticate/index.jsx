@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthenticateService } from "../../services/authenticateService";
+import { emailValidator } from "../../utils/validators/validators";
 import Label from "../../UI/Label";
-import TextField from "../../UI/fields/TextField";
 import PasswordTextField from "../../UI/fields/PasswordTextField";
 import Button from "../../UI/Button";
 import GoogleButton from "../../UI/GoogleButton";
+import ValidateTextField from "../../UI/fields/ValidateTextField";
+
 
 function Authenticate() {
 	const authenticateSerivice = new AuthenticateService();
@@ -28,18 +30,19 @@ function Authenticate() {
 
 	return (
 		<div className="w-1/1 h-screen flex">
-			<div className="w-1/2 h-screen flex bg-primaryWhite">
-				<div className="container flex flex-col w-4/5 m-auto h-[85%] bg-primaryWhite rounded-3xl p-11 shadow-md ">
-					<h1 className="w-full text-center font-bold text-4xl my-3 text-primaryAuthentication">Welcome back</h1>
+			<div className="w-1/2 h-screen flex bg-primatyWhite">
+				<div className="container flex flex-col w-2/3 m-auto h-4/5 justify-between bg-primatyWhite rounded-3xl p-11 shadow-md ">
+					<h1 className="w-full text-center font-bold text-2xl text-primaryAuthentication">Welcome back</h1>
 					<h6 className="w-full text-center font-normal text-lg text-primaryAuthentication">Please enter your details</h6>
 					<form className="flex flex-col w-1/1" onSubmit={handleSubmit}>
 						<Label>Email</Label>
-						<TextField
+						<ValidateTextField
 							placeholder="Enter your email"
-							type="email"
 							required={true}
 							value={formState.email}
-							onChange={(event) => setFormState({ ...formState, email: event.target.value })}
+							withErrorMessage={true}
+							validator={emailValidator}
+							onChange={(value) => setFormState({ ...formState, email: value })}
 						/>
 						<Label>Password</Label>
 						<PasswordTextField

@@ -5,6 +5,7 @@ const ValidateTextField = ({
 	validator,
 	withErrorMessage = true,
 	onChange,
+	value,
 	...custom
 }) => {
 	const [errorMessage, setErrorMessage] = useState("");
@@ -23,6 +24,7 @@ const ValidateTextField = ({
 		<>
 			<TextField
 				onChange={handleChange}
+				value={value}
 				{...custom}
 			/>
 			{withErrorMessage && <p className="text-center text-[#eb4848] mb-1"> {errorMessage}</p>}

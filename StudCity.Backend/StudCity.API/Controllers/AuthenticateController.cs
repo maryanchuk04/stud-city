@@ -97,4 +97,44 @@ public class AuthenticateController : ControllerBase
             return BadRequest(new ErrorResponseModel(e.Message));
         }
     }
+
+    /// <summary>
+    /// Recovery password api.
+    /// </summary>
+    /// <param name="id">Coded AccountId.</param>
+    /// <param name="password">New account password.</param>
+    /// <response code = '200'>Successfully changed password.</response>
+    /// <response code = '400'>Something went wrong.</response>
+    [HttpGet("/recovery-password/{id}/{password}")]
+    public async Task<IActionResult> RecoveryPassword(string id, string password)
+    {
+        try
+        {
+            await _authenticateService.RecoveryPassword(id, password);
+            return Ok();
+        }
+        catch (AuthenticateException e)
+        {
+            return BadRequest(new ErrorResponseModel(e.Message));
+        }
+    }
+
+    /// <summary>
+    /// Forgot password.
+    /// </summary>
+    /// <param name="email">Account email.</param>
+    /// <response code ='200'>When recover link was send to email.</response>
+    [HttpGet("/forgot-password/{email}")]
+    public async Task<IActionResult> ForgotPassword(string email)
+    {
+        try
+        {
+            await _authenticateService.ForgotPassword(email);
+            return Ok();
+        }
+        catch (AuthenticateException e)
+        {
+            return BadRequest(new ErrorResponseModel(e.Message));
+        }
+    }
 }

@@ -1,8 +1,9 @@
 import React from "react"
-import Main from "./Main/index"
-import Authenticate from "./Authenticate/index"
-import Registration from './Registration/index';
+import Main from "./Main"
+import Authenticate from "./Authenticate"
+import Registration from './Registration';
 import RegistrationComplete from "./RegistrationComplete";
+import NotFound from "./NotFound"
 
 export const routes = [
 	{
@@ -20,5 +21,9 @@ export const routes = [
 	{
 		path: '/registration-complete',
 		element: <RegistrationComplete />
+	},
+	{
+		path: "*",
+		element: <NotFound />
 	}
 ]

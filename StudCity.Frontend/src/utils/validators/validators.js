@@ -42,3 +42,11 @@ export const phoneNumberValidator = (value) => {
 		return value.slice(0, value.length - 1);
 	}
 };
+
+export const emailValidator = (value) => {
+	if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+		return "";
+	}
+	
+	return "Email must contain @ and domain";
+}
