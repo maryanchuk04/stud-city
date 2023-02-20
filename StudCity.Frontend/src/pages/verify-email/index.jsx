@@ -4,33 +4,32 @@ import { numberValidation } from '../../utils/validators/validators';
 import Svg from '../../components/Svg';
 
 function VerifyEmail() {
-    const [numbers, setNumbers] = useState(["", "", "", "", "", ""]);
+    const [verifyNumbersArray, setVerifyNumbersArray] = useState(["", "", "", "", "", ""]);
 
     const handleChangeNumber = (e, index) => {
-        numbers[index] = numberValidation(e.target.value);
-        setNumbers([...numbers]);
+        verifyNumbersArray[index] = numberValidation(e.target.value);
+        setVerifyNumbersArray([...verifyNumbersArray]);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const verifyMessage = numbers.join("");
-        console.log(verifyMessage);
+        verifyNumbersArray.join("");
     };
 
   return (
     <div className='w-full h-screen flex relative text-center'>
         <div className='w-6/12 h-screen relative bg-white'>
-            <Svg type='verifyWave' className='rotate-[270deg]  absolute -left-[45%] top-[44%]'/>
+            <Svg type='verifyWave' className='rotate-[270deg] w-full absolute -left-[45%] top-[39%]'/>
         </div>
         <div className='w-6/12 h-screen bg-[#453e35]'></div>
-        <div className='w-[70%] shadow-md h-[85%] bg-white z-10 mx-auto my-0 absolute left-[15%] top-[8%] text-center'>
-            <Svg type='verifyEmail' className='w-[23%] mx-auto my-8' />
+        <div className='w-[70%] shadow-md h-5/6 bg-white z-10 mx-auto my-0 absolute left-[15%] top-[8%] text-center'>
+            <Svg type = 'verifyEmail' className='w-[23%] mx-auto my-8' />
             <h1 className='text-4xl font-medium my-6'>Please Verify Account</h1>
             <p className='text-stone-400 my-6'>Enter the six digit code we sent to your email address to verify your new account:</p>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit = {handleSubmit}>
                 <div className='mx-auto w-[40%] my-0 flex justify-around items-center'>
                     {
-                        numbers.map((item, index) => (
+                        verifyNumbersArray.map((item, index) => (
                             <TextField
                                 tabIndex = {index}
                                 key = {index}
