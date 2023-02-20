@@ -14,8 +14,11 @@ module.exports = {
 	extend: {
 		colors: {
 			"primaryAuthentication": '#453e35',
-			"primatyWhite": "#f9fcf8",
-			"primaryRegistration": "#817566"
+			"primaryWhite": "#f9fcf8",
+			"primaryRegistration": "#817566",
+			"primaryGold": "#b0a464",
+			"elephantBone": "#fffff0",
+			"yellowGreen": "#b4b45d"
 		},
 		backgroundImage: {
 			mainPageGradient: 'linear-gradient(315deg, #65005E 3%, #3C84CE 38%, #30EEE2 68%, #FF1919 98%)'
@@ -47,11 +50,14 @@ module.exports = {
 			}
 		},
 		boxShadow: {
-			'md': '0 3px 10px rgba(0, 0, 0, 0.5)',
-			card: '0 15px 25px rgba(129, 124, 124, 0.4)'
+			md: '0 3px 10px rgba(0, 0, 0, 0.5)',
+			card: '0 15px 25px rgba(129, 124, 124, 0.4)',
+			form: '0 3px 10px rgb(0 0 0 / 0.4);'
 		},
 		borderRadius: {
-			learnMore: '65% 35% 74% 26% / 58% 63% 37% 42% '
+			learnMore: '65% 35% 74% 26% / 58% 63% 37% 42% ',
+			formRadius: "20px",
+			circle: "50%"
 		}
 	}
   },

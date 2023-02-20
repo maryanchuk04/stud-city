@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-function PasswordTextField({ className = "", placeholder, required, setDisabled, handleChange, value = "", confirmationValue = "", validate = null }) {
+function PasswordTextField({ className = "", placeholder, required, setDisabled, onChange, value = "", confirmationValue = "", validate = null }) {
 	const [hidden, setHidden] = useState(false);
 	const [passwordError, setPasswordError] = useState("");
 	const primaryGray = "#506466";
 
-	const onChange = (evnt) => {
-		handleChange(evnt);
+	const handleChange = (evnt) => {
+		onChange(evnt);
 		if (validate) {
 			let errMsg = "";
 			if (confirmationValue === "") {
@@ -50,7 +50,7 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled,
 				type={!hidden ? "password" : "text"}
 				placeholder={placeholder}
 				required={required}
-				onChange={onChange}
+				onChange={handleChange}
 				value={value}
 			/>
 			<p className="text-center text-[#eb4848] mb-1">{passwordError}</p>
