@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Stepper from "../../components/Stepper/Stepper";
-import UserInformation from "./steps/UserInformation";
 import { useSelector, useDispatch } from "react-redux";
 import {
 	selectActiveStep,
@@ -8,11 +6,16 @@ import {
 	selectRegisterCompleteDefaultInfo,
 	changeRegisterCompleteState
 } from "../../app/features/register-complete/registerCompleteSlice";
+import {
+	getRegisterCompleteDefautlData,
+	REGISTER_COMPLETE_STEPS,
+	REGISTER_COMPLETE_STEPS_COUNT
+} from "../../utils/constants";
+import { registerCompleteUserInformationValidator } from "../../utils/validators/registerCompleteValidators";
+import Stepper from "../../components/Stepper/Stepper";
+import UserInformation from "./steps/UserInformation";
 import StepperControll from "../../components/Stepper/StepperControll";
 import Container from "../../components/Container";
-import { getRegisterCompleteDefautlData, registerCompleteSteps } from "../../utils/constants";
-import { registerCompleteUserInformationValidator } from "../../utils/validators/registerCompleteValidators";
-
 
 const RegistrationComplete = () => {
 	const dispatch = useDispatch();
@@ -29,9 +32,11 @@ const RegistrationComplete = () => {
 
 	const handleNext = () => {
 		dispatch(changeRegisterCompleteState(state));
-		if (activeStep === 5) {
+		console.log('Work')
+		if (activeStep === REGISTER_COMPLETE_STEPS_COUNT) {
 			// TODO Redirect to profile
 			dispatch(changeActiveState(1));
+
 			return;
 		}
 
@@ -69,7 +74,7 @@ const RegistrationComplete = () => {
 		<div className="h-screen flex">
 			<div className="w-1/4">
 				<Stepper
-					labels={registerCompleteSteps}
+					labels={REGISTER_COMPLETE_STEPS}
 					activeStep={activeStep}
 					handleNext={handleNext}
 					handlePrevious={handlePrevious}

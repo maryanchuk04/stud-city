@@ -1,8 +1,10 @@
-export const genders = [
+export const REGISTER_COMPLETE_STEPS_COUNT = 5;
+
+export const GENDERS = [
 	"male", "female", "other"
 ]
 
-export const registerCompleteSteps = [
+export const REGISTER_COMPLETE_STEPS = [
 	{
 		title: "User information",
 		description: "Enter all your necessary data so that other users can get to know you better."
@@ -26,7 +28,7 @@ export const registerCompleteSteps = [
 ]
 
 
-export const months = [
+export const MONTH = [
 	'January', 'February', 'March', 'April', 'May', 'June',
 	'July', 'August', 'September', 'October', 'November', 'December'
 ];

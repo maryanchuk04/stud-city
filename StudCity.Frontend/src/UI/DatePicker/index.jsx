@@ -1,9 +1,9 @@
 /* eslint-disable react/display-name */
 import React, { useRef } from "react";
 import ReactDatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import TextField from "../fields/TextField";
 import CustomHeader from "./CustomHeader";
+import "react-datepicker/dist/react-datepicker.css";
 
 const DatePicker = ({ className = "", onChange, value }) => {
 	const ref = useRef();

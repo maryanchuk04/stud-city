@@ -4,7 +4,7 @@ import TextField from "../../../UI/fields/TextField";
 import SelectField from "../../../UI/fields/SelectField";
 import DatePicker from "../../../UI/DatePicker";
 import ValidateTextField from "../../../UI/fields/ValidateTextField";
-import { genders } from "../../../utils/constants";
+import { GENDERS } from "../../../utils/constants";
 import { phoneNumberValidator } from "../../../utils/validators/validators";
 
 const UserInformation = ({ userInformation, setUserInformation }) => {
@@ -53,7 +53,7 @@ const UserInformation = ({ userInformation, setUserInformation }) => {
 						<div>
 							<SelectField
 								className=""
-								options={genders}
+								options={GENDERS}
 								onChange={(e) => setUserInformation({
 									...userInformation,
 									gender: e.target.value,
