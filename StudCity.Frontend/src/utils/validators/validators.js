@@ -44,9 +44,12 @@ export const phoneNumberValidator = (value) => {
 };
 
 export const emailValidator = (value) => {
-	if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-		return "";
+	if(value.trim() === "")
+		return "Email must be not empty";
+
+	if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+		return "Email must contain @ and domain";
 	}
 	
-	return "Email must contain @ and domain";
+	return "";
 }
