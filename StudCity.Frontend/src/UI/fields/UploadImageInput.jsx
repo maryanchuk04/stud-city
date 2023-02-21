@@ -24,7 +24,7 @@ function UploadImageInput({ onImageSelected }) {
 				accept="image/*" 
 				ref={inputRef}
 				onChange={handleOnChange}
-				style={{ display: "none" }}
+				className = "hidden"
 			/>
 			<Button 
 				className="mx-auto w-40"
