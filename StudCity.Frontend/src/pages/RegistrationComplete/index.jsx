@@ -14,6 +14,7 @@ import {
 import { registerCompleteUserInformationValidator } from "../../utils/validators/registerCompleteValidators";
 import Stepper from "../../components/Stepper/Stepper";
 import UserInformation from "./steps/UserInformation";
+import UploadAvatar from "./steps/UploadAvatar"
 import StepperControll from "../../components/Stepper/StepperControll";
 import Container from "../../components/Container";
 
@@ -55,6 +56,8 @@ const RegistrationComplete = () => {
 					userInformation={state.userInformation}
 					setUserInformation={(data) => setState({ ...state, userInformation: data })}
 				/>;
+			case 2:
+				return <UploadAvatar/>
 			default:
 				return <></>;
 		}
@@ -81,15 +84,19 @@ const RegistrationComplete = () => {
 				/>
 			</div>
 			<div className="w-3/4 h-full flex relative">
-				<Container className="my-auto w-3/4">
-					{renderSteps()}
-					<StepperControll
-						activeStep={activeStep}
-						handleNext={handleNext}
-						handlePrevious={handlePrevious}
-						nextStepIsValid={!valid}
-						className={"mt-24"}
-					/>
+				<Container className="my-auto w-3/4 flex h-[85%] justify-between flex-col">
+					<div className="h-[90%]">
+						{renderSteps()}
+					</div>
+					<div className="h-[10%]">
+						<StepperControll
+							activeStep={activeStep}
+							handleNext={handleNext}
+							handlePrevious={handlePrevious}
+							nextStepIsValid={!valid}
+							className={""}
+						/>
+					</div>
 				</Container>
 			</div>
 		</div>
