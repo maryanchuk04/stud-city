@@ -16,7 +16,7 @@ const UserInformation = ({ userInformation, setUserInformation }) => {
 
 	return (
 		<div>
-			<h1 className="text-4xl mb-8 text-center">Your Personal Information</h1>
+			<h1 className="text-4xl text-center">Your Personal Information</h1>
 			<div>
 				<Svg type="personalInfoStepSvg" className="mx-auto " />
 				<div className="flex gap-20">
