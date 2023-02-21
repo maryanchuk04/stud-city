@@ -33,7 +33,6 @@ const RegistrationComplete = () => {
 
 	const handleNext = () => {
 		dispatch(changeRegisterCompleteState(state));
-		console.log('Work')
 		if (activeStep === REGISTER_COMPLETE_STEPS_COUNT) {
 			// TODO Redirect to profile
 			dispatch(changeActiveState(1));
