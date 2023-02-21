@@ -11,7 +11,7 @@ const initialState = {
 		phoneNumber: ""
 	},
 	avatar: {},
-	role: {},
+	role: 0,
 	groups: {},
 	settings: {}
 };

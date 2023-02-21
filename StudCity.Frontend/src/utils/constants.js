@@ -45,7 +45,7 @@ export const getRegisterCompleteDefautlData = (defaultData) => {
 			birthday: defaultData.userInformation.birthday || "",
 		},
 		avatar: {},
-		role: {},
+		role: 0,
 		groups: {},
 		settings: {}
 	}

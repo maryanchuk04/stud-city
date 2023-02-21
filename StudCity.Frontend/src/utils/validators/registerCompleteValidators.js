@@ -1,4 +1,6 @@
 const PHONE_NUMBER_VALID_LENGTH = 13;
+const ROLE_STUDENT = 1;
+const ROLE_TEACHER = 2;
 
 export const registerCompleteUserInformationValidator = ({ 
 	firstName,
@@ -25,4 +27,12 @@ export const registerCompleteUserInformationValidator = ({
 	}
 
 	return true;
+}
+
+export const registerCompleteRoleValidator = (role) => {
+	if(role === ROLE_STUDENT || role === ROLE_TEACHER) {
+		return true;
+	}
+
+	return false;
 }

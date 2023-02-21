@@ -11,11 +11,12 @@ import {
 	REGISTER_COMPLETE_STEPS,
 	REGISTER_COMPLETE_STEPS_COUNT
 } from "../../utils/constants";
-import { registerCompleteUserInformationValidator } from "../../utils/validators/registerCompleteValidators";
+import { registerCompleteRoleValidator, registerCompleteUserInformationValidator } from "../../utils/validators/registerCompleteValidators";
 import Stepper from "../../components/Stepper/Stepper";
 import UserInformation from "./steps/UserInformation";
 import StepperControll from "../../components/Stepper/StepperControll";
 import Container from "../../components/Container";
+import ChooseRole from "./steps/ChooseRole";
 
 const RegistrationComplete = () => {
 	const dispatch = useDispatch();
@@ -55,6 +56,12 @@ const RegistrationComplete = () => {
 					userInformation={state.userInformation}
 					setUserInformation={(data) => setState({ ...state, userInformation: data })}
 				/>;
+			case 2: return <></>
+			case 3:
+				return <ChooseRole
+					role={state.role}
+					setRole={(data) => setState({ ...state, role: data })}
+				/>
 			default:
 				return <></>;
 		}
@@ -65,6 +72,8 @@ const RegistrationComplete = () => {
 		switch (activeStep) {
 			case 1:
 				return registerCompleteUserInformationValidator(state.userInformation);
+			case 3:
+				return registerCompleteRoleValidator(state.role);
 			default:
 				return true;
 		}

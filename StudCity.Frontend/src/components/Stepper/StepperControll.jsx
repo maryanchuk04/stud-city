@@ -12,7 +12,7 @@ const StepperControll = ({ className, activeStep, handleNext, handlePrevious, ne
 				onClick={handlePrevious}
 				disabled={activeStep === 1}
 			>
-				Cancel
+				Previous
 			</Button>
 			<StepperStrip activeStep={activeStep} />
 			<Button
