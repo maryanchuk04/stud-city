@@ -9,7 +9,6 @@ function ImageCropper( { image, onCropDone, onCropCancel }) {
 
 	const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
 		setCroppedArea(croppedAreaPixels);
-		console.log(croppedAreaPixels)
 	}
 
 	return(
@@ -28,21 +27,22 @@ function ImageCropper( { image, onCropDone, onCropCancel }) {
 							height: "400px",
 							backgroundColor: "#fff",
 							margin: "auto",
-				
+							bottom: "100px"
 						},
 					}}
 				/>
-				<div className="mx-auto h-fit  mb-5 flex ">
+				<div className="mx-auto h-fit gap-[20px]  mb-10 flex ">
 					<Button 
-						className="mx-auto w-32"
-						onClick={onCropCancel}>
-						Cancel
+						className="mx-auto w-20 rounded-full"
+						onClick={onCropCancel}
+					>
+						<span>&#10008;</span>
 					</Button>
 					<Button
-						className="mx-auto w-32"
+						className="mx-auto w-20 rounded-full"
 						onClick={ () => onCropDone(croppedArea)}	
 					>
-						Done
+						<span>&#10003;</span>	
 					</Button>
 				</div>
 		</div>

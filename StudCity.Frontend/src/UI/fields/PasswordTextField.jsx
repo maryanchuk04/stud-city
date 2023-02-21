@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-function PasswordTextField({ className = "", placeholder, required, setDisabled, handleChange, value = "", confirmationValue = "", validate = null }) {
+function PasswordTextField({ className = "", placeholder, required, setDisabled, onChange, value = "", confirmationValue = "", validate = null }) {
 	const [hidden, setHidden] = useState(false);
 	const [passwordError, setPasswordError] = useState("");
 	const primaryGray = "#506466";
 
-	const onChange = (evnt) => {
-		handleChange(evnt);
+	const handleChange = (evnt) => {
+		onChange(evnt);
 		if (validate) {
 			let errMsg = "";
 			if (confirmationValue === "") {
@@ -29,7 +29,7 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled,
 		<div className={`relative text-[${primaryGray}] flex flex-col`} >
 			{!hidden ? (
 				<svg onClick={() => setHidden(!hidden)}
-					className={`absolute cursor-pointer text-[${primaryGray}] top-8 right-3 `}
+					className={`absolute cursor-pointer text-[${primaryGray}] top-6 right-3 `}
 					width="25"
 					height="25"
 					viewBox="0 0 24 24">
@@ -38,7 +38,7 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled,
 			) : (
 				<svg
 					onClick={() => setHidden(!hidden)}
-					className="absolute cursor-pointer text-primaryAuthentication top-8 right-3"
+					className="absolute cursor-pointer text-primaryAuthentication top-6 right-3"
 					width="24"
 					height="24"
 					viewBox="0 0 24 24">
@@ -46,11 +46,11 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled,
 				</svg>
 			)}
 			<input
-				className={`active:border-none w-full static active:border-primaryAuthentication focus:border-primaryAuthentication text-[#506466] my-3 outline-none h-16 px-3 py-1 font-normal rounded-2xl border-solid border-2 placeholder:decoration-[#A0A9AB] text-base border-[#D1D7D4] ${className}`}
+				className={`active:border-none w-full static active:border-primaryAuthentication focus:border-primaryAuthentication text-[#506466] my-3 outline-none h-12 px-3 py-1 font-normal rounded-2xl border-solid border-2 placeholder:decoration-[#A0A9AB] text-base border-[#D1D7D4] ${className}`}
 				type={!hidden ? "password" : "text"}
 				placeholder={placeholder}
 				required={required}
-				onChange={onChange}
+				onChange={handleChange}
 				value={value}
 			/>
 			<p className="text-center text-[#eb4848] mb-1">{passwordError}</p>

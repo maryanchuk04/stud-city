@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import ImageCropper from "./ImageCropper";
-import UploadImageInput from "./UploadImageInput";
-import Button from "../../UI/Button";
-function SecondStep() {
+import ImageCropper from "../../../components/ImageCropper";
+import UploadImageInput from "../../../UI/fields/UploadImageInput"
+import Button from "../../../UI/Button";
+import Avatar from "../../../UI/Avatar";
+
+function UploadAvatar() {
 	const [image, setImage] = useState("");
 	const [currentPage, setCurrentPage] = useState("choose-img");
 	const [imgAfterCrop, setImgAfterCrop] = useState("");
@@ -48,13 +50,12 @@ function SecondStep() {
 	} 
 
 	return (
-		<div className="flex w-[1200px] h-[700px] mx-auto my-auto shadow-md">
+		<div className="flex w-full h-full flex-col">
+			<h1 className="text-4xl text-center">Your Personal Information</h1>
 			{
 				currentPage === "choose-img" ? (
 					<div className=" w-[90%] h-full flex flex-col justify-evenly mx-auto">	
-						<div className="rounded-full h-[180px] mx-auto w-[180px] overflow-hidden ">
-							<img src="/images/defaultAvatar.png" className="w-full h-full " alt="" />
-						</div>
+						<Avatar src="/images/defaultAvatar.png" />
 						<UploadImageInput  setImage={setImage} onImageSelected={onImageSelected}/>
 					</div>
 					
@@ -66,9 +67,7 @@ function SecondStep() {
 					/>
 				) : (
 					<div className="w-[90%] h-full flex flex-col justify-evenly mx-auto">
-						<div className=" rounded-full h-[180px] mx-auto w-[180px] overflow-hidden ">
-							<img className="w-full h-full object-contain" src={imgAfterCrop} alt="" />
-						</div>
+						<Avatar src={imgAfterCrop} />
 						<div className="w-full flex justify-center">
 							<Button
 								className="w-32"
@@ -80,13 +79,13 @@ function SecondStep() {
 							</Button>
 
 							<Button 
-								className="w-32"
+								className="w-40"
 								onClick={() => {
 									setCurrentPage("choose-img");
 									setImage("");
 								}}
 							>
-								new Image
+								Another image
 							</Button>
 						</div>
 						
@@ -97,4 +96,4 @@ function SecondStep() {
 	)
 }
 
-export default SecondStep;
+export default UploadAvatar;
