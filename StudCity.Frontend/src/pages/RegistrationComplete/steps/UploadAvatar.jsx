@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import ImageCropper from "../../../components/ImageCropper";
 import UploadImageInput from "../../../UI/fields/UploadImageInput"
-import Button from "../../../UI/Button";
 import Avatar from "../../../UI/Avatar";
+import { ImageService } from "../../../services/imageService";
+import IconButton from "../../../UI/IconButton";
+
 
 function UploadAvatar({ avatar, setAvatar }) {
-	const [image, setImage] = useState("");
+	const service = new ImageService();
+
+	const [image, setImage] = useState(avatar === "" ? "/images/defaultAvatar.png" : avatar);
 	const [currentPage, setCurrentPage] = useState("choose-img");
 	const [imgAfterCrop, setImgAfterCrop] = useState("");
 
@@ -23,7 +27,7 @@ function UploadAvatar({ avatar, setAvatar }) {
 
 		const imageObj = new Image();
 		imageObj.src = image;
-		imageObj.onload = function () {
+		imageObj.onload = async function () {
 			context.drawImage(
 				imageObj,
 				imgCroppedArea.x,
@@ -39,14 +43,19 @@ function UploadAvatar({ avatar, setAvatar }) {
 
 			const dataURL = canvasEle.toDataURL("image/jpeg");
 
-			setImgAfterCrop(dataURL);
 			setCurrentPage("img-cropped");
+
+			const res = await service.uploadImage(dataURL);
+
+			setAvatar(res)
+			setImgAfterCrop(res);
 		};
 	};
 
 	const onCropCancel = () => {
 		setCurrentPage("choose-img");
 		setImage("");
+		setAvatar("");
 	}
 
 	return (
@@ -55,7 +64,7 @@ function UploadAvatar({ avatar, setAvatar }) {
 			{
 				currentPage === "choose-img" ? (
 					<div className=" w-[90%] h-full flex flex-col justify-evenly mx-auto">
-						<Avatar src="/images/defaultAvatar.png" />
+						<Avatar src={image} className="h-80 w-80" />
 						<UploadImageInput setImage={setImage} onImageSelected={onImageSelected} />
 					</div>
 
@@ -67,32 +76,25 @@ function UploadAvatar({ avatar, setAvatar }) {
 					/>
 				) : (
 					<div className="w-[90%] h-full flex flex-col justify-evenly mx-auto">
-						<Avatar src={imgAfterCrop} />
-						<div className="w-full flex justify-center">
-							<Button
-								className="w-32"
-								onClick={() => {
-									setCurrentPage("crop-img");
-								}}
+						<Avatar src={imgAfterCrop} className="h-80 w-80" />
+						<div className="w-full flex justify-center gap-10">
+							<IconButton
+								onClick={() => setCurrentPage("crop-img")}
 							>
-								Crop
-							</Button>
+								<i className="fa-solid fa-crop"></i>
+							</IconButton>
 
-							<Button
-								className="w-40"
-								onClick={() => {
-									setCurrentPage("choose-img");
-									setImage("");
-								}}
+							<IconButton
+								onClick={onCropCancel}
 							>
-								Another image
-							</Button>
+								<i className="fa-solid fa-trash"></i>
+							</IconButton>
 						</div>
 
 					</div>
 				)
 			}
-		</div>
+		</div >
 	)
 }
 

@@ -44,7 +44,7 @@ export const getRegisterCompleteDefautlData = (defaultData) => {
 			phoneNumber: defaultData.userInformation.phoneNumber || "+380",
 			birthday: defaultData.userInformation.birthday || "",
 		},
-		avatar: {},
+		avatar: "",
 		role: 0,
 		groups: {},
 		settings: {}

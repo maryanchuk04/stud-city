@@ -7,11 +7,10 @@ const StepperStrip = ({ activeStep }) => {
 			{Array.from({ length: 5 }, (e, index) => (
 				<p
 					key={index}
-					className={` ${styles} ${
-						activeStep === index + 1
-							? "bg-primaryAuthentication w-12"
-							: "bg-stone-200"
-					}`}
+					className={`${styles} ${activeStep === index + 1
+						? "bg-primaryAuthentication w-12 scale-110"
+						: "bg-stone-200"
+						}`}
 				></p>
 			))}
 		</div>

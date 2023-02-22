@@ -36,3 +36,11 @@ export const registerCompleteRoleValidator = (role) => {
 
 	return false;
 }
+
+export const registerCompleteAvatarValidator = (avatar) => {
+	if(avatar.trim() === "") {
+		return false;
+	}
+
+	return true;
+}

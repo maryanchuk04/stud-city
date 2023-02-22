@@ -17,7 +17,7 @@ const ChooseRole = ({ role, setRole }) => {
 						onClick={() => setRole(index + 1)}
 					>
 						<h1 className={labelStyles}>
-							Student
+							{index === 0 ? "Student" : "Teacher"}
 						</h1>
 					</div>
 				))}
