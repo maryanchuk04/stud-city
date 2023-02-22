@@ -15,10 +15,10 @@ export class ImageService {
 		try{
 			const response = await axios({
 				method: 'post',
-				url: 'https://api.imgbb.com/1/upload',
+				url: this.URL,
 				data: body
 			});
-			
+
 			return response.data.data.url;
 		}catch(error) {
 			alert("Something went wrong");

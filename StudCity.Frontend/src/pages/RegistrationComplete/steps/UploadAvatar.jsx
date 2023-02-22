@@ -4,12 +4,12 @@ import UploadImageInput from "../../../UI/fields/UploadImageInput"
 import Avatar from "../../../UI/Avatar";
 import { ImageService } from "../../../services/imageService";
 import IconButton from "../../../UI/IconButton";
-
+import { DEFAULT_AVATAR_URL } from "../../../utils/constants";
 
 function UploadAvatar({ avatar, setAvatar }) {
 	const service = new ImageService();
 
-	const [image, setImage] = useState(avatar === "" ? "/images/defaultAvatar.png" : avatar);
+	const [image, setImage] = useState(avatar === "" ? DEFAULT_AVATAR_URL : avatar);
 	const [currentPage, setCurrentPage] = useState("choose-img");
 	const [imgAfterCrop, setImgAfterCrop] = useState("");
 
@@ -22,7 +22,6 @@ function UploadAvatar({ avatar, setAvatar }) {
 		const canvasEle = document.createElement("canvas");
 		canvasEle.width = imgCroppedArea.width;
 		canvasEle.height = imgCroppedArea.height;
-
 		const context = canvasEle.getContext("2d");
 
 		const imageObj = new Image();
@@ -42,11 +41,8 @@ function UploadAvatar({ avatar, setAvatar }) {
 			);
 
 			const dataURL = canvasEle.toDataURL("image/jpeg");
-
 			setCurrentPage("img-cropped");
-
 			const res = await service.uploadImage(dataURL);
-
 			setAvatar(res)
 			setImgAfterCrop(res);
 		};
@@ -54,7 +50,7 @@ function UploadAvatar({ avatar, setAvatar }) {
 
 	const onCropCancel = () => {
 		setCurrentPage("choose-img");
-		setImage("");
+		setImage(DEFAULT_AVATAR_URL);
 		setAvatar("");
 	}
 
@@ -90,7 +86,6 @@ function UploadAvatar({ avatar, setAvatar }) {
 								<i className="fa-solid fa-trash"></i>
 							</IconButton>
 						</div>
-
 					</div>
 				)
 			}

@@ -1,3 +1,5 @@
+export const DEFAULT_AVATAR_URL = "/images/defaultAvatar.png";
+
 export const REGISTER_COMPLETE_STEPS_COUNT = 5;
 
 export const GENDERS = [
