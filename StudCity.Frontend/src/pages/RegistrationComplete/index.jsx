@@ -30,7 +30,7 @@ const RegistrationComplete = () => {
 
 	useEffect(() => {
 		setValid(stepValidator());
-	}, [state])
+	}, [state, activeStep])
 
 	const handleNext = () => {
 		dispatch(changeRegisterCompleteState(state));
