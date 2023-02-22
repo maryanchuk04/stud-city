@@ -3,6 +3,7 @@ import verifyEmail from "./undraw_subscribe_vspl.svg";
 import verifyWave from "./wavesOpacity.svg";
 import personalInfoStepSvg from "./personalInfoStep.svg";
 import googleAuthorized from "./google_authorized.svg";
+import cropIcon from "./crop-tool.svg"
 
 export default {
 	welcomeSvg,
@@ -10,4 +11,5 @@ export default {
 	verifyWave,
 	personalInfoStepSvg,
 	googleAuthorized,
+	cropIcon
 };

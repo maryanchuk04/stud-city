@@ -1,3 +1,5 @@
+export const DEFAULT_AVATAR_URL = "/images/defaultAvatar.png";
+
 export const REGISTER_COMPLETE_STEPS_COUNT = 5;
 
 export const GENDERS = [
@@ -27,7 +29,6 @@ export const REGISTER_COMPLETE_STEPS = [
 	}
 ]
 
-
 export const MONTH = [
 	'January', 'February', 'March', 'April', 'May', 'June',
 	'July', 'August', 'September', 'October', 'November', 'December'
@@ -39,13 +40,12 @@ export const getRegisterCompleteDefautlData = (defaultData) => {
 			firstName: defaultData.userInformation.firstName || "",
 			lastName: defaultData.userInformation.lastName || "",
 			userName: defaultData.userInformation.userName || "",
-			email: defaultData.userInformation.email || "userEmail@gmail.com",
 			gender: defaultData.userInformation.gender || 1,
 			phoneNumber: defaultData.userInformation.phoneNumber || "+380",
 			birthday: defaultData.userInformation.birthday || "",
 		},
-		avatar: {},
-		role: {},
+		avatar: "",
+		role: "",
 		groups: {},
 		settings: {}
 	}

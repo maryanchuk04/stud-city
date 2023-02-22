@@ -21,7 +21,9 @@ module.exports = {
 			"yellowGreen": "#b4b45d"
 		},
 		backgroundImage: {
-			mainPageGradient: 'linear-gradient(315deg, #65005E 3%, #3C84CE 38%, #30EEE2 68%, #FF1919 98%)'
+			mainPageGradient: 'linear-gradient(315deg, #65005E 3%, #3C84CE 38%, #30EEE2 68%, #FF1919 98%)',
+			roleStudent: "url('/public/images/student.jpg')",
+			roleTeacher: "url('/public/images/teacher.jpg')"
 		},
 		animation: {
 			gradientAnimation: 'gradientAnimation 15s ease infinite',

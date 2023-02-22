@@ -1,12 +1,13 @@
 import React, { useRef } from "react";
 import Button from "../Button";
+
 function UploadImageInput({ onImageSelected }) {
 	const inputRef = useRef();
 
 	const handleOnChange = (event) => {
-		if( event.target.files && event.target.files.length > 0) {
+		if (event.target.files && event.target.files.length > 0) {
 			const reader = new FileReader();
-			reader.readAsDataURL( event.target.files[0]);
+			reader.readAsDataURL(event.target.files[0]);
 			reader.onload = function () {
 				onImageSelected(reader.result);
 			}
@@ -19,14 +20,14 @@ function UploadImageInput({ onImageSelected }) {
 
 	return (
 		<div className="w-full flex">
-			<input 
+			<input
 				type="file"
-				accept="image/*" 
+				accept="image/*"
 				ref={inputRef}
 				onChange={handleOnChange}
-				className = "hidden"
+				className="hidden"
 			/>
-			<Button 
+			<Button
 				className="mx-auto w-40"
 				onClick={onChooseImg}>
 				Choose Image

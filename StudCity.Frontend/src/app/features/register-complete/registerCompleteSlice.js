@@ -10,8 +10,8 @@ const initialState = {
 		gender: 1,
 		phoneNumber: ""
 	},
-	avatar: {},
-	role: {},
+	avatar: "",
+	role: "",
 	groups: {},
 	settings: {}
 };
