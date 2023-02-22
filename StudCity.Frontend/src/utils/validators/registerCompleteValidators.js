@@ -33,12 +33,11 @@ export const registerCompleteRoleValidator = (role) => {
 	if(role === ROLE_STUDENT || role === ROLE_TEACHER) {
 		return true;
 	}
-	
+
 	return false;
 }
 
 export const registerCompleteAvatarValidator = (avatar) => {
-	console.log(avatar);
 	if(avatar === "") {
 		return false;
 	}
