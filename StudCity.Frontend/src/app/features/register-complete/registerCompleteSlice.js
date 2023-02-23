@@ -12,7 +12,7 @@ const initialState = {
 	},
 	avatar: "",
 	role: "",
-	groups: {},
+	groups: [],
 	settings: {}
 };
 

@@ -18,6 +18,7 @@ import UploadAvatar from "./steps/UploadAvatar"
 import StepperControll from "../../components/Stepper/StepperControll";
 import Container from "../../components/Container";
 import ChooseRole from "./steps/ChooseRole";
+import ChooseGroups from "./steps/ChooseGroups";
 
 const RegistrationComplete = () => {
 	const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const RegistrationComplete = () => {
 	// TODO Add your component to switch statement
 	const renderSteps = () => {
 		switch (activeStep) {
-			case 1:
+			case 4:
 				return <UserInformation
 					userInformation={state.userInformation}
 					setUserInformation={(data) => setState({ ...state, userInformation: data })}
@@ -65,6 +66,11 @@ const RegistrationComplete = () => {
 					role={state.role}
 					setRole={(data) => setState({ ...state, role: data })}
 				/>
+			case 1:
+				return <ChooseGroups
+					groups={state.groups}
+					setGroups={(data) => setState({ ...state, groups: data })}
+				/>
 			default:
 				return <></>;
 		}
@@ -73,7 +79,7 @@ const RegistrationComplete = () => {
 	const stepValidator = () => {
 		//add your validators
 		switch (activeStep) {
-			case 1:
+			case 4:
 				return registerCompleteUserInformationValidator(state.userInformation);
 			case 2:
 				return registerCompleteAvatarValidator(state.avatar);
