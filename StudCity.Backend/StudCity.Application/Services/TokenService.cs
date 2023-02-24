@@ -89,10 +89,10 @@ public class TokenService : ITokenService
         var claims = new List<Claim>();
         if (account.UserId != null)
         {
-            claims.Add(new Claim(ClaimTypes.Name, $"{account.UserId}"));
+            claims.Add(new Claim(ClaimTypes.Surname, $"{account.UserId}"));
         }
 
-        claims.Add(new Claim(ClaimTypes.Sid, $"{account.Id}"));
+        claims.Add(new Claim(ClaimTypes.Name, $"{account.Id}"));
         var roles = account.AccountRoles.Select(ar => ar.Role);
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role.Name)));
 

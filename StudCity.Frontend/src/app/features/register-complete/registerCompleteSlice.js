@@ -8,7 +8,8 @@ const initialState = {
 		userName: "",
 		email: "",
 		gender: 1,
-		phoneNumber: ""
+		phoneNumber: "",
+		birthday: ""
 	},
 	avatar: "",
 	role: "",

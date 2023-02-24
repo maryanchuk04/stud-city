@@ -1,6 +1,8 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using StudCity.API.Extensions;
 using StudCity.API.ViewModels;
+using StudCity.Core.DTOs;
 using StudCity.Core.Exceptions;
 using StudCity.Core.Interfaces;
 
@@ -14,14 +16,17 @@ namespace StudCity.API.Controllers;
 public class AuthenticateController : ControllerBase
 {
     private readonly IAuthenticateService _authenticateService;
+    private readonly IMapper _mapper;
 
     /// <summary>
     /// Authenticate DI.
     /// </summary>
     /// <param name="authenticateService">DI auth service.</param>
-    public AuthenticateController(IAuthenticateService authenticateService)
+    /// <param name="mapper">Automapper.</param>
+    public AuthenticateController(IAuthenticateService authenticateService, IMapper mapper)
     {
         _authenticateService = authenticateService;
+        _mapper = mapper;
     }
 
     /// <summary>
@@ -130,6 +135,26 @@ public class AuthenticateController : ControllerBase
         try
         {
             await _authenticateService.ForgotPassword(email);
+            return Ok();
+        }
+        catch (AuthenticateException e)
+        {
+            return BadRequest(new ErrorResponseModel(e.Message));
+        }
+    }
+
+    /// <summary>
+    /// Registration Step by step api.
+    /// </summary>
+    /// <param name="registrationCompleteViewModel">Model which contain all data about user.</param>
+    /// <response code ='200'>When user was created.</response>
+    [HttpPost("/registration-complete")]
+    public async Task<IActionResult> RegistrationComplete([FromBody] RegistrationCompleteViewModel registrationCompleteViewModel)
+    {
+        try
+        {
+            await _authenticateService.RegistrationCompleteAsync(
+                _mapper.Map<RegistrationCompleteViewModel, RegistrationCompleteDto>(registrationCompleteViewModel));
             return Ok();
         }
         catch (AuthenticateException e)

@@ -15,19 +15,22 @@ public class AuthenticateServices : IAuthenticateService
     private readonly ITokenService _tokenService;
     private readonly IMailService _mailService;
     private readonly ICryptographer _cryptographer;
+    private readonly ISecurityContext _securityContext;
 
     public AuthenticateServices(
         StudCityContext context,
         IPasswordHasher passwordHasher,
         ITokenService tokenService,
         IMailService mailService,
-        ICryptographer cryptographer)
+        ICryptographer cryptographer,
+        ISecurityContext securityContext)
     {
         _context = context;
         _passwordHasher = passwordHasher;
         _tokenService = tokenService;
         _mailService = mailService;
         _cryptographer = cryptographer;
+        _securityContext = securityContext;
     }
 
     public async Task<Guid> RegistrationBeginAsync(string email, string password)
@@ -127,6 +130,56 @@ public class AuthenticateServices : IAuthenticateService
         _context.Accounts.Update(account);
         await _context.SaveChangesAsync();
         await _mailService.SendMessage(account.Email, "Password changed!", "Your password was successfully changed");
+    }
+
+    public async Task RegistrationCompleteAsync(RegistrationCompleteDto registrationCompleteDto)
+    {
+        var accountId = _securityContext.GetCurrentAccountId();
+        var account = _context.Accounts
+            .Include(x => x.User)
+                .ThenInclude(x => x.Image)
+            .Include(x => x.User)
+                .ThenInclude(x => x.Settings)
+            .Include(x => x.AccountRoles)
+            .Include(x => x.RefreshTokens)
+            .FirstOrDefault(x => x.Id == accountId);
+
+        if (account == null)
+        {
+            throw new AuthenticateException("Account is not exists");
+        }
+
+        if (account.User != null)
+        {
+            throw new AuthenticateException("User already finish registration complete");
+        }
+
+        account.User = new User
+        {
+            FirstName = registrationCompleteDto.FirstName,
+            LastName = registrationCompleteDto.LastName,
+            DateOfBirthday = registrationCompleteDto.Birthday,
+            Gender = registrationCompleteDto.Gender,
+            FullName = $"{registrationCompleteDto.FirstName} {registrationCompleteDto.LastName}",
+            PhoneNumber = registrationCompleteDto.PhoneNumber,
+            UserName = registrationCompleteDto.UserName,
+            Image = new Image(registrationCompleteDto.Avatar),
+            AccountId = account.Id,
+            Settings = new Settings
+            {
+                Language = registrationCompleteDto.Language,
+                Theme = registrationCompleteDto.Theme,
+            },
+        };
+
+        account.AccountRoles.Add(new AccountRole
+        {
+            RoleId = registrationCompleteDto.Role,
+        });
+
+        // TODO Add groups to user
+        _context.Accounts.Update(account);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<bool> CanRegisterAsync(string email)

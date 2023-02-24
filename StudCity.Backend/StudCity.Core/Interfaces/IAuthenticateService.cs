@@ -15,4 +15,6 @@ public interface IAuthenticateService
     Task ForgotPassword(string email);
 
     Task RecoveryPassword(string hashingAccountId, string password);
+
+    Task RegistrationCompleteAsync(RegistrationCompleteDto registrationCompleteDto);
 }
