@@ -26,7 +26,6 @@ jobs:
         run: | 
             cd StudCity.Backend 
             dotnet build --configuration Release
-
       - name: dotnet publish
         run: |
             cd StudCity.Backend
