@@ -6,6 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="12.0.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
           <PrivateAssets>all</PrivateAssets>
@@ -17,6 +19,12 @@
 
     <ItemGroup>
         <ProjectReference Include="..\StudCity.Core\StudCity.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
+        <HintPath>..\..\..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\6.0.10\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

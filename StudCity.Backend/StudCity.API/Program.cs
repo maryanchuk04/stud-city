@@ -1,6 +1,10 @@
 using System.Reflection;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using StudCity.API.Mapping;
 using StudCity.Application.Helpers;
 using StudCity.Application.Providers;
 using StudCity.Application.Services;
@@ -8,6 +12,7 @@ using StudCity.Core.ConfigurationModels;
 using StudCity.Core.Interfaces;
 using StudCity.Core.Interfaces.Infrastructure;
 using StudCity.Core.Interfaces.Providers;
+using StudCity.Db.Bridge;
 using StudCity.Db.Context;
 using StudCity.Infrastructure.Configuration;
 using StudCity.Infrastructure.MailSender;
@@ -39,6 +44,9 @@ builder.Services.AddScoped<IPinGenerator, PinGenerator>();
 builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<IMailClient, MailClient>();
 builder.Services.AddScoped<ICryptographer, Base64Cryptographer>();
+builder.Services.AddSingleton<ISecurityContext, SecurityContext>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddAutoMapper(typeof(RegistrationCompleteMapperProfile).GetTypeInfo().Assembly);
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -67,6 +75,36 @@ builder.Services.AddSwaggerGen(options =>
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateActor = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+    };
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var accessToken = context.Request.Query["access_token"];
+            var path = context.HttpContext.Request.Path;
+            if (!string.IsNullOrEmpty(accessToken) &&
+                path.StartsWithSegments("/chatRoom"))
+            {
+                context.Token = accessToken;
+            }
+
+            return Task.CompletedTask;
+        },
+    };
+});
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
@@ -77,7 +115,7 @@ app.UseSwaggerUI();
 if (app.Environment.IsDevelopment())
 {
 }
-
+app.UseRouting();
 app.UseSwagger();
 app.UseCors(x =>
 {
@@ -89,12 +127,15 @@ app.UseCors(x =>
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute("default", "{controller}/{action=Index}/{id?}");
+});
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.UseHttpsRedirection();
-
-app.MapControllers();
 
 app.Run();
