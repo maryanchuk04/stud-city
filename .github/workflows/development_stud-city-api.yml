@@ -29,7 +29,7 @@ jobs:
       - name: dotnet publish
         run: |
           cd StudCity.Backend
-          dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+          dotnet publish StudCity.API -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish StudCity.Application -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish StudCity.Core -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish StudCity.Db -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish StudCity.Infrastructure -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
