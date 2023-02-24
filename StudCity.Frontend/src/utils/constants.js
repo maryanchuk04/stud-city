@@ -46,7 +46,66 @@ export const getRegisterCompleteDefautlData = (defaultData) => {
 		},
 		avatar: "",
 		role: "",
-		groups: {},
+		groups: [],
 		settings: {}
 	}
 }
+
+export const GROUP_MOCK = [
+	{
+		id: "1",
+		name: "Математичний факультет ЧНУ",
+		usersCount: 442,
+		isPrivate: false,
+		image: "http://sun9-84.userapi.com/impf/c622929/v622929981/3d979/dSo2RuYjyCM.jpg?size=600x437&quality=96&sign=225909c72a4e04805890508898b50503&type=album"
+	},
+	{
+		id: "2",
+		name: "Юридичний факультет ЧНУ",
+		usersCount: 341,
+		isPrivate: false,
+		image: "https://law.chnu.edu.ua/wp-content/uploads/2021/04/yurfak-chnu-building.jpg"
+	},
+	{
+		id: "3",
+		name: "Айтішніки ЧНУ",
+		usersCount: 442,
+		isPrivate: false,
+		image: "https://cdn.seeklearning.com.au/media/images/career-guide/module/programmer.jpg"
+	},
+	{
+		id: "4",
+		name: "ЧНУ official",
+		usersCount: 2542,
+		isPrivate: false,
+		image: "https://bukinfo.com.ua/news-gallery/62dff9fe557e0.jpg"
+	},
+	{
+		id: "5",
+		name: "Викладачі Математичний Факультет",
+		usersCount: 442,
+		isPrivate: true,
+		image: "https://bukinfo.com.ua/news-gallery/62dff9fe557e0.jpg"
+	},
+	{
+		id: "6",
+		name: "Математичний факультет ЧНУ",
+		usersCount: 442,
+		isPrivate: false,
+		image: "https://bukinfo.com.ua/news-gallery/62dff9fe557e0.jpg"
+	},
+	{
+		id: "7",
+		name: "СтудПарламент ЧНУ",
+		usersCount: 1230,
+		isPrivate: false,
+		image: "https://bukinfo.com.ua/news-gallery/62dff9fe557e0.jpg"
+	},
+	{
+		id: "8",
+		name: "Новини Матфаку",
+		usersCount: 201,
+		isPrivate: false,
+		image: "https://bukinfo.com.ua/news-gallery/62dff9fe557e0.jpg"
+	}
+]

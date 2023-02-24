@@ -18,6 +18,7 @@ import UploadAvatar from "./steps/UploadAvatar"
 import StepperControll from "../../components/Stepper/StepperControll";
 import Container from "../../components/Container";
 import ChooseRole from "./steps/ChooseRole";
+import ChooseGroups from "./steps/ChooseGroups";
 
 const RegistrationComplete = () => {
 	const dispatch = useDispatch();
@@ -64,6 +65,11 @@ const RegistrationComplete = () => {
 				return <ChooseRole
 					role={state.role}
 					setRole={(data) => setState({ ...state, role: data })}
+				/>
+			case 4:
+				return <ChooseGroups
+					groups={state.groups}
+					setGroups={(data) => setState({ ...state, groups: data })}
 				/>
 			default:
 				return <></>;
