@@ -22,10 +22,6 @@ export const REGISTER_COMPLETE_STEPS = [
 	{
 		title: "Groups",
 		description: "You can immediately apply to be added to different groups."
-	},
-	{
-		title: "Settings",
-		description: "Select site settings. (You can change them at any time)"
 	}
 ]
 
