@@ -74,11 +74,11 @@ builder.Services.AddSwaggerGen(options =>
     });
 //    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
 //    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
-    options.DocumentFilter<ApplyDocumentExtension>();
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
+//    options.DocumentFilter<ApplyDocumentExtension>();
+//    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+//    var xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
 
-    options.IncludeXmlComments(xmlPath);
+  //  options.IncludeXmlComments(xmlPath);
 });
 builder.Services.AddSwaggerGenNewtonsoftSupport();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
