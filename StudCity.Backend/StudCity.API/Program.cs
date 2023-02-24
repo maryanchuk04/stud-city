@@ -115,7 +115,7 @@ app.UseSwaggerUI();
 if (app.Environment.IsDevelopment())
 {
 }
-
+app.UseStaticFiles();
 app.UseRouting();
 app.UseSwagger();
 app.UseCors(x =>
@@ -136,6 +136,8 @@ app.UseEndpoints(endpoints =>
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
+
+app.MapFallbackToFile("index.html");
 
 app.UseHttpsRedirection();
 
