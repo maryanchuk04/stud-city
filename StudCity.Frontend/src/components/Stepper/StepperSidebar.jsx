@@ -25,7 +25,7 @@ const StepperSidebar = ({ labels, activeStep }) => {
 						{index + 1 < activeStep ? (
 							<hr className="border-0 border-l-2 h-16 ml-3 border-primaryGold opacity-50 " />
 						) : (
-							index !== 4 && (
+							index !== 3 && (
 								<hr className="border-0 border-l-2 h-16 ml-3 border-white opacity-50" />
 							)
 						)}
