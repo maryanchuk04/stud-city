@@ -80,7 +80,7 @@ builder.Services.AddSwaggerGen(options =>
 
     options.IncludeXmlComments(xmlPath);
 });
-
+builder.Services.AddSwaggerGenNewtonsoftSupport();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters()
