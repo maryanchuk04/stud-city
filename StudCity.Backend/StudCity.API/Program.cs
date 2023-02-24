@@ -115,7 +115,7 @@ app.UseSwaggerUI();
 if (app.Environment.IsDevelopment())
 {
 }
-
+app.UseRouting();
 app.UseSwagger();
 app.UseCors(x =>
 {
@@ -127,12 +127,15 @@ app.UseCors(x =>
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute("default", "{controller}/{action=Index}/{id?}");
+});
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.UseHttpsRedirection();
-
-app.MapControllers();
 
 app.Run();
