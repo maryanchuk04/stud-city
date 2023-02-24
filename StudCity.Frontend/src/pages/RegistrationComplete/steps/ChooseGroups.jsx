@@ -15,8 +15,7 @@ const ChooseGroups = ({ groups, setGroups }) => {
 
 	const handleClick = (id) => {
 		if (groups.includes(id)) {
-			setGroups(groups.filter(_ => _.id !== id));
-			console.log("WORK")
+			setGroups(groups.filter(group => group !== id));
 			return;
 		}
 		setGroups([...groups, id]);
@@ -32,23 +31,20 @@ const ChooseGroups = ({ groups, setGroups }) => {
 			<h1 className="text-4xl text-center mb-6">Choose your first groups</h1>
 			{allGroups.length ? <div className='flex flex-wrap gap-2 items-center justify-center'>
 				{allGroups.map((group) => {
-					const [isActive, setIsActive] = useState(groups.includes(group.id));
-
-					const click = () => {
-						setIsActive(!isActive);
-						handleClick(group.id);
-					}
-
+					const isActive = groups.includes(group.id);
 					return <GroupCard key={group.id}
 						group={group}
 						isActive={isActive}
-						handleClick={click}
+						handleClick={handleClick}
 					/>
 				})
 				}
-				<IconButton className='my-2' onClick={fetchGroups}>
-					<i className="fa-solid fa-rotate-right"></i>
-				</IconButton>
+				<div className='flex flex-col justify-center items-center'>
+					{groups.length !== 0 && <h2 className='my-2 text-xl'>Selected: {groups.length}</h2>}
+					<IconButton className='my-2' onClick={fetchGroups}>
+						<i className="fa-solid fa-rotate-right"></i>
+					</IconButton>
+				</div>
 			</div> : <Spinner />}
 		</div>
 	)

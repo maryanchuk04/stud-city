@@ -51,7 +51,7 @@ const RegistrationComplete = () => {
 	// TODO Add your component to switch statement
 	const renderSteps = () => {
 		switch (activeStep) {
-			case 4:
+			case 1:
 				return <UserInformation
 					userInformation={state.userInformation}
 					setUserInformation={(data) => setState({ ...state, userInformation: data })}
@@ -66,7 +66,7 @@ const RegistrationComplete = () => {
 					role={state.role}
 					setRole={(data) => setState({ ...state, role: data })}
 				/>
-			case 1:
+			case 4:
 				return <ChooseGroups
 					groups={state.groups}
 					setGroups={(data) => setState({ ...state, groups: data })}
@@ -79,7 +79,7 @@ const RegistrationComplete = () => {
 	const stepValidator = () => {
 		//add your validators
 		switch (activeStep) {
-			case 4:
+			case 1:
 				return registerCompleteUserInformationValidator(state.userInformation);
 			case 2:
 				return registerCompleteAvatarValidator(state.avatar);
