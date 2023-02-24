@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StudCity.API.Mapping;
+using StudCity.API.SwaggerSettings;
 using StudCity.Application.Helpers;
 using StudCity.Application.Providers;
 using StudCity.Application.Services;
@@ -71,8 +72,13 @@ builder.Services.AddSwaggerGen(options =>
             new List<string>()
         },
     });
-    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+//    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+//    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+    options.DocumentFilter<ApplyDocumentExtension>();
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+    options.IncludeXmlComments(xmlPath);
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
