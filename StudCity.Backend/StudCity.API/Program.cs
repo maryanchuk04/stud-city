@@ -27,7 +27,7 @@ builder.Services.AddSingleton(mailConfig);
 // Add services to the container.
 var jwtConfiguration = new JwtConfiguration();
 builder.Configuration.GetSection("Jwt").Bind(jwtConfiguration);
-
+builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton(jwtConfiguration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -111,10 +111,6 @@ var app = builder.Build();
 
 app.UseSwaggerUI();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-}
 app.UseStaticFiles();
 app.UseRouting();
 app.UseSwagger();
