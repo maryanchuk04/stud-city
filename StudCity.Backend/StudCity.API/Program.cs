@@ -23,11 +23,10 @@ var builder = WebApplication.CreateBuilder(args);
 var mailConfig = new MailSenderConfiguration();
 builder.Configuration.GetSection("MailClient").Bind(mailConfig);
 builder.Services.AddSingleton(mailConfig);
-
+builder.Services.AddControllersWithViews();
 // Add services to the container.
 var jwtConfiguration = new JwtConfiguration();
 builder.Configuration.GetSection("Jwt").Bind(jwtConfiguration);
-builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton(jwtConfiguration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -72,10 +71,9 @@ builder.Services.AddSwaggerGen(options =>
             new List<string>()
         },
     });
-    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
+builder.Services.AddSwaggerGenNewtonsoftSupport();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters()
@@ -110,7 +108,12 @@ builder.Services.AddAuthorization();
 var app = builder.Build();
 
 app.UseSwaggerUI();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+}
 
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseSwagger();
@@ -135,6 +138,6 @@ app.MapControllerRoute(
 
 app.MapFallbackToFile("index.html");
 
-app.UseHttpsRedirection();
+
 
 app.Run();
