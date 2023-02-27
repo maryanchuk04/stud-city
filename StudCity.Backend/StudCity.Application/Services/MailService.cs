@@ -1,3 +1,4 @@
+using StudCity.Core.ConfigurationModels;
 using StudCity.Core.Interfaces;
 using StudCity.Core.Interfaces.Infrastructure;
 
@@ -5,14 +6,16 @@ namespace StudCity.Application.Services;
 
 public class MailService : IMailService
 {
+    private readonly AppConfigurationModel _appConfiguration;
     private const string FromEmail = "lion20914king@gmail.com";
     private const string FromName = "StudCityAccount";
 
     private readonly IMailClient _mailClient;
 
-    public MailService(IMailClient mailClient)
+    public MailService(IMailClient mailClient, AppConfigurationModel appConfiguration)
     {
         _mailClient = mailClient;
+        _appConfiguration = appConfiguration;
     }
 
     public async Task SendRegistrationMessageAsync(string email, string token)
@@ -40,8 +43,9 @@ public class MailService : IMailService
     public async Task SendForgotPasswordMessage(string email, string codedId)
     {
         const string subject = "Forgot password";
-        string htmlContent = "<h5>If you really want to change your password, follow the link</h5><br/>" +
-                             $"<a href = 'http://localhost:3000/recover-password/{codedId}'>Link!</a>";
+        using var streamReader = File.OpenText($"./Templates/ForgotPassword.html");
+        var fileContent = await streamReader.ReadToEndAsync();
+        string htmlContent = string.Format(fileContent, $"{_appConfiguration.FrontendPath}/recovery-password/{codedId}");
 
         await _mailClient.SendHtmlMessageAsync(subject, htmlContent, FromEmail, email, FromName);
     }

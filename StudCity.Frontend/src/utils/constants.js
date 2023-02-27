@@ -1,6 +1,6 @@
 export const DEFAULT_AVATAR_URL = "/images/defaultAvatar.png";
 
-export const REGISTER_COMPLETE_STEPS_COUNT = 5;
+export const REGISTER_COMPLETE_STEPS_COUNT = 4;
 
 export const GENDERS = [
 	"male", "female", "other"
@@ -36,7 +36,7 @@ export const getRegisterCompleteDefautlData = (defaultData) => {
 			firstName: defaultData.userInformation.firstName || "",
 			lastName: defaultData.userInformation.lastName || "",
 			userName: defaultData.userInformation.userName || "",
-			gender: defaultData.userInformation.gender || 1,
+			gender: defaultData.userInformation.gender || "male",
 			phoneNumber: defaultData.userInformation.phoneNumber || "+380",
 			birthday: defaultData.userInformation.birthday || "",
 		},

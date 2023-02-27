@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Button from '../../UI/Button'
+import { REGISTER_COMPLETE_STEPS_COUNT } from '../../utils/constants'
 import StepperStrip from './StepperStrip'
 
 const StepperControll = ({ className, activeStep, handleNext, handlePrevious, nextStepIsValid }) => {
@@ -20,7 +21,7 @@ const StepperControll = ({ className, activeStep, handleNext, handlePrevious, ne
 				onClick={handleNext}
 				disabled={nextStepIsValid}
 			>
-				{activeStep !== 5 ? "Next" : "Finish"}
+				{activeStep !== REGISTER_COMPLETE_STEPS_COUNT ? "Next" : "Finish"}
 			</Button>
 		</div>
 	)

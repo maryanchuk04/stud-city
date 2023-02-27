@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthenticateService } from "../../services/authenticateService";
 import { emailValidator } from "../../utils/validators/validators";
 import Label from "../../UI/Label";
@@ -31,16 +31,15 @@ function Authenticate() {
 	return (
 		<div className="w-1/1 h-screen flex">
 			<div className="w-1/2 h-screen flex bg-primatyWhite">
-				<div className="container flex flex-col w-2/3 m-auto h-4/5 justify-between bg-primatyWhite rounded-3xl p-11 shadow-md ">
-					<h1 className="w-full text-center font-bold text-2xl text-primaryAuthentication">Welcome back</h1>
-					<h6 className="w-full text-center font-normal text-lg text-primaryAuthentication">Please enter your details</h6>
+				<div className="container flex flex-col w-2/3 m-auto h-4/5 justify-between bg-primatyWhite rounded-3xl p-11 py-20 shadow-md ">
+					<h1 className="w-full text-center font-bold text-4xl text-primaryAuthentication">Welcome back</h1>
 					<form className="flex flex-col w-1/1" onSubmit={handleSubmit}>
 						<Label>Email</Label>
 						<ValidateTextField
 							placeholder="Enter your email"
-							required={true}
 							value={formState.email}
 							withErrorMessage={true}
+							setDisabled={setDisabled}
 							validator={emailValidator}
 							onChange={(value) => setFormState({ ...formState, email: value })}
 						/>
@@ -48,14 +47,14 @@ function Authenticate() {
 						<PasswordTextField
 							placeholder="Enter your password"
 							type="password"
-							required={true}
 							value={formState.password}
 							setDisabled={setDisabled}
 							onChange={(event) => setFormState({ ...formState, password: event.target.value })}
 						/>
 						<Link to="/forgot-password" className="w-full text-center ml-1 font-medium text-base text-primaryAuthentication" href="">Forgot password</Link>
 						<Button
-							disabled={disabled}
+							disabled={disabled || formState.email === "" || formState.password === ""}
+							className="disabled:opacity-50"
 						>Submit</Button>
 						<div className="flex justify-between my-2 items-center">
 							<hr className="w-[40%] h-0.5 bg-[#D1D7D4] ml-3" />
@@ -64,7 +63,7 @@ function Authenticate() {
 						</div>
 						<GoogleButton />
 					</form>
-					<div className=" w-full text-center ml-1 mt-3 font-medium text-base"><a className="mr-1 cursor-pointer text-[#233a2a]">Don`t have an account?</a><span className="text-primaryAuthentication">Sign up</span></div>
+					<div className=" w-full text-center ml-1 mt-3 font-medium text-base"><Link to="/registration" className="mr-1 cursor-pointer text-[#233a2a]">Don`t have an account?<span className="text-primaryRegistration ml-2">Sign up</span></Link></div>
 				</div>
 			</div>
 			<div className="w-1/2 h-screen ">

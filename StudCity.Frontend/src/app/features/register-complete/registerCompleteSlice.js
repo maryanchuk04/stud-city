@@ -7,7 +7,7 @@ const initialState = {
 		lastName: "",
 		userName: "",
 		email: "",
-		gender: 1,
+		gender: "male",
 		phoneNumber: "",
 		birthday: ""
 	},

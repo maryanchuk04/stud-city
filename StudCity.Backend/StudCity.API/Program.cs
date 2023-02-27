@@ -24,6 +24,9 @@ var mailConfig = new MailSenderConfiguration();
 builder.Configuration.GetSection("MailClient").Bind(mailConfig);
 builder.Services.AddSingleton(mailConfig);
 builder.Services.AddControllersWithViews();
+var appConfig = new AppConfigurationModel();
+builder.Configuration.GetSection("AppPath").Bind(appConfig);
+builder.Services.AddSingleton(appConfig);
 // Add services to the container.
 var jwtConfiguration = new JwtConfiguration();
 builder.Configuration.GetSection("Jwt").Bind(jwtConfiguration);
