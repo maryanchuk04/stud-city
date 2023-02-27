@@ -36,13 +36,13 @@ export const passwordMatchValidation = (password, confirmPassword) => {
 }
 
 export const numberValidation = (number) => {
-    const numberRegex = new RegExp("^[0-9]*$");
+	const numberRegex = new RegExp("^[0-9]*$");
 
-    if (numberRegex.test(number)) {
-        return number;
-    }
+	if (numberRegex.test(number)) {
+		return number;
+	}
 
-    return "";
+	return "";
 };
 
 export const phoneNumberValidator = (value) => {
@@ -54,12 +54,12 @@ export const phoneNumberValidator = (value) => {
 };
 
 export const emailValidator = (value) => {
-	if(value.trim() === "")
+	if (value.trim() === "")
 		return "Email must be not empty";
 
 	if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
 		return "Email must contain @ and domain";
 	}
-	
+
 	return "";
 }
