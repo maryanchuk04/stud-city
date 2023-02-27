@@ -65,6 +65,11 @@ export class AuthenticateService {
 			}
 		}
 		catch(err) {
+			if(err.status === 401) {
+				showAlert("You are not autorized!", "error");
+				window.location = "/authenticate";
+			}
+			
 			showAlert(err.response.data.error, "error");
 			return false;
 		}

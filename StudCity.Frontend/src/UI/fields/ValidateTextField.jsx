@@ -24,11 +24,9 @@ const ValidateTextField = ({
 					setDisable(false);
 			}
 
-
 			return;
 		}
 
-		// 
 		const value = validator(e.target.value);
 		if (setDisable) {
 			if (value.lenмgth === 0)
