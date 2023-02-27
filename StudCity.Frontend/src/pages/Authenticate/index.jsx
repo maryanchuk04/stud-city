@@ -39,7 +39,7 @@ function Authenticate() {
 							placeholder="Enter your email"
 							value={formState.email}
 							withErrorMessage={true}
-							setDisable={setDisabled}
+							setDisabled={setDisabled}
 							validator={emailValidator}
 							onChange={(value) => setFormState({ ...formState, email: value })}
 						/>

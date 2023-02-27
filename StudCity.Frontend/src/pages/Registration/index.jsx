@@ -58,7 +58,7 @@ function Registration() {
 							required={true}
 							value={formState.email}
 							withErrorMessage={true}
-							setDisable={setDisabled}
+							setDisabled={setDisabled}
 							validator={emailValidator}
 							onChange={handleChangeEmail}
 						/>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TextField from "./TextField";
 
 const ValidateTextField = ({
-	setDisable = null,
+	setDisabled = null,
 	validator,
 	withErrorMessage = true,
 	onChange,
@@ -17,22 +17,22 @@ const ValidateTextField = ({
 			const message = validator(e.target.value);
 			setErrorMessage(message);
 
-			if (setDisable) {
+			if (setDisabled) {
 				if (message.length !== 0)
-					setDisable(true);
+					setDisabled(true);
 				else
-					setDisable(false);
+					setDisabled(false);
 			}
 
 			return;
 		}
 
 		const value = validator(e.target.value);
-		if (setDisable) {
+		if (setDisabled) {
 			if (value.lenмgth === 0)
-				setDisable(true);
+				setDisabled(true);
 			else
-				setDisable(false);
+				setDisabled(false);
 		}
 
 		onChange(value);
