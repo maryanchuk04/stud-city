@@ -54,7 +54,7 @@ function Authenticate() {
 						<a className="w-full text-center ml-1 font-medium text-base text-primaryAuthentication" href="">Forgot password</a>
 						<Button
 							disabled={disabled || formState.email === "" || formState.password === ""}
-							className={"disabled:opacity-50"}
+							className="disabled:opacity-50"
 						>Submit</Button>
 						<div className="flex justify-between my-2 items-center">
 							<hr className="w-[40%] h-0.5 bg-[#D1D7D4] ml-3" />
