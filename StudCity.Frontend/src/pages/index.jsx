@@ -5,6 +5,8 @@ import Registration from './Registration';
 import RegistrationComplete from "./RegistrationComplete";
 import NotFound from "./NotFound"
 import VerifyEmail from "./Verify-email";
+import ForgotPassword from "./ForgotPassword";
+import RecoveryPassword from "./RecoveryPassword";
 
 export const routes = [
 	{
@@ -22,6 +24,14 @@ export const routes = [
 	{
 		path: '/registration-complete',
 		element: <RegistrationComplete />
+	},
+	{
+		path: '/forgot-password',
+		element: <ForgotPassword />
+	},
+	{
+		path: '/recovery-password/:accountId',
+		element: <RecoveryPassword />
 	},
 	{
 		path: '/verify-email/:accountId',

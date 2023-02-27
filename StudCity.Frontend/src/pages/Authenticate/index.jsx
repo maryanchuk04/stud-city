@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthenticateService } from "../../services/authenticateService";
 import { emailValidator } from "../../utils/validators/validators";
 import Label from "../../UI/Label";
@@ -53,7 +53,7 @@ function Authenticate() {
 							setDisabled={setDisabled}
 							onChange={(event) => setFormState({ ...formState, password: event.target.value })}
 						/>
-						<a className="w-full text-center ml-1 font-medium text-base text-primaryAuthentication" href="">Forgot password</a>
+						<Link to="/forgot-password" className="w-full text-center ml-1 font-medium text-base text-primaryAuthentication" href="">Forgot password</Link>
 						<Button
 							disabled={disabled}
 						>Submit</Button>
