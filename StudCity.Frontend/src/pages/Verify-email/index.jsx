@@ -2,29 +2,41 @@ import React, { useState } from "react";
 import TextField from "../../UI/fields/TextField";
 import { numberValidation } from "../../utils/validators/validators";
 import Svg from "../../components/Svg";
+import { AuthenticateService } from "../../services/authenticateService";
+import { useParams, useNavigate } from "react-router-dom";
 
 function VerifyEmail() {
-	const [verifyNumbersArray, setVerifyNumbersArray] = useState([ "", "", "", "", "", "" ]);
+	const service = new AuthenticateService();
+	const accountId = useParams().accountId;
+	const navigate = useNavigate();
+
+	const [verifyNumbersArray, setVerifyNumbersArray] = useState(["", "", "", "", "", ""]);
 
 	const handleChangeNumber = (e, index) => {
 		verifyNumbersArray[index] = numberValidation(e.target.value);
 		setVerifyNumbersArray([...verifyNumbersArray]);
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		verifyNumbersArray.join("");
+
+		const isOK = await service.verifyRegistration({
+			accountId: accountId,
+			verificationToken: verifyNumbersArray.join("")
+		});
+
+		if (isOK)
+			navigate("/registration-complete");
 	};
 
 	return (
 		<div className="w-full h-screen flex relative text-center">
-			<div className="w-6/12 h-screen relative bg-white">
+			<div className="w-full h-screen relative bg-white">
 				<Svg
 					type="verifyWave"
-					className="rotate-[270deg] w-full absolute -left-[45%] top-[39%]"
+					className="object-cover h-full w-full"
 				/>
 			</div>
-			<div className="w-6/12 h-screen bg-[#453e35]"></div>
 			<div className="w-[70%] shadow-md h-5/6 bg-white z-10 mx-auto my-0 absolute left-[15%] top-[8%] text-center">
 				<Svg type="verifyEmail" className="w-[23%] mx-auto my-8" />
 				<h1 className="text-4xl font-medium my-6">

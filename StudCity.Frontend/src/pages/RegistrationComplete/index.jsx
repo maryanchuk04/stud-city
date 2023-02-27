@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom"
 import {
 	selectActiveStep,
 	changeActiveState,
@@ -19,9 +20,12 @@ import StepperControll from "../../components/Stepper/StepperControll";
 import Container from "../../components/Container";
 import ChooseRole from "./steps/ChooseRole";
 import ChooseGroups from "./steps/ChooseGroups";
+import { AuthenticateService } from "../../services/authenticateService";
 
 const RegistrationComplete = () => {
+	const service = new AuthenticateService();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const activeStep = useSelector(selectActiveStep);
 	const defaultData = useSelector(selectRegisterCompleteDefaultInfo);
@@ -33,11 +37,19 @@ const RegistrationComplete = () => {
 		setValid(stepValidator());
 	}, [state, activeStep])
 
-	const handleNext = () => {
+	const handleNext = async () => {
 		dispatch(changeRegisterCompleteState(state));
 		if (activeStep === REGISTER_COMPLETE_STEPS_COUNT) {
-			// TODO Redirect to profile
-			dispatch(changeActiveState(1));
+			const isOK = await service.registrationComplete({
+				...state.userInformation,
+				...state
+			});
+			if (isOK) {
+				setTimeout(() => navigate('/profile'), 4000);
+				dispatch(changeRegisterCompleteState(defaultData));
+			}
+
+
 			return;
 		}
 
@@ -47,8 +59,7 @@ const RegistrationComplete = () => {
 	const handlePrevious = () => {
 		dispatch(changeActiveState(activeStep - 1));
 	};
-
-	// TODO Add your component to switch statement
+	
 	const renderSteps = () => {
 		switch (activeStep) {
 			case 1:
@@ -77,7 +88,6 @@ const RegistrationComplete = () => {
 	};
 
 	const stepValidator = () => {
-		//add your validators
 		switch (activeStep) {
 			case 1:
 				return registerCompleteUserInformationValidator(state.userInformation);

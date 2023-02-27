@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudCity.API.Extensions;
 using StudCity.API.ViewModels;
@@ -110,7 +111,7 @@ public class AuthenticateController : ControllerBase
     /// <param name="password">New account password.</param>
     /// <response code = '200'>Successfully changed password.</response>
     /// <response code = '400'>Something went wrong.</response>
-    [HttpGet("/recovery-password/{id}/{password}")]
+    [HttpGet("recovery-password/{id}/{password}")]
     public async Task<IActionResult> RecoveryPassword(string id, string password)
     {
         try
@@ -129,7 +130,7 @@ public class AuthenticateController : ControllerBase
     /// </summary>
     /// <param name="email">Account email.</param>
     /// <response code ='200'>When recover link was send to email.</response>
-    [HttpGet("/forgot-password/{email}")]
+    [HttpGet("forgot-password/{email}")]
     public async Task<IActionResult> ForgotPassword(string email)
     {
         try
@@ -148,11 +149,15 @@ public class AuthenticateController : ControllerBase
     /// </summary>
     /// <param name="registrationCompleteViewModel">Model which contain all data about user.</param>
     /// <response code ='200'>When user was created.</response>
-    [HttpPost("/registration-complete")]
+    [Authorize]
+    [HttpPost("registration-complete")]
     public async Task<IActionResult> RegistrationComplete([FromBody] RegistrationCompleteViewModel registrationCompleteViewModel)
     {
         try
         {
+            if (await _authenticateService.ExistUserName(registrationCompleteViewModel.UserName))
+                return BadRequest(new ErrorResponseModel($"{registrationCompleteViewModel.UserName} username is already taken!"));
+
             await _authenticateService.RegistrationCompleteAsync(
                 _mapper.Map<RegistrationCompleteViewModel, RegistrationCompleteDto>(registrationCompleteViewModel));
             return Ok();

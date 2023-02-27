@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Label from "../../UI/Label";
 import ValidateTextField from "../../UI/fields/ValidateTextField";
 import PasswordTextField from "../../UI/fields/PasswordTextField";
@@ -12,12 +12,12 @@ function Registration() {
 	const navigate = useNavigate('');
 	const service = new AuthenticateService();
 
-	const [disabled, setDisabled] = useState(false)
+	const [disabled, setDisabled] = useState(false);
 	const [formState, setFormState] = useState({
 		email: "",
 		password: "",
 		confirmPassword: ""
-	})
+	});
 
 	const handleChangeEmail = (value) => {
 		setFormState({ ...formState, email: value });
@@ -58,6 +58,7 @@ function Registration() {
 							required={true}
 							value={formState.email}
 							withErrorMessage={true}
+							setDisable={setDisabled}
 							validator={emailValidator}
 							onChange={handleChangeEmail}
 						/>
@@ -84,8 +85,8 @@ function Registration() {
 							validate={passwordMatchValidation}
 						/>
 						<Button
-							disabled={disabled}
-							className={"bg-primaryRegistration"}
+							disabled={disabled || formState.email === "" || formState.password === "" || formState.confirmPassword === ""}
+							className={"bg-primaryRegistration disabled:opacity-50"}
 						>Submit</Button>
 						<div className="flex justify-between my-2 items-center">
 							<hr className="w-[40%] h-0.5 bg-[#D1D7D4] ml-3" />
@@ -94,7 +95,7 @@ function Registration() {
 						</div>
 						<GoogleButton className={"text-primaryRegistration border-primaryRegistration"} />
 					</form>
-					<div className=" w-full text-center ml-1 mt-3 font-medium text-base"><a className="mr-1 cursor-pointer text-[#233a2a]">If you have account?</a><span className="text-primaryRegistration">Sign in</span></div>
+					<div className=" w-full text-center ml-1 mt-3 font-medium text-base"><Link to="/authenticate" className="mr-1 cursor-pointer text-[#233a2a]">If you have account?<span className="text-primaryRegistration ml-2">Sign in</span></Link></div>
 				</div>
 			</div>
 		</div>

@@ -10,7 +10,7 @@ public class RegistrationCompleteViewModel
 
     public string UserName { get; set; }
 
-    public Gender Gender { get; set; }
+    public string Gender { get; set; }
 
     public string PhoneNumber { get; set; }
 
@@ -18,7 +18,7 @@ public class RegistrationCompleteViewModel
 
     public DateTime Birthday { get; set; }
 
-    public Role Role { get; set; }
+    public string Role { get; set; }
 
     public List<Guid> Groups { get; set; }
 

@@ -182,6 +182,13 @@ public class AuthenticateServices : IAuthenticateService
         await _context.SaveChangesAsync();
     }
 
+    public async Task<bool> ExistUserName(string userName)
+    {
+        return await _context.Accounts
+            .Include(x=>x.User)
+            .AnyAsync(x => x.User.UserName == userName);
+    }
+
     public async Task<bool> CanRegisterAsync(string email)
     {
         return await _context.Accounts.AnyAsync(x => x.Email == email);
