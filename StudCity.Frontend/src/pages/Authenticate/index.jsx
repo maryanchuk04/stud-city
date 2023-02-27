@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthenticateService } from "../../services/authenticateService";
 import { emailValidator } from "../../utils/validators/validators";
 import Label from "../../UI/Label";
