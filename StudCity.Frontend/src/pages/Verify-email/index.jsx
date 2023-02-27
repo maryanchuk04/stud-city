@@ -7,22 +7,48 @@ import { useParams, useNavigate } from "react-router-dom";
 
 function VerifyEmail() {
 	const service = new AuthenticateService();
-	const accountId = useParams().accountId;
+	const { accountId } = useParams();
 	const navigate = useNavigate();
 
-	const [verifyNumbersArray, setVerifyNumbersArray] = useState(["", "", "", "", "", ""]);
+	const [verifyCode, setVerifyCode] = useState("");
+
+	const replaceByIndex = (str, index, symbol) => {
+		let tempStr = str;
+		if (index > tempStr.length) {
+			tempStr += ' '.repeat(index - tempStr.length);
+		}
+
+		tempStr = tempStr.slice(0, index) + symbol + tempStr.slice(index + 1);
+		console.log(tempStr);
+		return tempStr;
+	}
 
 	const handleChangeNumber = (e, index) => {
-		verifyNumbersArray[index] = numberValidation(e.target.value);
-		setVerifyNumbersArray([...verifyNumbersArray]);
-	};
+		const temp = verifyCode;
+		const code = numberValidation(e.target.value);
+
+		if (e.target.value === "") {
+			setVerifyCode(replaceByIndex(temp, index, ""));
+			return;
+		}
+
+		if (!Number(code)) {
+			return;
+		}
+
+		setVerifyCode(replaceByIndex(temp, index, code));
+	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		if (!Number(verifyCode)) {
+			return;
+		}
+
 		const isOK = await service.verifyRegistration({
 			accountId: accountId,
-			verificationToken: verifyNumbersArray.join("")
+			verificationToken: verifyCode
 		});
 
 		if (isOK)
@@ -48,18 +74,19 @@ function VerifyEmail() {
 				</p>
 				<form onSubmit={handleSubmit}>
 					<div className="mx-auto w-[40%] my-0 flex justify-around items-center">
-						{verifyNumbersArray.map((item, index) => (
-							<TextField
+						{Array.from({ length: 6 }).map((item, index) => {
+
+							return <TextField
 								tabIndex={index}
 								key={index}
 								maxLength="1"
 								required={true}
 								onChange={(e) => handleChangeNumber(e, index)}
-								value={item}
 								type="text"
+								value={verifyCode[index] || ""}
 								className="w-14 rounded-none hover:border-stone-500 focus:border-stone-600 focus:outline-none text-4xl text-center h-24 bg-white"
 							/>
-						))}
+						})}
 					</div>
 					<button className="my-10 py-3 px-12 bg-[#453e35] hover:bg-stone-500 duration-300 font-medium text-white">
 						Verify & Continue
