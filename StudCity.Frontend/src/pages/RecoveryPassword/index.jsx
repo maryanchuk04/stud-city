@@ -11,7 +11,7 @@ function RecoveryPassword() {
 	const { accountId } = useParams();
 	const navigate = useNavigate();
 
-	const [disabled, setDisabled] = useState(false);
+	const [disabled, setDisabled] = useState(true);
 
 	const [formState, setFormState] = useState({
 		password: "",
@@ -30,11 +30,9 @@ function RecoveryPassword() {
 		event.preventDefault();
 
 		const isOK = await service.recoveryPassword({ id: accountId, password: formState.password });
-
-		if (isOK) {
-			setTimeout(() => navigate("/authenticate"), 2000);
-		}
-		else setTimeout(() => navigate("/forgot-password"), 2000);
+		setTimeout(() => {
+			navigate(isOK ? "/authenticate" : "forgot-password");
+		}, 2000);
 	}
 
 	return (
@@ -73,10 +71,7 @@ function RecoveryPassword() {
 						confirmationValue={formState.password}
 						validate={passwordMatchValidation}
 					/>
-					<Button disabled={disabled
-						|| formState.password.length <= 8
-						|| formState.confirmPassword.length <= 8
-					} >Submit</Button>
+					<Button disabled={disabled}>Submit</Button>
 				</form>
 			</div>
 

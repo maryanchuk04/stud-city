@@ -49,7 +49,6 @@ public class AuthenticateController : ControllerBase
 
             var accountId = await _authenticateService.RegistrationBeginAsync(
                 authenticateViewModel.Email, authenticateViewModel.Password);
-
             return Ok(new { accountId });
         }
         catch (AuthenticateException e)

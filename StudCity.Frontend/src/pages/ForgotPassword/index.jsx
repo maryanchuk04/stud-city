@@ -39,7 +39,6 @@ function ForgotPassword() {
 				<form className="w-96 h-80 m-auto" onSubmit={handleSubmit}>
 					<ValidateTextField
 						placeholder="Enter your email"
-						required={true}
 						value={email}
 						withErrorMessage={true}
 						validator={emailValidator}

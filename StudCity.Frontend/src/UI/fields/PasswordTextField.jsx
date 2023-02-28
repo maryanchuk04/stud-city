@@ -21,6 +21,9 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled,
 				setDisabled(true);
 			}
 
+			if (evnt.target.value.length <= 8 || confirmationValue.length <= 8)
+				setDisabled(true);
+
 			setPasswordError(errMsg);
 		}
 	}
