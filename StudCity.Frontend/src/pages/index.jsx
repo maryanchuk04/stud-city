@@ -7,6 +7,10 @@ import NotFound from "./NotFound"
 import VerifyEmail from "./Verify-email";
 import ForgotPassword from "./ForgotPassword";
 import RecoveryPassword from "./RecoveryPassword";
+import ProtectedRoute from "../components/ProtectedRoute";
+import { TokenService } from "../services/tokenService";
+
+const tokenService = new TokenService();
 
 export const routes = [
 	{
@@ -23,7 +27,9 @@ export const routes = [
 	},
 	{
 		path: '/registration-complete',
-		element: <RegistrationComplete />
+		element: <ProtectedRoute protectWhen={tokenService.getToken()} redirectTo="/authenticate">
+			<RegistrationComplete />
+		</ProtectedRoute>
 	},
 	{
 		path: '/forgot-password',
