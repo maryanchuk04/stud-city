@@ -123,6 +123,10 @@ public class AuthenticateController : ControllerBase
         {
             return BadRequest(new ErrorResponseModel(e.Message));
         }
+        catch (DecodeException e)
+        {
+            return BadRequest(new ErrorResponseModel("Something went wrong!", e.Message));
+        }
     }
 
     /// <summary>

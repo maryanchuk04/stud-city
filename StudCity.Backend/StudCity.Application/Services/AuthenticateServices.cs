@@ -165,17 +165,10 @@ public class AuthenticateServices : IAuthenticateService
             UserName = registrationCompleteDto.UserName,
             Image = new Image(registrationCompleteDto.Avatar),
             AccountId = account.Id,
-            Settings = new Settings
-            {
-                Language = registrationCompleteDto.Language,
-                Theme = registrationCompleteDto.Theme,
-            },
+            Settings = new Settings { Language = registrationCompleteDto.Language, Theme = registrationCompleteDto.Theme, },
         };
 
-        account.AccountRoles.Add(new AccountRole
-        {
-            RoleId = registrationCompleteDto.Role,
-        });
+        account.AccountRoles.Add(new AccountRole { RoleId = registrationCompleteDto.Role, });
 
         // TODO Add groups to user
         _context.Accounts.Update(account);
@@ -185,7 +178,7 @@ public class AuthenticateServices : IAuthenticateService
     public async Task<bool> ExistUserName(string userName)
     {
         return await _context.Accounts
-            .Include(x=>x.User)
+            .Include(x => x.User)
             .AnyAsync(x => x.User.UserName == userName);
     }
 

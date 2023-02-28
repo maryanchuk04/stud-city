@@ -68,8 +68,34 @@ export class AuthenticateService {
 			if(err.status === 401) {
 				showAlert("You are not autorized!", "error");
 				window.location = "/authenticate";
+				return false;
 			}
 			
+			showAlert(err.response.data.error, "error");
+			return false;
+		}
+	}
+
+	async forgotPassword(email) {
+		try {
+			const response = await this.service.get(`${this.authUrl}/forgot-password/${email}`);
+			response.status === 200 && showAlert("An email with a link to reset your password has been sent to your email", "success");
+		}
+		catch(err) {
+			showAlert(err.response.data.error, "error");
+		}
+	}
+
+	async recoveryPassword({ id, password }) {
+		try {
+			const response = await this.service.get(`${this.authUrl}/recovery-password/${id}/${password}`);
+
+			if (response.status === 200) {
+				showAlert("Your password was successfuly changed", "success");
+				return true;
+			}
+		} 
+		catch (err) {
 			showAlert(err.response.data.error, "error");
 			return false;
 		}

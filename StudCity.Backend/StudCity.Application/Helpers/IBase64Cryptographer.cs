@@ -1,4 +1,5 @@
 using System.Text;
+using StudCity.Core.Exceptions;
 using StudCity.Core.Interfaces;
 
 namespace StudCity.Application.Helpers;
@@ -12,6 +13,13 @@ public class Base64Cryptographer : ICryptographer
 
     public string Decode(string codedWord)
     {
-        return Encoding.UTF8.GetString(Convert.FromBase64String(codedWord));
+        try
+        {
+            return Encoding.UTF8.GetString(Convert.FromBase64String(codedWord));
+        }
+        catch (FormatException e)
+        {
+            throw new DecodeException(e.Message);
+        }
     }
 }
