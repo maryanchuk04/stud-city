@@ -37,17 +37,18 @@ export class AuthenticateService {
 	}
 
 	async verifyRegistration({ accountId, verificationToken }) {
-		try{
+		try {
 			const verificationResponse = await this.service.put(`${this.authUrl}/verify-token/${accountId}/${verificationToken}`);
 			if (verificationResponse.status === STATUS_OK) {
 				this.tokenService.setToken(verificationResponse.data.token);
-				return true;
-			}
+			}	
+
+			return true;
 		}
 		catch(err) {
-			showAlert(err.response.data.error, "error");
-			return false;
+			showAlert(err.response.data.error, "error");	
 		}
+		return false;
 	} 
 
 	// params { firtsName, lastName, userName, gender, phoneNumber, avatar, birthday, role, groups }
