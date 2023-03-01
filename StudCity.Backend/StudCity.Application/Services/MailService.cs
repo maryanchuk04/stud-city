@@ -21,7 +21,7 @@ public class MailService : IMailService
     public async Task SendRegistrationMessageAsync(string email, string token)
     {
         const string subject = "Welcome to StudCity";
-        using var streamReader = File.OpenText($"./Templates/ConfirmationLetter.html");
+        using var streamReader = File.OpenText($"./StaticFiles/ConfirmationLetter.html");
         var pin = token.Select(x => x.ToString()).ToArray();
         var fileContent = await streamReader.ReadToEndAsync();
         var htmlContent = string.Format(
@@ -43,7 +43,7 @@ public class MailService : IMailService
     public async Task SendForgotPasswordMessage(string email, string codedId)
     {
         const string subject = "Forgot password";
-        using var streamReader = File.OpenText($"./Templates/ForgotPassword.html");
+        using var streamReader = File.OpenText($"./StaticFiles/ForgotPassword.html");
         var fileContent = await streamReader.ReadToEndAsync();
         string htmlContent = string.Format(fileContent, $"{_appConfiguration.FrontendPath}/recovery-password/{codedId}");
 
