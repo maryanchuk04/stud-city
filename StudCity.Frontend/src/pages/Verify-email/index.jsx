@@ -21,13 +21,18 @@ function VerifyEmail() {
 	};
 
 	const handleChangeNumber = (e, index) => {
+		if (e.target.value === "") {
+			setVerifyCode(replaceByIndex(temp, index, " "));
+			return;
+		}
 		const temp = verifyCode;
 		const code = numberValidation(e.target.value);
 
-		if (!Number(code)) {
-			e.target.value = "";
+		if (code === null) {
+			e.target.value = code;
 			return;
 		}
+
 
 		setVerifyCode(replaceByIndex(temp, index, code));
 	};
@@ -45,6 +50,8 @@ function VerifyEmail() {
 
 		if (isOK)
 			navigate("/registration-complete");
+		else
+			setVerifyCode("");
 	};
 
 	return (

@@ -42,7 +42,7 @@ export const numberValidation = (number) => {
 		return number;
 	}
 
-	return "";
+	return null;
 };
 
 export const phoneNumberValidator = (value) => {
