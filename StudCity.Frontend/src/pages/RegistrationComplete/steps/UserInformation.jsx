@@ -69,11 +69,11 @@ const UserInformation = ({ userInformation, setUserInformation }) => {
 								onChange={handleNumberChange}
 							/>
 							<DatePicker
-								value={userInformation.birthday}
+								value={new Date(userInformation.birthday).toLocaleDateString()}
 								className=""
 								onChange={(e) => setUserInformation({
 									...userInformation,
-									birthday: new Date(e).toLocaleDateString(),
+									birthday: new Date(e).toISOString(),
 								})}
 							/>
 						</div>
