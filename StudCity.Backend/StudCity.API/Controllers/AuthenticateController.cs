@@ -55,6 +55,10 @@ public class AuthenticateController : ControllerBase
         {
             return BadRequest(new ErrorResponseModel(e.Message));
         }
+        catch (Exception e)
+        {
+            return BadRequest(new ErrorResponseModel("Authenticate error", e.Message));
+        }
     }
 
     /// <summary>
@@ -77,6 +81,10 @@ public class AuthenticateController : ControllerBase
         {
             return BadRequest(new ErrorResponseModel(e.Message));
         }
+        catch (Exception e)
+        {
+            return BadRequest(new ErrorResponseModel("Confirm registration error", e.Message));
+        }
     }
 
     /// <summary>
@@ -91,8 +99,8 @@ public class AuthenticateController : ControllerBase
         try
         {
             var responseModel = await _authenticateService.AuthenticateAsync(
-                    authenticateViewModel.Email,
-                    authenticateViewModel.Password);
+                authenticateViewModel.Email,
+                authenticateViewModel.Password);
             HttpContext.SetTokenCookie(responseModel);
 
             return Ok(new { Token = responseModel.JwtToken });
@@ -100,6 +108,10 @@ public class AuthenticateController : ControllerBase
         catch (AuthenticateException e)
         {
             return BadRequest(new ErrorResponseModel(e.Message));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ErrorResponseModel("Authenticate exceptions", e.Message));
         }
     }
 
@@ -168,6 +180,10 @@ public class AuthenticateController : ControllerBase
         catch (AuthenticateException e)
         {
             return BadRequest(new ErrorResponseModel(e.Message));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ErrorResponseModel("Registration complete error", e.Message));
         }
     }
 }
