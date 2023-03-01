@@ -34,7 +34,6 @@ public class TokenService : ITokenService
         var token = _provider.ProvideEmailConfirmationToken(accountId);
 
         await _context.AccountTokens.AddAsync(token);
-        await _context.SaveChangesAsync();
 
         return token;
     }

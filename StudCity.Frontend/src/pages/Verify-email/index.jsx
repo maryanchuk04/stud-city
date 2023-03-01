@@ -22,9 +22,10 @@ function VerifyEmail() {
 
 	const handleChangeNumber = (e, index) => {
 		if (e.target.value === "") {
-			setVerifyCode(replaceByIndex(temp, index, " "));
+			setVerifyCode(replaceByIndex(verifyCode, index, " "));
 			return;
 		}
+
 		const temp = verifyCode;
 		const code = numberValidation(e.target.value);
 
@@ -32,7 +33,6 @@ function VerifyEmail() {
 			e.target.value = code;
 			return;
 		}
-
 
 		setVerifyCode(replaceByIndex(temp, index, code));
 	};

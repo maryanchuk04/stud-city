@@ -45,7 +45,7 @@ const RegistrationComplete = () => {
 				...state
 			});
 			if (isOK) {
-				setTimeout(() => navigate('/profile'), 4000);
+				setTimeout(() => navigate('/profile'), 2000);
 				dispatch(changeRegisterCompleteState(defaultData));
 			}
 
