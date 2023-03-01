@@ -47,6 +47,8 @@ public class AuthenticateServices : IAuthenticateService
         var confirmationToken = await _tokenService.GenerateEmailConfirmationTokenAsync(result.Entity.Id);
 
         await _mailService.SendRegistrationMessageAsync(email, confirmationToken.Token);
+        await _context.SaveChangesAsync();
+
         return result.Entity.Id;
     }
 
