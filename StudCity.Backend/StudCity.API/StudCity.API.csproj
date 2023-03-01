@@ -29,4 +29,9 @@
         <ProjectReference Include="..\StudCity.Infrastructure\StudCity.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="wwwroot\html\ConfirmationLetter.html" />
+      <None Include="wwwroot\html\ForgotPassword.html" />
+    </ItemGroup>
+
 </Project>
