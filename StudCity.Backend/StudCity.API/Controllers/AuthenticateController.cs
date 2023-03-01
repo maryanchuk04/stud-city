@@ -49,7 +49,6 @@ public class AuthenticateController : ControllerBase
 
             var accountId = await _authenticateService.RegistrationBeginAsync(
                 authenticateViewModel.Email, authenticateViewModel.Password);
-
             return Ok(new { accountId });
         }
         catch (AuthenticateException e)
@@ -122,6 +121,10 @@ public class AuthenticateController : ControllerBase
         catch (AuthenticateException e)
         {
             return BadRequest(new ErrorResponseModel(e.Message));
+        }
+        catch (DecodeException e)
+        {
+            return BadRequest(new ErrorResponseModel("Something went wrong!", e.Message));
         }
     }
 

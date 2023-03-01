@@ -10,6 +10,8 @@ public class ErrorResponseModel
     /// </summary>
     public string Error { get; }
 
+    public string Details { get; }
+
     /// <summary>
     /// Simple constructor.
     /// </summary>
@@ -17,5 +19,17 @@ public class ErrorResponseModel
     public ErrorResponseModel(string error)
     {
         Error = error;
+        Details = error;
+    }
+
+    /// <summary>
+    /// Constructor with details.
+    /// </summary>
+    /// <param name="error">error message.</param>
+    /// <param name="details">details of error message.</param>
+    public ErrorResponseModel(string error, string details)
+    {
+        Error = error;
+        Details = details;
     }
 }
