@@ -9,7 +9,7 @@ const initialState = {
 		email: "",
 		gender: "male",
 		phoneNumber: "",
-		birthday: ""
+		birthday: Date.now()
 	},
 	avatar: "",
 	role: "",

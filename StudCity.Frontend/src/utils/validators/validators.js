@@ -63,3 +63,9 @@ export const emailValidator = (value) => {
 
 	return "";
 }
+
+export const isNumber = (value) => {
+    if (typeof value === "string") {
+        return !isNaN(value);
+    }
+}
