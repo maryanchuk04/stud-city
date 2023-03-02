@@ -49,7 +49,6 @@ const RegistrationComplete = () => {
 				dispatch(changeRegisterCompleteState(defaultData));
 			}
 
-
 			return;
 		}
 
