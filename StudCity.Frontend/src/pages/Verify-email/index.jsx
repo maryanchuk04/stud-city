@@ -75,10 +75,10 @@ function VerifyEmail() {
 			</div>
 			<div className="w-[70%] shadow-md h-5/6 bg-white z-10 mx-auto my-0 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center flex flex-col justify-center">
 				<Svg type="verifyEmail" className="w-[23%] mx-auto my-8" />
-				<h1 className="text-4xl font-medium my-inputCount">
+				<h1 className="text-4xl font-medium my-6">
 					Please Verify Account
 				</h1>
-				<p className="text-stone-400 my-inputCount">
+				<p className="text-stone-400 my-6">
 					Enter the six digit code we sent to your email address to
 					verify your new account:
 				</p>
@@ -92,7 +92,7 @@ function VerifyEmail() {
 								maxLength="1"
 								onChange={(e) => handleChangeNumber(e, index)}
 								type="text"
-								className="w-14 rounded-none hover:border-stone-500 focus:border-stone-inputCount00 focus:outline-none text-4xl text-center h-24 bg-white"
+								className="w-14 rounded-none hover:border-stone-500 focus:border-stone-600 focus:outline-none text-4xl text-center h-24 bg-white"
 							/>
 						))}
 					</div>
