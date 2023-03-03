@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { AuthenticateService } from "../../services/authenticateService";
 import { emailValidator } from "../../utils/validators/validators";
 import Label from "../../UI/Label";
@@ -7,11 +8,13 @@ import PasswordTextField from "../../UI/fields/PasswordTextField";
 import Button from "../../UI/Button";
 import GoogleButton from "../../UI/GoogleButton";
 import ValidateTextField from "../../UI/fields/ValidateTextField";
+import { handleChangeSpinerState } from "../../app/features/fetch-spinner/fetchSpinnerSlice";
 
 
 function Authenticate() {
 	const authenticateSerivice = new AuthenticateService();
 	const navigate = useNavigate('');
+	const dispatch = useDispatch();
 
 	const [disabled, setDisabled] = useState(false);
 	const [formState, setFormState] = useState({
@@ -21,11 +24,14 @@ function Authenticate() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		dispatch(handleChangeSpinerState());
 
 		if (await authenticateSerivice.authenticate(formState))
 			navigate("/profile");
 		else
 			setFormState({ email: "", password: "" });
+
+		dispatch(handleChangeSpinerState());
 	}
 
 	return (

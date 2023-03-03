@@ -31,6 +31,7 @@ builder.Services.AddControllersWithViews();
 var appConfig = new AppConfigurationModel();
 builder.Configuration.GetSection("AppPath").Bind(appConfig);
 builder.Services.AddSingleton(appConfig);
+
 // Add services to the container.
 var jwtConfiguration = new JwtConfiguration();
 builder.Configuration.GetSection("Jwt").Bind(jwtConfiguration);
@@ -84,7 +85,7 @@ builder.Services.AddDataProtection().UseCryptographicAlgorithms(
     new AuthenticatedEncryptorConfiguration
     {
         EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
-        ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
+        ValidationAlgorithm = ValidationAlgorithm.HMACSHA256,
     });
 builder.Services.AddSwaggerGenNewtonsoftSupport();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -151,6 +152,5 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");
-
 
 app.Run();
