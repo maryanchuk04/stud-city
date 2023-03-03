@@ -171,7 +171,9 @@ public class AuthenticateController : ControllerBase
         try
         {
             if (await _authenticateService.ExistUserName(registrationCompleteViewModel.UserName))
+            {
                 return BadRequest(new ErrorResponseModel($"{registrationCompleteViewModel.UserName} username is already taken!"));
+            }
 
             await _authenticateService.RegistrationCompleteAsync(
                 _mapper.Map<RegistrationCompleteViewModel, RegistrationCompleteDto>(registrationCompleteViewModel));

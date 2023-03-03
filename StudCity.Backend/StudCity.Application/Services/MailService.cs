@@ -6,10 +6,10 @@ namespace StudCity.Application.Services;
 
 public class MailService : IMailService
 {
-    private readonly AppConfigurationModel _appConfiguration;
     private const string FromEmail = "lion20914king@gmail.com";
     private const string FromName = "StudCityAccount";
 
+    private readonly AppConfigurationModel _appConfiguration;
     private readonly IMailClient _mailClient;
 
     public MailService(IMailClient mailClient, AppConfigurationModel appConfiguration)
@@ -43,7 +43,7 @@ public class MailService : IMailService
     public async Task SendForgotPasswordMessage(string email, string codedId)
     {
         const string subject = "Forgot password";
-        using var streamReader = File.OpenText($"/wwwroot/html/ForgotPassword.html");
+        using var streamReader = File.OpenText($"./wwwroot/html/ForgotPassword.html");
         var fileContent = await streamReader.ReadToEndAsync();
         string htmlContent = string.Format(fileContent, $"{_appConfiguration.FrontendPath}/recovery-password/{codedId}");
 
