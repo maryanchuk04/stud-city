@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudCity.Db.Context;
 
@@ -11,9 +12,10 @@ using StudCity.Db.Context;
 namespace StudCity.Db.Migrations
 {
     [DbContext(typeof(StudCityContext))]
-    partial class StudCityContextModelSnapshot : ModelSnapshot
+    [Migration("20230302215239_Add_TeacherStore")]
+    partial class Add_TeacherStore
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

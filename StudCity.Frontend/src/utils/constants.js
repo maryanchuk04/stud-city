@@ -1,6 +1,6 @@
 export const DEFAULT_AVATAR_URL = "/images/defaultAvatar.png";
 
-export const REGISTER_COMPLETE_STEPS_COUNT = 4;
+export const REGISTER_COMPLETE_STEPS_COUNT = 3;
 
 export const GENDERS = [
 	"male", "female", "other"
@@ -14,10 +14,6 @@ export const REGISTER_COMPLETE_STEPS = [
 	{
 		title: "Upload avatar",
 		description: "In order to successfully complete the registration, you need to upload your profile picture."
-	},
-	{
-		title: "Choose role",
-		description: "Choose your role on the StudCity"
 	},
 	{
 		title: "Groups",
@@ -41,7 +37,6 @@ export const getRegisterCompleteDefautlData = (defaultData) => {
 			birthday: defaultData.userInformation.birthday || "",
 		},
 		avatar: "",
-		role: "",
 		groups: [],
 		settings: {}
 	}

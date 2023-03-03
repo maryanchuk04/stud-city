@@ -18,8 +18,6 @@ public class RegistrationCompleteDto
 
     public DateTime Birthday { get; set; }
 
-    public Role Role { get; set; }
-
     public List<Guid> Groups { get; set; }
 
     public InterfaceLanguage Language { get; set; }

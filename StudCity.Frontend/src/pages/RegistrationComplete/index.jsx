@@ -12,13 +12,12 @@ import {
 	REGISTER_COMPLETE_STEPS,
 	REGISTER_COMPLETE_STEPS_COUNT
 } from "../../utils/constants";
-import { registerCompleteAvatarValidator, registerCompleteRoleValidator, registerCompleteUserInformationValidator } from "../../utils/validators/registerCompleteValidators";
+import { registerCompleteAvatarValidator, registerCompleteUserInformationValidator } from "../../utils/validators/registerCompleteValidators";
 import Stepper from "../../components/Stepper/Stepper";
 import UserInformation from "./steps/UserInformation";
 import UploadAvatar from "./steps/UploadAvatar"
 import StepperControll from "../../components/Stepper/StepperControll";
 import Container from "../../components/Container";
-import ChooseRole from "./steps/ChooseRole";
 import ChooseGroups from "./steps/ChooseGroups";
 import { AuthenticateService } from "../../services/authenticateService";
 
@@ -58,7 +57,7 @@ const RegistrationComplete = () => {
 	const handlePrevious = () => {
 		dispatch(changeActiveState(activeStep - 1));
 	};
-	
+
 	const renderSteps = () => {
 		switch (activeStep) {
 			case 1:
@@ -72,11 +71,6 @@ const RegistrationComplete = () => {
 					setAvatar={(data) => setState({ ...state, avatar: data })}
 				/>
 			case 3:
-				return <ChooseRole
-					role={state.role}
-					setRole={(data) => setState({ ...state, role: data })}
-				/>
-			case 4:
 				return <ChooseGroups
 					groups={state.groups}
 					setGroups={(data) => setState({ ...state, groups: data })}
@@ -92,8 +86,6 @@ const RegistrationComplete = () => {
 				return registerCompleteUserInformationValidator(state.userInformation);
 			case 2:
 				return registerCompleteAvatarValidator(state.avatar);
-			case 3:
-				return registerCompleteRoleValidator(state.role);
 			default:
 				return true;
 		}

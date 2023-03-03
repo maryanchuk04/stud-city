@@ -16,6 +16,7 @@ public class AuthenticateServices : IAuthenticateService
     private readonly IMailService _mailService;
     private readonly ICryptographer _cryptographer;
     private readonly ISecurityContext _securityContext;
+    private readonly ITeachersStoreService _teachersStoreService;
 
     public AuthenticateServices(
         StudCityContext context,
@@ -23,7 +24,8 @@ public class AuthenticateServices : IAuthenticateService
         ITokenService tokenService,
         IMailService mailService,
         ICryptographer cryptographer,
-        ISecurityContext securityContext)
+        ISecurityContext securityContext,
+        ITeachersStoreService teachersStoreService)
     {
         _context = context;
         _passwordHasher = passwordHasher;
@@ -31,6 +33,7 @@ public class AuthenticateServices : IAuthenticateService
         _mailService = mailService;
         _cryptographer = cryptographer;
         _securityContext = securityContext;
+        _teachersStoreService = teachersStoreService;
     }
 
     public async Task<Guid> RegistrationBeginAsync(string email, string password)
@@ -170,7 +173,14 @@ public class AuthenticateServices : IAuthenticateService
             Settings = new Settings { Language = registrationCompleteDto.Language, Theme = registrationCompleteDto.Theme, },
         };
 
-        account.AccountRoles.Add(new AccountRole { RoleId = registrationCompleteDto.Role, });
+        if (await _teachersStoreService.IsTeacher(account.Email))
+        {
+            account.AccountRoles.Add(new AccountRole { RoleId = Role.Teacher, });
+        }
+        else
+        {
+            account.AccountRoles.Add(new AccountRole { RoleId = Role.Student, });
+        }
 
         // TODO Add groups to user
         _context.Accounts.Update(account);
