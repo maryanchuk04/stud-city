@@ -30,4 +30,6 @@ public class StudCityContext : DbContext
     public virtual DbSet<AccountToken> AccountTokens { get; set; }
 
     public virtual DbSet<Settings> SettingsSet { get; set; }
+
+    public virtual DbSet<TeacherStore> TeachersStore { get; set; }
 }

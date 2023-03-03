@@ -12,7 +12,6 @@ const initialState = {
 		birthday: Date.now()
 	},
 	avatar: "",
-	role: "",
 	groups: [],
 	settings: {}
 };
@@ -38,6 +37,6 @@ export const { changeActiveState, changeRegisterCompleteState } = registerComple
 
 export const selectRegisterCompleteDefaultInfo = (state) => state.registerComplete;
 
-export const selectActiveStep = (state) => state.registerComplete.activeStep; 
+export const selectActiveStep = (state) => state.registerComplete.activeStep;
 
 export default registerCompleteSlice.reducer;

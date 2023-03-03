@@ -2,7 +2,7 @@ const PHONE_NUMBER_VALID_LENGTH = 13;
 export const ROLE_STUDENT = "Student";
 export const ROLE_TEACHER = "Teacher";
 
-export const registerCompleteUserInformationValidator = ({ 
+export const registerCompleteUserInformationValidator = ({
 	firstName,
 	lastName,
 	userName,
@@ -11,18 +11,18 @@ export const registerCompleteUserInformationValidator = ({
 	phoneNumber,
 	birthday,
 }) => {
-	if(firstName === "" 
-		|| lastName === "" 
-		|| userName === "" 
-		|| gender === "" 
-		|| email === "" 
-		|| phoneNumber === "" 
+	if (firstName === ""
+		|| lastName === ""
+		|| userName === ""
+		|| gender === ""
+		|| email === ""
+		|| phoneNumber === ""
 		|| birthday === ""
 	) {
 		return false;
 	}
 
-	if(phoneNumber.length !== PHONE_NUMBER_VALID_LENGTH) {
+	if (phoneNumber.length !== PHONE_NUMBER_VALID_LENGTH) {
 		return false;
 	}
 
@@ -30,7 +30,7 @@ export const registerCompleteUserInformationValidator = ({
 }
 
 export const registerCompleteRoleValidator = (role) => {
-	if(role === ROLE_STUDENT || role === ROLE_TEACHER) {
+	if (role === ROLE_STUDENT || role === ROLE_TEACHER) {
 		return true;
 	}
 
@@ -38,7 +38,7 @@ export const registerCompleteRoleValidator = (role) => {
 }
 
 export const registerCompleteAvatarValidator = (avatar) => {
-	if(avatar === "") {
+	if (avatar === "") {
 		return false;
 	}
 

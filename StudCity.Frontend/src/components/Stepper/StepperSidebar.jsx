@@ -1,6 +1,7 @@
 import React from "react";
 import StepDescription from "./StepDescription";
 import StepItem from "./StepItem";
+import { REGISTER_COMPLETE_STEPS_COUNT } from "../../utils/constants";
 
 const StepperSidebar = ({ labels, activeStep }) => {
 	return (
@@ -16,17 +17,17 @@ const StepperSidebar = ({ labels, activeStep }) => {
 			/>
 			<div className="flex flex-col justify-evenly my-5">
 				{labels.map((label, index) => (
-					<div key = {`${label}-${index}`}>
+					<div key={`${label}-${index}`}>
 						<StepItem
 							label={label.title}
 							index={index + 1}
 							active={activeStep}
 						/>
 						{index + 1 < activeStep ? (
-							<hr className="border-0 border-l-2 h-16 ml-3 border-primaryGold opacity-50 " />
+							<hr className="border-0 border-l-2 h-24 ml-3 border-primaryGold opacity-50 " />
 						) : (
-							index !== 3 && (
-								<hr className="border-0 border-l-2 h-16 ml-3 border-white opacity-50" />
+							index !== REGISTER_COMPLETE_STEPS_COUNT - 1 && (
+								<hr className="border-0 border-l-2 h-24 ml-3 border-white opacity-50" />
 							)
 						)}
 					</div>
