@@ -19,6 +19,7 @@ using StudCity.Core.Interfaces.Infrastructure;
 using StudCity.Core.Interfaces.Providers;
 using StudCity.Db.Bridge;
 using StudCity.Db.Context;
+using StudCity.Db.DbInitialize;
 using StudCity.Infrastructure.Configuration;
 using StudCity.Infrastructure.MailSender;
 
@@ -32,6 +33,10 @@ builder.Services.AddControllersWithViews();
 var appConfig = new AppConfigurationModel();
 builder.Configuration.GetSection("AppPath").Bind(appConfig);
 builder.Services.AddSingleton(appConfig);
+
+//Add Logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 // Add services to the container.
 var jwtConfiguration = new JwtConfiguration();
@@ -170,5 +175,21 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var passwordService = services.GetRequiredService<IPasswordHasher>();
+        var dbContext = services.GetRequiredService<StudCityContext>();
+        dbContext.Database.Migrate();
+        DbInitializer.Seed(dbContext, passwordService);
+    }
+    catch (Exception ex)
+    {
+        app.Logger.LogError(ex, "An error occurred while seeding the database");
+    }
+}
 
 app.Run();
