@@ -173,7 +173,7 @@ public class AuthenticateServices : IAuthenticateService
             Settings = new Settings { Language = registrationCompleteDto.Language, Theme = registrationCompleteDto.Theme, },
         };
 
-        if (await _teachersStoreService.IsTeacher(account.Email))
+        if (await _teachersStoreService.IsTeacherAsync(account.Email))
         {
             account.AccountRoles.Add(new AccountRole { RoleId = Role.Teacher, });
         }

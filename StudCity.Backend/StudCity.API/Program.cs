@@ -1,14 +1,15 @@
 using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StudCity.API.Mapping;
+using StudCity.API.Policies;
 using StudCity.Application.Helpers;
 using StudCity.Application.Providers;
 using StudCity.Application.Services;
@@ -88,35 +89,52 @@ builder.Services.AddDataProtection().UseCryptographicAlgorithms(
         ValidationAlgorithm = ValidationAlgorithm.HMACSHA256,
     });
 builder.Services.AddSwaggerGenNewtonsoftSupport();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters()
+builder.Services
+    .AddMemoryCache()
+    .AddAuthorization(options =>
     {
-        ValidateActor = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-    };
-    options.Events = new JwtBearerEvents
-    {
-        OnMessageReceived = context =>
+        options.AddPolicy(PolicyNames.AdminPolicyName, policy =>
+            policy.Requirements.Add(new RoleRequirement(PolicyNames.AdminRole)));
+        options.AddPolicy(PolicyNames.UserPolicyName, policy =>
+            policy.Requirements.Add(new RoleRequirement(PolicyNames.UserRole)));
+        options.AddPolicy(PolicyNames.StudentPolicyName, policy =>
+            policy.Requirements.Add(new RoleRequirement(PolicyNames.StudentRole)));
+        options.AddPolicy(PolicyNames.TeacherPolicyName, policy =>
+            policy.Requirements.Add(new RoleRequirement(PolicyNames.TeacherRole)));
+        options.AddPolicy(PolicyNames.StudentAndTeacherPolicyName, policy =>
+            policy.RequireRole(PolicyNames.StudentRole, PolicyNames.TeacherRole));
+    })
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
         {
-            var accessToken = context.Request.Query["access_token"];
-            var path = context.HttpContext.Request.Path;
-            if (!string.IsNullOrEmpty(accessToken) &&
-                path.StartsWithSegments("/chatRoom"))
+            options.TokenValidationParameters = new TokenValidationParameters()
             {
-                context.Token = accessToken;
-            }
+                ValidateActor = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                ValidAudience = builder.Configuration["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+            };
+            options.Events = new JwtBearerEvents
+            {
+                OnMessageReceived = context =>
+                {
+                    var accessToken = context.Request.Query["access_token"];
+                    var path = context.HttpContext.Request.Path;
+                    if (!string.IsNullOrEmpty(accessToken) &&
+                        path.StartsWithSegments("/chatRoom"))
+                    {
+                        context.Token = accessToken;
+                    }
 
-            return Task.CompletedTask;
-        },
-    };
-});
+                    return Task.CompletedTask;
+                },
+            };
+        });
 
+builder.Services.AddSingleton<IAuthorizationHandler, RoleHandler>();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
