@@ -68,6 +68,7 @@ const RegistrationComplete = () => {
 			case 2:
 				return <UploadAvatar
 					avatar={state.avatar}
+					title = {"Upload your Avatar"}
 					setAvatar={(data) => setState({ ...state, avatar: data })}
 				/>
 			case 3:
