@@ -34,7 +34,7 @@ var appConfig = new AppConfigurationModel();
 builder.Configuration.GetSection("AppPath").Bind(appConfig);
 builder.Services.AddSingleton(appConfig);
 
-//Add Logging
+// Add Logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
@@ -59,6 +59,7 @@ builder.Services.AddScoped<IMailClient, MailClient>();
 builder.Services.AddScoped<ITeachersStoreService, TeachersStoreService>();
 builder.Services.AddScoped<ICryptographer, Base64Cryptographer>();
 builder.Services.AddSingleton<ISecurityContext, SecurityContext>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddAutoMapper(typeof(RegistrationCompleteMapperProfile).GetTypeInfo().Assembly);
 builder.Services.AddSwaggerGen(options =>

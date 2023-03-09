@@ -10,6 +10,8 @@ public class Settings : BaseEntity
 
     public Theme Theme { get; set; }
 
+    public Image BackgroundImage { get; set; }
+
     public User User { get; set; }
 
     public Guid UserId { get; set; }
