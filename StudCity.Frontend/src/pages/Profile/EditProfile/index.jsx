@@ -17,7 +17,7 @@ function EditProfile() {
 	}
 
 	return (
-		<div className="w-full h-screen flex flex-col ">
+		<div className="w-full h-screen flex flex-col bg-elephantBone">
 			<div className="w-10/12 h-full flex flex-col mx-auto pb-11">
 				<div className="h-24 w-full border-b-2 border-[#D1D7D4] flex items-center">
 					<h4 className="text-3xl font-medium" >{EDIT_PROFILE_SIDEBAR[menuState].title}</h4>

@@ -18,6 +18,7 @@ const ProfileDetails = () => {
 	const inputBlock = "w-1/2 flex justify-between items-center";
 	const spanWithInputsBlocks = "ml-16 text-left text-base";
 	const textFieldStyle = "w-60 h-10";
+
 	const [avatar, setAvatar] = useState("");
 	const [backgroundImage, setBackgroundImage] = useState("");
 	const [showDialogForAvatar, setShowDialogForAvatar] = useState(false);
@@ -65,10 +66,10 @@ const ProfileDetails = () => {
 					src={backgroundImage === "" ? DEFAULT_BACKGROUND_URL : backgroundImage}
 					className="h-full w-full object-cover" alt="" />
 				<Button
-					className="absolute bottom-3 right-3 w-12 h-12 bg-transparent border-2 border-white "
+					className="absolute bottom-3 right-3 w-12 h-12 border-2 border-gray-200 bg-white opacity-40 rounded-2xl shadow-form"
 					onClick={() => setShowDialogForBackground(true)}
 				>
-					<i className="fa-regular fa-camera"></i>
+					<i className="text-black fa-regular fa-camera"></i>
 				</Button>
 			</div>
 			<div className="h-32 w-full -mt-10 flex justify-between">
