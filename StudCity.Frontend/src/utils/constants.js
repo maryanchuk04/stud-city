@@ -107,3 +107,16 @@ export const GROUP_MOCK = [
 		image: "https://bukinfo.com.ua/news-gallery/62dff9fe557e0.jpg"
 	}
 ]
+
+export const EDIT_PROFILE_SIDEBAR = [{
+	title: "My details",
+	icon: "fa-solid fa-address-card"
+},
+{
+	title: "Settings",
+	icon: "fa-duotone fa-gear"
+},
+{
+	title: "Security",
+	icon: "fa-solid fa-shield-halved"
+}];

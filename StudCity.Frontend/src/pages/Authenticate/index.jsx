@@ -10,7 +10,6 @@ import GoogleButton from "../../UI/GoogleButton";
 import ValidateTextField from "../../UI/fields/ValidateTextField";
 import { handleChangeSpinerState } from "../../app/features/fetch-spinner/fetchSpinnerSlice";
 
-
 function Authenticate() {
 	const authenticateSerivice = new AuthenticateService();
 	const navigate = useNavigate('');
