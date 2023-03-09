@@ -6,7 +6,7 @@
 [Deployment link](https://stud-city.azurewebsites.net)
 
 ### Backend API
-[API link](https://stud-city-api.azurewebsites.net)
+[API link](https://stud-city-api.azurewebsites.net/swagger)
 
 ### 💻 Tech Stack:
 
