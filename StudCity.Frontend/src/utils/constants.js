@@ -1,5 +1,9 @@
 export const DEFAULT_AVATAR_URL = "/images/defaultAvatar.png";
-
+export const DEFAULT_BACKGROUND_URL = "/images/ChnuBackground.png"
+export const SELECT_BACKGROUND_URLS = [
+	"/images/background1.jpeg",
+	"/images/FlagUkraine.jpeg"
+]
 export const REGISTER_COMPLETE_STEPS_COUNT = 3;
 
 export const GENDERS = [

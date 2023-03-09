@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import Button from "../Button";
 
-function UploadImageInput({ onImageSelected }) {
+function UploadImageInput({ onImageSelected, buttonStyle, containerStyle, children }) {
 	const inputRef = useRef();
 
 	const handleOnChange = (event) => {
@@ -19,7 +19,7 @@ function UploadImageInput({ onImageSelected }) {
 	};
 
 	return (
-		<div className="w-full flex">
+		<div className={`w-full flex ${containerStyle}`}>
 			<input
 				type="file"
 				accept="image/*"
@@ -28,9 +28,9 @@ function UploadImageInput({ onImageSelected }) {
 				className="hidden"
 			/>
 			<Button
-				className="mx-auto w-40"
+				className={`mx-auto w-40 ${buttonStyle}`}
 				onClick={onChooseImg}>
-				Choose Image
+				{children}
 			</Button>
 		</div>
 	)

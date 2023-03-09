@@ -6,18 +6,18 @@ import { ImageService } from "../../../services/imageService";
 import IconButton from "../../../UI/IconButton";
 import { DEFAULT_AVATAR_URL } from "../../../utils/constants";
 
-function UploadAvatar({ avatar, setAvatar }) {
+function UploadAvatar({ avatar = "", setAvatar, className, title = "" }) {
 	const service = new ImageService();
 
 	const [image, setImage] = useState(avatar === "" ? DEFAULT_AVATAR_URL : avatar);
 	const [currentPage, setCurrentPage] = useState("choose-img");
 	const [imgAfterCrop, setImgAfterCrop] = useState("");
-
+	
 	const onImageSelected = (selectImg) => {
 		setImage(selectImg);
 		setCurrentPage("crop-img");
 	}
-
+	
 	const onCropDone = (imgCroppedArea) => {
 		const canvasEle = document.createElement("canvas");
 		canvasEle.width = imgCroppedArea.width;
@@ -55,13 +55,15 @@ function UploadAvatar({ avatar, setAvatar }) {
 	}
 
 	return (
-		<div className="flex w-full h-full flex-col">
-			<h1 className="text-4xl text-center">Your Personal Information</h1>
+		<div className={`flex w-full h-full flex-col ${className}`}>
+			<h1 className="text-4xl text-center">{title}</h1>
 			{
 				currentPage === "choose-img" ? (
 					<div className=" w-[90%] h-full flex flex-col justify-evenly mx-auto">
 						<Avatar src={image} className="h-80 w-80" />
-						<UploadImageInput setImage={setImage} onImageSelected={onImageSelected} />
+						<UploadImageInput setImage={setImage} onImageSelected={onImageSelected} >
+							Choose Image
+						</UploadImageInput>
 					</div>
 
 				) : currentPage === "crop-img" ? (
