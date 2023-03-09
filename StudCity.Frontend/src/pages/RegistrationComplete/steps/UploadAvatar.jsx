@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ImageCropper from "../../../components/ImageCropper";
 import UploadImageInput from "../../../UI/fields/UploadImageInput"
 import Avatar from "../../../UI/Avatar";
@@ -12,14 +12,12 @@ function UploadAvatar({ avatar = "", setAvatar, className, title = "" }) {
 	const [image, setImage] = useState(avatar === "" ? DEFAULT_AVATAR_URL : avatar);
 	const [currentPage, setCurrentPage] = useState("choose-img");
 	const [imgAfterCrop, setImgAfterCrop] = useState("");
-	
+
 	const onImageSelected = (selectImg) => {
 		setImage(selectImg);
 		setCurrentPage("crop-img");
 	}
-	useEffect(() => {
-		console.log(imgAfterCrop);
-	}, [imgAfterCrop])
+
 	const onCropDone = (imgCroppedArea) => {
 		const canvasEle = document.createElement("canvas");
 		canvasEle.width = imgCroppedArea.width;
@@ -57,7 +55,7 @@ function UploadAvatar({ avatar = "", setAvatar, className, title = "" }) {
 	}
 
 	return (
-		<div className={`flex w-full h-full flex-col ${className} `}>
+		<div className={`flex w-full h-full flex-col ${className}`}>
 			<h1 className="text-4xl text-center">{title}</h1>
 			{
 				currentPage === "choose-img" ? (
