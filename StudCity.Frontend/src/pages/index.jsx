@@ -39,7 +39,7 @@ export const routes = [
 		element: <RecoveryPassword />
 	},
 	{
-		path: '/edit-profile',
+		path: '/profile',
 		element: <EditProfile />
 	},
 	{

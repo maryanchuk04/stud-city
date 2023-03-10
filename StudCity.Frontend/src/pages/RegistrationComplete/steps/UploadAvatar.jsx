@@ -12,12 +12,12 @@ function UploadAvatar({ avatar = "", setAvatar, className, title = "" }) {
 	const [image, setImage] = useState(avatar === "" ? DEFAULT_AVATAR_URL : avatar);
 	const [currentPage, setCurrentPage] = useState("choose-img");
 	const [imgAfterCrop, setImgAfterCrop] = useState("");
-	
+
 	const onImageSelected = (selectImg) => {
 		setImage(selectImg);
 		setCurrentPage("crop-img");
 	}
-	
+
 	const onCropDone = (imgCroppedArea) => {
 		const canvasEle = document.createElement("canvas");
 		canvasEle.width = imgCroppedArea.width;
