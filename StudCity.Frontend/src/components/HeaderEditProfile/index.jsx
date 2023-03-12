@@ -5,10 +5,10 @@ import UploadAvatar from "../../pages/RegistrationComplete/steps/UploadAvatar";
 import CustomDialog from "../../UI/CustomDialog"
 import { DEFAULT_AVATAR_URL, DEFAULT_BACKGROUND_URL, SELECT_BACKGROUND_URLS  } from "../../utils/constants";
 
-function HeaderEditProfile({ userInfo, isEdit = false }) {
+function HeaderEditProfile({ userInfo }) {
 	const styleForButton = "mt-auto text-base w-16 h-10 mt-auto mx-0";
-	const [avatar, setAvatar] = useState(DEFAULT_AVATAR_URL);
-	const [backgroundImage, setBackgroundImage] = useState(DEFAULT_BACKGROUND_URL);
+	const [avatar, setAvatar] = useState(userInfo.avatar || DEFAULT_AVATAR_URL);
+	const [backgroundImage, setBackgroundImage] = useState(userInfo.backgroundImage || DEFAULT_BACKGROUND_URL);
 	const [showDialogForAvatar, setShowDialogForAvatar] = useState(false);
 	const [showDialogForBackground, setShowDialogForBackground] = useState(false);
 
@@ -29,7 +29,7 @@ function HeaderEditProfile({ userInfo, isEdit = false }) {
 			<div className="h-32 w-full -mt-10 flex justify-between">
 				<div className="h-fit w-fit relative mx-auto">
 					<Avatar
-						src={!isEdit ? userInfo.avatar : avatar}
+						src={avatar}
 						className={"w-28 h-28 shadow-form "}
 					>
 						<Button
@@ -43,10 +43,10 @@ function HeaderEditProfile({ userInfo, isEdit = false }) {
 				<div className="w-9/12 h-full flex">
 					<div className="flex flex-col w-1/2 h-5/6">
 						<h4 className="text-2xl mt-auto font-normal">
-							gfdgdf
+							{userInfo.fullName || "Profile"}
 						</h4>
 						<h4 className="text-sm font-normal" >
-							bbbv
+							{userInfo.description || "Update your details"}
 						</h4>
 					</div>
 					<div className="flex w-1/2 h-5/6 justify-end">
