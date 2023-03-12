@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Avatar from "../../../../UI/Avatar";
 import Button from "../../../../UI/Button";
 import TextField from "../../../../UI/fields/TextField";
@@ -8,19 +8,34 @@ import UploadAvatar from "../../../RegistrationComplete/steps/UploadAvatar";
 import { DEFAULT_AVATAR_URL, DEFAULT_BACKGROUND_URL, SELECT_BACKGROUND_URLS } from "../../../../utils/constants";
 import DatePicker from "../../../../UI/DatePicker";
 import CustomDialog from "../../../../UI/CustomDialog";
-import { phoneNumberValidator } from '../../../../utils/validators/validators';
+import { phoneNumberValidator } from '../../../../utils/validators/editProfileValidators';
 
-const ProfileDetails = () => {
+const ProfileDetails = ({ user }) => {
 	const styleForButton = "mt-auto text-base w-16 h-10 mt-auto mx-0";
 	const containerWithInputs = "flex justify-between w-full mt-10 items-center";
 	const inputBlock = "w-1/2 flex justify-between items-center";
-	const spanWithInputsBlocks = "ml-16 text-left text-base";
+	const spanWithInputsBlocks = "ml-16 text-left text-xl";
 	const textFieldStyle = "w-60 h-10";
 
-	const [avatar, setAvatar] = useState(DEFAULT_AVATAR_URL);
-	const [backgroundImage, setBackgroundImage] = useState(DEFAULT_BACKGROUND_URL);
+	const [details, setDetails] = useState(user);
+	const [avatar, setAvatar] = useState(details.avatar || DEFAULT_AVATAR_URL);
+	const [backgroundImage, setBackgroundImage] = useState(details.settings.backgroundImage || DEFAULT_BACKGROUND_URL);
 	const [showDialogForAvatar, setShowDialogForAvatar] = useState(false);
 	const [showDialogForBackground, setShowDialogForBackground] = useState(false);
+
+	useEffect(() => {
+		setDetails({
+			...details, avatar,
+			settings: {
+				...details.settings,
+				backgroundImage
+			}
+		});
+	}, [avatar, backgroundImage])
+
+	const handleSave = () => {
+		console.log(details);
+	}
 
 	return (
 		<div className="">
@@ -52,7 +67,7 @@ const ProfileDetails = () => {
 
 				<div className="w-9/12 h-full flex">
 					<div className="flex flex-col w-1/2 h-5/6">
-						<h4 className="text-2xl mt-auto font-normal" >Profile</h4>
+						<h4 className="text-2xl mt-auto font-normal">Profile</h4>
 						<h4 className="text-sm font-normal" >Update your photo and personal details</h4>
 					</div>
 					<div className="flex w-1/2 h-5/6 justify-end">
@@ -63,6 +78,7 @@ const ProfileDetails = () => {
 						</Button>
 						<Button
 							className={`${styleForButton} mx-5 `}
+							onClick={handleSave}
 						>
 							Save
 						</Button>
@@ -75,6 +91,8 @@ const ProfileDetails = () => {
 					<TextField
 						className={textFieldStyle}
 						placeholder="Input first name"
+						value={details.firstName}
+						onChange={(e) => setDetails({ ...details, firstName: e.target.value })}
 					/>
 				</div>
 				<div className={inputBlock}>
@@ -82,6 +100,8 @@ const ProfileDetails = () => {
 					<TextField
 						className={textFieldStyle}
 						placeholder="Input last name"
+						value={details.lastName}
+						onChange={(e) => setDetails({ ...details, lastName: e.target.value })}
 					/>
 				</div>
 			</div>
@@ -90,14 +110,18 @@ const ProfileDetails = () => {
 					<span className={spanWithInputsBlocks}>User name</span>
 					<TextField
 						className={textFieldStyle}
-						placeholder="Input user name"
+						placeholder="Input details name"
+						value={details.userName}
+						onChange={(e) => setDetails({ ...details, userName: e.target.value })}
 					/>
 				</div>
 				<div className={inputBlock}>
 					<span className={spanWithInputsBlocks}>Gender</span>
 					<SelectField
 						className={textFieldStyle}
-						options={["Male", "Female", "Other"]}
+						options={["Female", "Male", "Other"]}
+						value={details.gender}
+						onChange={(e) => setDetails({ ...details, gender: e.target.value })}
 					/>
 				</div>
 			</div>
@@ -106,16 +130,22 @@ const ProfileDetails = () => {
 					<span className={spanWithInputsBlocks}>Phone number</span>
 					<ValidateTextField
 						className={textFieldStyle}
-						withErrorMessage={false}
 						validator={phoneNumberValidator}
 						placeholder="Input your phone"
+						value={details.phoneNumber}
+						onChange={(value) => setDetails({ ...details, phoneNumber: value })}
 					/>
 				</div>
 				<div className={inputBlock}>
 					<span className={spanWithInputsBlocks}>Birthday</span>
 					<div className="w-60">
 						<DatePicker
+							value={new Date(details.dateOfBirthday).toLocaleDateString()}
 							className={textFieldStyle}
+							onChange={(e) => setDetails({
+								...details,
+								dateOfBirthday: new Date(e).toISOString(),
+							})}
 						/>
 					</div>
 				</div>
@@ -141,7 +171,7 @@ const ProfileDetails = () => {
 									<div className="rounded-tl-[60px] overflow-hidden w-full  h-56" key={element}>
 										<img
 											src={element}
-											alt=""
+											alt={`${user.userName}-background`}
 											className="w-full h-full object-cover"
 											onClick={() => setBackgroundImage(element)}
 										/>

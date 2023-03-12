@@ -52,6 +52,20 @@ public class UserService : IUserService
         await _context.SaveChangesAsync();
     }
 
+    public async Task<UserDto> GetUserById(Guid id)
+    {
+        var user = await _context.Users
+            .Include(x => x.Image)
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        if (user == null)
+        {
+            throw new UserNotFoundException();
+        }
+
+        return _mapper.Map<UserDto>(user);
+    }
+
     private async Task<User> GetUserAsync()
     {
         var userId = _securityContext.GetCurrentUserId();

@@ -40,7 +40,9 @@ export const routes = [
 	},
 	{
 		path: '/profile',
-		element: <EditProfile />
+		element: <ProtectedRoute protectWhen={tokenProtection} redirectTo="/authenticate">
+			<EditProfile />
+		</ProtectedRoute>
 	},
 	{
 		path: '/verify-email/:accountId',
