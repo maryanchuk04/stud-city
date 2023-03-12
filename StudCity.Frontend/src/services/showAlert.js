@@ -13,6 +13,11 @@ const notyf = new Notyf({
 			type: 'info',
 			background: '#F4D690',
 			duration: 4000
+		},
+		{
+			type: 'warning',
+			background: '#ffc127',
+			duration: 4000
 		}
 	]
 });

@@ -7,4 +7,8 @@ public interface IUserService
     Task<UserDto> GetCurrentUserAsync();
 
     Task UpdateUserInfoAsync(UserDto userDto);
+
+    Task<UserDto> GetUserById(Guid id);
+
+    Task<bool> ExistUserName(string userName);
 }

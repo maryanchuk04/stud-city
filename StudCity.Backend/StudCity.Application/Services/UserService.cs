@@ -37,6 +37,7 @@ public class UserService : IUserService
         user.DateOfBirthday = userDto.DateOfBirthday;
         user.Settings.Language = userDto.Settings.Language;
         user.Settings.Theme = userDto.Settings.Theme;
+        user.Image.ImageUrl = userDto.Avatar;
         if (user.Settings.BackgroundImage == null)
         {
             user.Settings.BackgroundImage = new Image(userDto.Settings.BackgroundImage);
@@ -50,6 +51,31 @@ public class UserService : IUserService
 
         _context.Users.Update(user);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<UserDto> GetUserById(Guid id)
+    {
+        var user = await _context.Users
+            .Include(x => x.Image)
+            .Include(x => x.Account)
+                .ThenInclude(x => x.AccountRoles)
+            .Include(x => x.Settings)
+                .ThenInclude(x => x.BackgroundImage)
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        if (user == null)
+        {
+            throw new UserNotFoundException();
+        }
+
+        return _mapper.Map<UserDto>(user);
+    }
+
+    // True if user already exist and this is not current user
+    public async Task<bool> ExistUserName(string userName)
+    {
+        return await _context.Users
+            .AnyAsync(x => x.UserName == userName && x.Id != _securityContext.GetCurrentUserId());
     }
 
     private async Task<User> GetUserAsync()

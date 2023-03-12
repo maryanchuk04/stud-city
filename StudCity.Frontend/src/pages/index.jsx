@@ -10,7 +10,7 @@ import RecoveryPassword from "./RecoveryPassword";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { tokenProtection } from "./routeProtection";
 import EditProfile from "./Profile/EditProfile";
-import ViewProfile from "./ViewProfile";
+import ViewProfile from "./Profile/ViewProfile";
 
 export const routes = [
 	{
@@ -41,10 +41,12 @@ export const routes = [
 	},
 	{
 		path: '/profile',
-		element: <EditProfile />
+		element: <ProtectedRoute protectWhen={tokenProtection} redirectTo="/authenticate">
+			<EditProfile />
+		</ProtectedRoute>
 	},
 	{
-		path: '/profile/:accountId',
+		path: '/profile/:id',
 		element: <ViewProfile />
 	},
 	{

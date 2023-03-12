@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationM
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using StudCity.API.Extensions;
 using StudCity.API.Mapping;
 using StudCity.API.Policies;
 using StudCity.Application.Helpers;
@@ -25,6 +26,13 @@ using StudCity.Infrastructure.MailSender;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure db context
+builder.Services.AddDbContextFactory<StudCityContext>(
+options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("ApplicationDbConnectionString"),
+    b => b.MigrationsAssembly("StudCity.Db")),
+ServiceLifetime.Scoped);
+
 // binding configuration mail client
 var mailConfig = new MailSenderConfiguration();
 builder.Configuration.GetSection("MailClient").Bind(mailConfig);
@@ -34,21 +42,18 @@ var appConfig = new AppConfigurationModel();
 builder.Configuration.GetSection("AppPath").Bind(appConfig);
 builder.Services.AddSingleton(appConfig);
 
-// Add Logging
+// Add Logging.
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
-// Add services to the container.
+// Jwt configuration.
 var jwtConfiguration = new JwtConfiguration();
 builder.Configuration.GetSection("Jwt").Bind(jwtConfiguration);
 builder.Services.AddSingleton(jwtConfiguration);
-builder.Services.AddControllers();
+
+// Add services to the container.
+builder.ConfigureValidation();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDbContextFactory<StudCityContext>(
-    options => options.UseSqlServer(
-        builder.Configuration.GetConnectionString("ApplicationDbConnectionString"),
-        b => b.MigrationsAssembly("StudCity.Db")),
-    ServiceLifetime.Scoped);
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasherService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateServices>();
 builder.Services.AddScoped<ITokenService, TokenService>();
@@ -78,11 +83,7 @@ builder.Services.AddSwaggerGen(options =>
         {
             new OpenApiSecurityScheme
             {
-                Reference = new OpenApiReference
-                {
-                    Id = "Bearer",
-                    Type = ReferenceType.SecurityScheme,
-                },
+                Reference = new OpenApiReference {Id = "Bearer", Type = ReferenceType.SecurityScheme,},
             },
             new List<string>()
         },
@@ -91,8 +92,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddDataProtection().UseCryptographicAlgorithms(
     new AuthenticatedEncryptorConfiguration
     {
-        EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
-        ValidationAlgorithm = ValidationAlgorithm.HMACSHA256,
+        EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC, ValidationAlgorithm = ValidationAlgorithm.HMACSHA256,
     });
 builder.Services.AddSwaggerGenNewtonsoftSupport();
 builder.Services
@@ -112,34 +112,33 @@ builder.Services
     })
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters()
         {
-            options.TokenValidationParameters = new TokenValidationParameters()
+            ValidateActor = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+        };
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
             {
-                ValidateActor = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                ValidAudience = builder.Configuration["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-            };
-            options.Events = new JwtBearerEvents
-            {
-                OnMessageReceived = context =>
+                var accessToken = context.Request.Query["access_token"];
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) &&
+                    path.StartsWithSegments("/chatRoom"))
                 {
-                    var accessToken = context.Request.Query["access_token"];
-                    var path = context.HttpContext.Request.Path;
-                    if (!string.IsNullOrEmpty(accessToken) &&
-                        path.StartsWithSegments("/chatRoom"))
-                    {
-                        context.Token = accessToken;
-                    }
+                    context.Token = accessToken;
+                }
 
-                    return Task.CompletedTask;
-                },
-            };
-        });
-
+                return Task.CompletedTask;
+            },
+        };
+    });
 builder.Services.AddSingleton<IAuthorizationHandler, RoleHandler>();
 builder.Services.AddAuthorization();
 
