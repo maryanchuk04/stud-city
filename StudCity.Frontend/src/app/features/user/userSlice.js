@@ -33,7 +33,7 @@ export const fetchCurrentUser = createAsyncThunk(
 			return fulfillWithValue(data);
 		}
 		catch (err) {
-			if (!err.response) { 
+			if (!err.response) {
 				showAlert("Something went wrong", "error");
 				return;
 			}
@@ -51,7 +51,6 @@ export const saveCurrentUser = createAsyncThunk(
 			return fulfillWithValue(userData);
 		}
 		catch (err) {
-			console.log(err)
 			if (!err.response) {
 				showAlert("Something went wrong", "error");
 				return;
