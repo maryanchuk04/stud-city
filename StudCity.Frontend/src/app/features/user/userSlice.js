@@ -33,7 +33,7 @@ export const fetchCurrentUser = createAsyncThunk(
 			return fulfillWithValue(data);
 		}
 		catch (err) {
-			if (!err.response) {
+			if (!err.response) { 
 				showAlert("Something went wrong", "error");
 				return;
 			}

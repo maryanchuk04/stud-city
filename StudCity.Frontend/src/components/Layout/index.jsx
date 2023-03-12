@@ -3,7 +3,7 @@ import FetchSpinner from '../FetchSpinner'
 
 const Layout = ({ children }) => {
 	return (
-		<div>
+		<div className='min-h-screen'>
 			{children}
 			<FetchSpinner />
 		</div>

@@ -117,3 +117,13 @@ export const EDIT_PROFILE_SIDEBAR = [{
 	title: "Security",
 	icon: "fa-solid fa-shield-halved"
 }];
+
+
+export const USER_PROFILE_ICONS = [
+	"fa-solid fa-signature",
+	"fa-solid fa-envelope",
+	"fa-solid fa-cake-candles",
+	"fa-solid fa-phone",
+	"fa-solid fa-venus-mars",
+	"fa-solid fa-person-chalkboard"
+];
