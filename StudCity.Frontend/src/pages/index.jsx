@@ -10,6 +10,7 @@ import RecoveryPassword from "./RecoveryPassword";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { tokenProtection } from "./routeProtection";
 import EditProfile from "./Profile/EditProfile";
+import ViewProfile from "./ViewProfile";
 
 export const routes = [
 	{
@@ -41,6 +42,10 @@ export const routes = [
 	{
 		path: '/profile',
 		element: <EditProfile />
+	},
+	{
+		path: '/profile/:accountId',
+		element: <ViewProfile />
 	},
 	{
 		path: '/verify-email/:accountId',
