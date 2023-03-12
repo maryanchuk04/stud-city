@@ -39,13 +39,13 @@ const ValidateTextField = ({
 	};
 
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col relative">
 			<TextField
 				onChange={handleChange}
 				value={value}
 				{...custom}
 			/>
-			{withErrorMessage && <p className="text-center text-xs mt-[-0.5rem] text-[#eb4848] mb-1"> {errorMessage}</p>}
+			{withErrorMessage && <p className="text-center text-xs mt-[-0.5rem] text-[#eb4848] mb-1 absolute -bottom-2 w-full"> {errorMessage}</p>}
 		</div>
 	);
 };

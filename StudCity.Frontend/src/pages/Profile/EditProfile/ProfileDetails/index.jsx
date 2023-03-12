@@ -5,10 +5,13 @@ import TextField from "../../../../UI/fields/TextField";
 import SelectField from "../../../../UI/fields/SelectField";
 import ValidateTextField from "../../../../UI/fields/ValidateTextField";
 import UploadAvatar from "../../../RegistrationComplete/steps/UploadAvatar";
-import { DEFAULT_AVATAR_URL, DEFAULT_BACKGROUND_URL, SELECT_BACKGROUND_URLS } from "../../../../utils/constants";
 import DatePicker from "../../../../UI/DatePicker";
 import CustomDialog from "../../../../UI/CustomDialog";
-import { phoneNumberValidator } from '../../../../utils/validators/editProfileValidators';
+import { DEFAULT_AVATAR_URL, DEFAULT_BACKGROUND_URL, SELECT_BACKGROUND_URLS } from "../../../../utils/constants";
+import { phoneNumberValidator, profileDetailsValidator } from '../../../../utils/validators/editProfileValidators';
+import { useDispatch } from 'react-redux';
+import { saveCurrentUser } from '../../../../app/features/user/userSlice';
+import { showAlert } from '../../../../services/showAlert';
 
 const ProfileDetails = ({ user }) => {
 	const styleForButton = "mt-auto text-base w-16 h-10 mt-auto mx-0";
@@ -16,6 +19,8 @@ const ProfileDetails = ({ user }) => {
 	const inputBlock = "w-1/2 flex justify-between items-center";
 	const spanWithInputsBlocks = "ml-16 text-left text-xl";
 	const textFieldStyle = "w-60 h-10";
+
+	const dispatch = useDispatch();
 
 	const [details, setDetails] = useState(user);
 	const [avatar, setAvatar] = useState(details.avatar || DEFAULT_AVATAR_URL);
@@ -34,7 +39,17 @@ const ProfileDetails = ({ user }) => {
 	}, [avatar, backgroundImage])
 
 	const handleSave = () => {
-		console.log(details);
+		if (profileDetailsValidator(details)) {
+			dispatch(saveCurrentUser(details));
+			return;
+		}
+
+		showAlert("Please input valid data", "error");
+	}
+
+	const handleCancel = () => {
+		setDetails(user);
+		showAlert("Your data has been reset!", "warning")
 	}
 
 	return (
@@ -73,6 +88,7 @@ const ProfileDetails = ({ user }) => {
 					<div className="flex w-1/2 h-5/6 justify-end">
 						<Button
 							className={`${styleForButton} bg-transparent border-2 border-primaryAuthentication text-primaryAuthentication`}
+							onClick={handleCancel}
 						>
 							Cancel
 						</Button>
@@ -156,6 +172,7 @@ const ProfileDetails = ({ user }) => {
 				<CustomDialog handleClose={setShowDialogForAvatar}>
 					<UploadAvatar
 						className={"w-[800px] h-[600px]"}
+						avatar={avatar}
 						setAvatar={setAvatar}
 					/>
 				</CustomDialog>

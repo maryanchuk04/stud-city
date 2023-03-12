@@ -26,20 +26,40 @@ const initialState = {
 }
 
 export const fetchCurrentUser = createAsyncThunk(
-	'user/getCurrentUser',
+	"user/getCurrentUser",
 	async (_, { fulfillWithValue }) => {
 		try {
 			const { data } = await userService.getCurrentUser();
 			return fulfillWithValue(data);
 		}
-		catch(err) { 
+		catch (err) {
 			if (!err.response) {
 				showAlert("Something went wrong", "error");
 				return;
 			}
 
 			showAlert(err.response.data.error, "error");
-		}	
+		}
+	}
+)
+
+export const saveCurrentUser = createAsyncThunk(
+	"user/saveCurrentUser",
+	async (userData, { fulfillWithValue, rejectWithValue }) => {
+		try {
+			await userService.editCurrentUser(userData);
+			return fulfillWithValue(userData);
+		}
+		catch (err) {
+			console.log(err)
+			if (!err.response) {
+				showAlert("Something went wrong", "error");
+				return;
+			}
+
+			showAlert(err.response.data.error, "error");
+			return rejectWithValue(userData);
+		}
 	}
 )
 
@@ -55,8 +75,18 @@ const userSlice = createSlice({
 		[fetchCurrentUser.fulfilled]: (state, action) => {
 			state.data = action.payload;
 			state.loading = false;
+		},
+		[saveCurrentUser.pending]: (state) => {
+			state.loading = true;
+		},
+		[saveCurrentUser.fulfilled]: (state, action) => {
+			state.data = action.payload;
+			state.loading = false;
+		},
+		[saveCurrentUser.rejected]: (state) => {
+			state.loading = false;
 		}
-	} 
+	}
 })
 
 export const selectCurrentUser = (state) => state.user;

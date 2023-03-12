@@ -19,6 +19,14 @@ public class UserMapperProfile : Profile
 
         CreateMap<UserDto, CurrentUserViewModel>()
             .ForMember(x => x.Gender, opts => opts.MapFrom(src => GenderConverter(src.Gender)));
+
+        CreateMap<CurrentUserViewModel, UserDto>()
+            .ForMember(x => x.Gender, opts => opts.MapFrom(src => Enum.Parse<Gender>(src.Gender, true)));
+
+        CreateMap<UserDto, UserViewModel>()
+            .ForMember(x => x.Gender, opts => opts.MapFrom(src => GenderConverter(src.Gender)))
+            .ForMember(x => x.BackgroundImage, opts => opts.MapFrom(src => src.Settings.BackgroundImage));
+
     }
 
     private static string RoleResolver(IEnumerable<AccountRole> accountRoles)
