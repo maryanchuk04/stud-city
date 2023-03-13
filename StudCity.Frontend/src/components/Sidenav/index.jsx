@@ -5,11 +5,11 @@ import FullNavbar from './FullNavbar'
 import IconNavbar from './IconNavbar'
 
 const Sidenav = () => {
-	const fullNavbar = useSelector(selectNavbarState);
+	const { isOpen, active, activeName } = useSelector(selectNavbarState);
 	return (
-		<div className='w-auto max-w-xs flex h-full'>
+		<div className='w-auto max-w-xl flex h-full'>
 			<IconNavbar />
-			{fullNavbar && <FullNavbar />}
+			{isOpen && <FullNavbar active={active} activeName={activeName} />}
 		</div>
 	)
 }

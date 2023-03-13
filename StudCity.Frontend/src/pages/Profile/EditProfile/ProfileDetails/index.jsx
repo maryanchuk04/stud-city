@@ -36,7 +36,7 @@ const ProfileDetails = ({ user }) => {
 	return (
 		<div className="h-full">
 			<HeaderEditProfile
-				user={details}
+				user={user}
 				handleSave={handleSave}
 				handleCancel={handleCancel}
 				setUser={setDetails}

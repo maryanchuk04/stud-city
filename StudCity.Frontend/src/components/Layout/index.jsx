@@ -12,7 +12,6 @@ const Layout = ({ children }) => {
 	const { loading, data } = useSelector(selectUserForHeader);
 	const dispatch = useDispatch();
 
-
 	useEffect(() => {
 		dispatch(fetchCurrentUser());
 	}, [])
