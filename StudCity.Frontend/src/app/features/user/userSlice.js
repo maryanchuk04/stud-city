@@ -90,4 +90,15 @@ const userSlice = createSlice({
 
 export const selectCurrentUser = (state) => state.user;
 
+export const selectUserForHeader = (state) => {
+	return {
+		data: {
+			fullName: state.user?.data.fullName,
+			avatar: state.user?.data.avatar,
+		},
+		loading: state.user.loading
+	}
+};
+
+
 export default userSlice.reducer;

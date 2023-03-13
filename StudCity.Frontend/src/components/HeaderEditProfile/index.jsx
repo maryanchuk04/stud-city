@@ -8,7 +8,7 @@ import { DEFAULT_AVATAR_URL, DEFAULT_BACKGROUND_URL, SELECT_BACKGROUND_URLS } fr
 function HeaderEditProfile({ user, setUser, handleSave, handleCancel }) {
 	const styleForButton = "mt-auto text-base w-16 h-10 mt-auto mx-0";
 	const [avatar, setAvatar] = useState(user.avatar || DEFAULT_AVATAR_URL);
-	const [backgroundImage, setBackgroundImage] = useState(user.backgroundImage || DEFAULT_BACKGROUND_URL);
+	const [backgroundImage, setBackgroundImage] = useState(user.settings.backgroundImage || DEFAULT_BACKGROUND_URL);
 	const [showDialogForAvatar, setShowDialogForAvatar] = useState(false);
 	const [showDialogForBackground, setShowDialogForBackground] = useState(false);
 

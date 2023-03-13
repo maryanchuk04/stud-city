@@ -1,22 +1,17 @@
 
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import ProfileDetails from "./ProfileDetails";
 import ProfileSidebar from "./ProfileSidebar";
 import { EDIT_PROFILE_SIDEBAR } from "../../../utils/constants"
-import { fetchCurrentUser, selectCurrentUser } from "../../../app/features/user/userSlice";
+import { selectCurrentUser } from "../../../app/features/user/userSlice";
 import Spinner from "../../../components/Spinner";
 import Container from "../../../components/Container";
 
 function EditProfile() {
 	const { loading, data } = useSelector(selectCurrentUser);
-	const dispatch = useDispatch();
 
 	const [menuState, setMenuState] = useState(0);
-
-	useEffect(() => {
-		dispatch(fetchCurrentUser());
-	}, [])
 
 	const renderSections = () => {
 		switch (menuState) {
