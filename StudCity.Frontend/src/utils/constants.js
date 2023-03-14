@@ -127,3 +127,37 @@ export const USER_PROFILE_ICONS = [
 	"fa-solid fa-venus-mars",
 	"fa-solid fa-person-chalkboard"
 ];
+
+export const HEADER_LINKS = [
+	{
+		path: "/feeds",
+		name: "Feeds",
+	},
+	{
+		path: "/profile",
+		name: "Profile",
+	},
+	{
+		path: "/groups",
+		name: "Groups",
+	},
+	{
+		path: "/users",
+		name: "Users",
+	},
+];
+
+export const ICON_NAVBAR_ICONS = [
+	{
+		icon: "fa-sharp fa-regular fa-bell",
+		name: "Notification",
+	},
+	{
+		icon: "fa-regular fa-comments",
+		name: "Chats",
+	},
+	{
+		icon: "fa-light fa-screen-users",
+		name: "My Groups"
+	}
+];
