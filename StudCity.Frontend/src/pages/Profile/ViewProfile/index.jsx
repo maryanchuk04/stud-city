@@ -38,7 +38,6 @@ function ViewProfile() {
 	const fetchUser = async (id) => {
 		setLoading(true);
 		const data = await service.getUserById(id);
-
 		if (!data) {
 			navigate("/not-found");
 			return;

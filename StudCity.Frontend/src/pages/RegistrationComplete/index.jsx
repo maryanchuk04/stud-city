@@ -6,7 +6,7 @@ import {
 	changeActiveState,
 	selectRegisterCompleteDefaultInfo,
 	changeRegisterCompleteState
-} from "../../app/features/register-complete/registerCompleteSlice";
+} from "../../app/features/registerCompleteSlice";
 import {
 	getRegisterCompleteDefautlData,
 	REGISTER_COMPLETE_STEPS,
@@ -68,7 +68,7 @@ const RegistrationComplete = () => {
 			case 2:
 				return <UploadAvatar
 					avatar={state.avatar}
-					title = {"Upload your Avatar"}
+					title={"Upload your Avatar"}
 					setAvatar={(data) => setState({ ...state, avatar: data })}
 				/>
 			case 3:

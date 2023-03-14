@@ -6,6 +6,8 @@ namespace StudCity.API.Validation;
 
 public class CurrentUserValidator : AbstractValidator<CurrentUserViewModel>
 {
+    private const string PhoneCode = "+380";
+
     public CurrentUserValidator()
     {
         RuleFor(x => x.UserName).NotNull().NotEmpty().WithMessage("User number is not valid");
@@ -17,11 +19,17 @@ public class CurrentUserValidator : AbstractValidator<CurrentUserViewModel>
             .NotEmpty().WithMessage("PhoneNumber must be not empty")
             .MinimumLength(13).WithMessage("PhoneNumber in not valid")
             .MaximumLength(13).WithMessage("PhoneNumber is not valid")
-            .Matches(new Regex(@"^\+(?:[0-9]●?){6,14}[0-9]$")).WithMessage("PhoneNumber is not valid");
+            .Matches(new Regex(@"^\+(?:[0-9]●?){6,14}[0-9]$")).WithMessage("PhoneNumber is not valid")
+            .Must(ValidatePhoneStartFrom).WithMessage($"PhoneNumber must start from {PhoneCode}");
     }
 
     private static bool ValidateDateOfBirthday(DateTime dateTime)
     {
         return dateTime <= DateTime.Now;
+    }
+
+    private static bool ValidatePhoneStartFrom(string phone)
+    {
+        return phone.StartsWith(PhoneCode);
     }
 }

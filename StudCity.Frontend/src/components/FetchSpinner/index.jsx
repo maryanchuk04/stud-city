@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { BounceLoader } from 'react-spinners';
-import { selectSpinnerState } from '../../app/features/fetch-spinner/fetchSpinnerSlice'
+import { selectSpinnerState } from '../../app/features/fetchSpinnerSlice'
 
 const FetchSpinner = () => {
 	const isOpen = useSelector(selectSpinnerState);

@@ -12,11 +12,12 @@ import { tokenProtection } from "./routeProtection";
 import EditProfile from "./Profile/EditProfile";
 import ViewProfile from "./Profile/ViewProfile";
 import ContactUs from "./ContactUs";
+import AuthRoute from "../components/AuthRoute";
 
 export const routes = [
 	{
 		path: "/",
-		element: <Main />
+		element: <Main />,
 	},
 	{
 		path: '/authenticate',
@@ -42,13 +43,11 @@ export const routes = [
 	},
 	{
 		path: '/profile',
-		element: <ProtectedRoute protectWhen={tokenProtection} redirectTo="/authenticate">
-			<EditProfile />
-		</ProtectedRoute>
+		element: <AuthRoute component={<EditProfile />} />
 	},
 	{
 		path: '/profile/:id',
-		element: <ViewProfile />
+		element: <AuthRoute component={<ViewProfile />} />
 	},
 	{
 		path: '/verify-email/:accountId',

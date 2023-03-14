@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { UserService } from '../../../services/userService';
-import { showAlert } from '../../../services/showAlert'
+import { UserService } from '../../services/userService';
+import { showAlert } from '../../services/showAlert'
 
 const userService = new UserService();
 
@@ -72,7 +72,7 @@ const userSlice = createSlice({
 			state.loading = true;
 		},
 		[fetchCurrentUser.fulfilled]: (state, action) => {
-			state.data = action.payload;
+			state.data = action.payload
 			state.loading = false;
 		},
 		[saveCurrentUser.pending]: (state) => {
@@ -89,5 +89,17 @@ const userSlice = createSlice({
 })
 
 export const selectCurrentUser = (state) => state.user;
+
+export const selectUserForHeader = (state) => {
+	return {
+		data: {
+			firstName: state.user.data.firstName,
+			lastName: state.user.data.lastName,
+			avatar: state.user.data.avatar,
+		},
+		loading: state.user.loading
+	}
+};
+
 
 export default userSlice.reducer;
