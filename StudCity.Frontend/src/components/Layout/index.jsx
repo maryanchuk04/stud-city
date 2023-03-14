@@ -18,21 +18,21 @@ const Layout = ({ children }) => {
 
 	return (
 		<div className='h-screen'>
-			{
-				loading ? <Spinner className="flex m-auto h-screen" /> : (
-					<div className='h-full'>
-						<div className='h-[8%]'>
-							<Header user={data} />
-						</div>
-						<div className='w-full flex h-[92%]'>
-							<Sidenav />
+			<div className='h-full'>
+				<div className='h-[8%]'>
+					<Header user={data} />
+				</div>
+				<div className='w-full flex h-[92%]'>
+					<Sidenav />
+					{
+						loading ? <Spinner className="flex m-auto h-full" /> : (
 							<Scroller>
 								{children}
 							</Scroller>
-						</div>
-					</div>
-				)
-			}
+						)
+					}
+				</div>
+			</div>
 			<FetchSpinner />
 		</div >
 	)

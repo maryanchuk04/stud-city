@@ -72,7 +72,7 @@ const userSlice = createSlice({
 			state.loading = true;
 		},
 		[fetchCurrentUser.fulfilled]: (state, action) => {
-			state.data = action.payload;
+			state.data = action.payload
 			state.loading = false;
 		},
 		[saveCurrentUser.pending]: (state) => {
@@ -93,8 +93,9 @@ export const selectCurrentUser = (state) => state.user;
 export const selectUserForHeader = (state) => {
 	return {
 		data: {
-			fullName: state.user?.data.fullName,
-			avatar: state.user?.data.avatar,
+			firstName: state.user.data.firstName,
+			lastName: state.user.data.lastName,
+			avatar: state.user.data.avatar,
 		},
 		loading: state.user.loading
 	}

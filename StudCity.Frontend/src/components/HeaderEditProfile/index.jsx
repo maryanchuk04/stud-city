@@ -53,7 +53,7 @@ function HeaderEditProfile({ user, setUser, handleSave, handleCancel }) {
 				<div className="w-9/12 h-full flex">
 					<div className="flex flex-col w-1/2 h-5/6">
 						<h4 className="text-2xl mt-auto font-normal">
-							{user.fullName || "Profile"}
+							{`${user.firstName}  ${user.lastName}`}
 						</h4>
 						<h4 className="text-sm font-normal" >
 							{user.description || "Update your details"}
@@ -82,6 +82,7 @@ function HeaderEditProfile({ user, setUser, handleSave, handleCancel }) {
 					<UploadAvatar
 						className={"w-[800px] h-[600px]"}
 						setAvatar={setAvatar}
+						avatar={avatar}
 					/>
 				</CustomDialog>
 			}

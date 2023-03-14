@@ -3,10 +3,10 @@ import Avatar from '../../UI/Avatar';
 import { NavLink, Link } from 'react-router-dom';
 import { HEADER_LINKS } from '../../utils/constants';
 
+
 const Header = ({ user }) => {
 	const linkStyles = "text-2xl font-bold text-primaryAuthentication mr-4 relative";
-
-	const { fullName, avatar } = user;
+	const { firstName, lastName, avatar } = user;
 
 	return (
 		<div className="h-full py-2 border-y-2 ">
@@ -29,7 +29,7 @@ const Header = ({ user }) => {
 
 				{/* User info */}
 				<Link to="/profile" className='flex items-center max-w-max justify-between cursor-pointer'>
-					<h1 className='text-xl mr-4'>{fullName}</h1>
+					<h1 className='text-xl mr-4'>{`${firstName}  ${lastName}`}</h1>
 					<Avatar src={avatar} className="h-14 w-14" />
 				</Link>
 			</div>
