@@ -11,6 +11,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import { tokenProtection } from "./routeProtection";
 import EditProfile from "./Profile/EditProfile";
 import ViewProfile from "./Profile/ViewProfile";
+import ContactUs from "./ContactUs";
 
 export const routes = [
 	{
@@ -52,6 +53,10 @@ export const routes = [
 	{
 		path: '/verify-email/:accountId',
 		element: <VerifyEmail />
+	},
+	{
+		path: '/contact-us',
+		element: <ContactUs />
 	},
 	{
 		path: "*",
