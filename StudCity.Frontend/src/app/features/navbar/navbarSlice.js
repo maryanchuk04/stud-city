@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ICON_NAVBAR_ICONS } from "../../../utils/constants";
 
 export const navbarSlice = createSlice({
 	name: "navbar",
 	initialState: {
 		isOpen: false,
 		active: 0,
-		activeName: ""
+		activeName: ICON_NAVBAR_ICONS[0].name
 	},
 	reducers: {
 		toggleNavbar: (state) => {

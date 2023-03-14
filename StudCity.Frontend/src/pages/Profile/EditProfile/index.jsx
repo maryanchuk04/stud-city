@@ -23,18 +23,18 @@ function EditProfile() {
 	}
 
 	return (
-		<div className="w-full h-screen flex flex-col bg-elephantBone">
+		<div className="w-full h-full flex flex-col bg-elephantBone">
 			{
 				loading ? <Spinner /> : (
 					<Container className="h-full flex flex-col mx-auto">
-						<div className="h-24 w-full border-b-2 border-[#D1D7D4] flex items-center">
+						<div className="h-20 w-full border-b-2 border-[#D1D7D4] flex items-center">
 							<h4 className="text-3xl font-medium" >{EDIT_PROFILE_SIDEBAR[menuState].title}</h4>
 						</div>
 						<div className="h-5/6 flex w-full">
-							<div className="w-3/12 h-full ">
+							<div className="w-[18%] h-full ">
 								<ProfileSidebar items={EDIT_PROFILE_SIDEBAR} menuState={menuState} setMenuState={setMenuState} />
 							</div>
-							<div className="w-9/12 h-full flex flex-col overflow-y-auto">
+							<div className="w-[82%] h-full flex flex-col overflow-y-auto">
 								{renderSections()}
 							</div>
 						</div>
