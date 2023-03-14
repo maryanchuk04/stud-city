@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { UserService } from '../../../services/userService';
-import { showAlert } from '../../../services/showAlert'
+import { UserService } from '../../services/userService';
+import { showAlert } from '../../services/showAlert'
 
 const userService = new UserService();
 

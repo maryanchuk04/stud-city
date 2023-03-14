@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { selectNavbarState } from '../../app/features/navbar/navbarSlice';
+import { selectNavbarState } from '../../app/features/navbarSlice';
 import FullNavbar from './FullNavbar'
 import IconNavbar from './IconNavbar'
 

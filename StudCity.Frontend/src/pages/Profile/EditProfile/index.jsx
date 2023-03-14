@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import ProfileDetails from "./ProfileDetails";
 import ProfileSidebar from "./ProfileSidebar";
 import { EDIT_PROFILE_SIDEBAR } from "../../../utils/constants"
-import { selectCurrentUser } from "../../../app/features/user/userSlice";
+import { selectCurrentUser } from "../../../app/features/userSlice";
 import Container from "../../../components/Container";
 
 function EditProfile() {

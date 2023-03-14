@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCurrentUser, selectUserForHeader } from '../../app/features/user/userSlice'
+import { fetchCurrentUser, selectUserForHeader } from '../../app/features/userSlice'
 
 import FetchSpinner from '../FetchSpinner'
 import Header from '../Header'

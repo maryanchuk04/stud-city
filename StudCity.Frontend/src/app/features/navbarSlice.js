@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ICON_NAVBAR_ICONS } from "../../../utils/constants";
+import { ICON_NAVBAR_ICONS } from "../../utils/constants";
 
 export const navbarSlice = createSlice({
 	name: "navbar",
