@@ -2,8 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { UserService } from '../../services/userService';
 import { showAlert } from '../../services/showAlert'
 
-const userService = new UserService();
-
 const initialState = {
 	data: {
 		id: "",
@@ -27,7 +25,7 @@ const initialState = {
 
 export const fetchCurrentUser = createAsyncThunk(
 	"user/getCurrentUser",
-	async (_, { fulfillWithValue }) => {
+	async (_, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
 		try {
 			const { data } = await userService.getCurrentUser();
 			return fulfillWithValue(data);
@@ -35,17 +33,18 @@ export const fetchCurrentUser = createAsyncThunk(
 		catch (err) {
 			if (!err.response) {
 				showAlert("Something went wrong", "error");
-				return;
+				return rejectWithValue();
 			}
 
 			showAlert(err.response.data.error, "error");
+			return rejectWithValue();
 		}
 	}
 )
 
 export const saveCurrentUser = createAsyncThunk(
 	"user/saveCurrentUser",
-	async (userData, { fulfillWithValue, rejectWithValue }) => {
+	async (userData, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
 		try {
 			await userService.editCurrentUser(userData);
 			return fulfillWithValue(userData);
@@ -73,6 +72,9 @@ const userSlice = createSlice({
 		},
 		[fetchCurrentUser.fulfilled]: (state, action) => {
 			state.data = action.payload
+			state.loading = false;
+		},
+		[fetchCurrentUser.rejected]: (state) => {
 			state.loading = false;
 		},
 		[saveCurrentUser.pending]: (state) => {

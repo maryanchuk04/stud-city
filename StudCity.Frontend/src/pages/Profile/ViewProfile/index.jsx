@@ -34,7 +34,7 @@ function ViewProfile() {
 			await fetchUser(id);
 		})()
 	}, [id])
-
+    
 	const fetchUser = async (id) => {
 		setLoading(true);
 		const data = await service.getUserById(id);
@@ -46,7 +46,7 @@ function ViewProfile() {
 		setUser({
 			userName: data.userName,
 			email: data.email,
-			dateOfBirtday: data.dateOfBirtday,
+			dateOfBirthday: new Date(data.dateOfBirthday).toLocaleDateString(),
 			phoneNumber: data.phoneNumber,
 			gender: data.gender,
 			role: data.role
@@ -63,27 +63,30 @@ function ViewProfile() {
 	}
 
 	return (
-		<div className="w-full min-h-screen bg-elephantBone flex m-auto">
+		<div className="w-full min-h-screen bg-elephantBone flex m-auto pb-10">
 			{
 				loading ? <Spinner className="h-auto" /> : (
 					<Container className="flex flex-col">
 						<HeaderViewProfile
 							userInfo={otherInfo}
 						/>
-						<div className="flex flex-col">
-							<h4 className="w-full text-center font-medium text-4xl text-primaryAuthentication mb-5">About</h4>
-							<div className="grid grid-cols-2 w-8/12 mx-auto gap-8">
-								{
-									Object.keys(user).map((key, index) => (
-										<ElementViewProfile
-											icon={USER_PROFILE_ICONS[index]}
-											mainText={user[key]}
-											subText={key.toLocaleUpperCase()}
-											key={key}
-										/>
-									))
-								}
+						<div className="flex justify-between w-full">
+							<div className="w-3/12 mt-10">
+								<h4 className="w-full text-start font-medium text-4xl text-primaryAuthentication mb-5">About</h4>
+								<div className="grid grid-cols-1 w-full  gap-8">
+									{
+										Object.keys(user).map((key, index) => (
+											<ElementViewProfile
+												icon={USER_PROFILE_ICONS[index]}
+												mainText={user[key]}
+												subText={key.toLocaleUpperCase()}
+												key={key}
+											/>
+										))
+									}
+								</div>
 							</div>
+							<div className="w-8/12 mt-10"></div>
 						</div>
 					</Container>
 				)

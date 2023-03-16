@@ -1,7 +1,6 @@
 import { BaseService } from "./baseService";
 import { showAlert } from "./showAlert";
 
-
 export class UserService {
 	constructor() {
 		this.service = new BaseService();
