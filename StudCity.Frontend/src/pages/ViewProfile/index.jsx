@@ -26,7 +26,7 @@ function ViewProfile() {
 		description: "Cool guy"
 	}
 	return(
-		<div className="w-full min-h-screen max-h-fit bg-elephantBone flex">
+		<div className="w-full h-full bg-elephantBone flex">
 			<div className="flex w-9/12 mx-auto flex-col">
 				<HeaderViewProfile
 					userInfo={userInfo}
