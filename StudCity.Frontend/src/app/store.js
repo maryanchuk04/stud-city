@@ -1,10 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import fetchSpinnerReduce from './features/fetch-spinner/fetchSpinnerSlice';
-import registerCompleteReduce from './features/register-complete/registerCompleteSlice';
+import rootReducer from "./features"
 
 export const store = configureStore({
-	reducer: {
-		registerComplete: registerCompleteReduce,
-		fetchSpinner: fetchSpinnerReduce
-	},
+	reducer: rootReducer
 });
