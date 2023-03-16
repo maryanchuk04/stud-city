@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { TokenService } from './tokenService';
 
+const tokenService = new TokenService();
+
 export class BaseService {
 	constructor() {
-		const tokenService = new TokenService();
+		
 		this.axios = axios.create({
 			baseURL: process.env.REACT_APP_BASE_API_URL,
 			withCredentials: true,
