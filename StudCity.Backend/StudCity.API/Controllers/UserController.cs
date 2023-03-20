@@ -113,4 +113,31 @@ public class UserController : ControllerBase
             return NotFound(new ErrorResponseModel("Sorry, something went wrong!", e.Message));
         }
     }
+
+    /// <summary>
+    /// Get all users
+    /// </summary>
+    /// <param name="filter">Search user parameters</param>
+    /// <response code = '200'>User exist and return user model.</response>
+    /// <response code = '400'>Something went wrong. (Return model with error)</response>
+    [AllowAnonymous]
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchUsers([FromQuery] FilterParameters filter)
+    {
+        try
+        {
+            var users = await _userService.GetUsersAsync(filter);
+            var result = new IndexViewModel<UserShortInfo>
+            {
+                Items = _mapper.Map<UserShortInfo[]>(users.Items),
+                PageViewModel = new PageViewModel(users.Count, filter.Page, filter.PageSize)
+            };
+
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return NotFound(new ErrorResponseModel("Sorry, something went wrong!", e.Message));
+        }
+    }
 }

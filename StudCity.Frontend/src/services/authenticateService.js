@@ -13,10 +13,12 @@ export class AuthenticateService {
 
 	async authenticate({ email, password }) {
 		try {
-			const authenticateResult = await this.service.post(this.authUrl, { email, password });
-			this.tokenService.setToken(authenticateResult.data.token);
-
-			return true;
+			const { data } = await this.service.post(this.authUrl, { email, password });
+			
+			if (data.token) {
+				this.tokenService.setToken(data.token);
+				return true;
+			}
 		}
 		catch (err) {
 			showAlert(err.response.data.error, "error");

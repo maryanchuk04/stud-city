@@ -11,4 +11,6 @@ public interface IUserService
     Task<UserDto> GetUserById(Guid id);
 
     Task<bool> ExistUserName(string userName);
+
+    Task<PaginationModel<UserDto>> GetUsersAsync(FilterParameters filterParameters);
 }

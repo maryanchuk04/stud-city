@@ -33,6 +33,20 @@ export class UserService {
 		}
 	}
 
+	async getUsers({ page = 1, pageSize = 10, searchWord = ''  }) {
+		try {
+			const { data } = await this.service.get(`${this.apiUrl}/search/?page=${page}&pageSize=${pageSize}&searchWord=${searchWord}`);
+			return data;
+		}
+		catch (err) {
+			if (!err.response) {
+				showAlert(err.response.message, "error");
+				return;	
+			}
+			showAlert("Something went wrong!", "error");
+		}
+	}
+
 	// /** I will think about this
 	// * @param query - Example "?firstName='maks'"
 	// */
