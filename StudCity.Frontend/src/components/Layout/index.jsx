@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCurrentUser, selectUserForHeader } from '../../app/features/userSlice'
-
+import { selectSpinnerState } from '../../app/features/fetchSpinnerSlice'
 import FetchSpinner from '../FetchSpinner'
 import Header from '../Header'
 import Scroller from '../Scroller'
@@ -10,6 +10,7 @@ import Spinner from '../Spinner'
 
 const Layout = ({ children }) => {
 	const { loading, data } = useSelector(selectUserForHeader);
+	const isOpen = useSelector(selectSpinnerState);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -33,7 +34,7 @@ const Layout = ({ children }) => {
 					}
 				</div>
 			</div>
-			<FetchSpinner />
+			{isOpen && <FetchSpinner />}
 		</div >
 	)
 }

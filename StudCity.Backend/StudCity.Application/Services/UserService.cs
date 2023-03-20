@@ -78,6 +78,33 @@ public class UserService : IUserService
             .AnyAsync(x => x.UserName == userName && x.Id != _securityContext.GetCurrentUserId());
     }
 
+    public async Task<PaginationModel<UserDto>> GetUsersAsync(FilterParameters filterParameters)
+    {
+        var usersQuery = _context.Users.AsQueryable();
+
+        usersQuery = !string.IsNullOrEmpty(filterParameters.SearchWord)
+            ? usersQuery.Where(x => x.FullName.Contains(filterParameters.SearchWord) 
+                                    || x.UserName.Contains(filterParameters.SearchWord))
+            : usersQuery;
+
+        var count = usersQuery.Count();
+
+        var users = await usersQuery
+            .Include(x => x.Account)
+            .ThenInclude(x => x.AccountRoles)
+            .ThenInclude(x => x.Role)
+            .Include(x => x.Image)
+            .Skip((filterParameters.Page - 1) * filterParameters.PageSize)
+            .Take(filterParameters.PageSize)
+            .ToListAsync();
+
+        return new PaginationModel<UserDto>
+        {
+            Items = _mapper.Map<UserDto[]>(users),
+            Count = count,
+        };
+    }
+
     private async Task<User> GetUserAsync()
     {
         var userId = _securityContext.GetCurrentUserId();

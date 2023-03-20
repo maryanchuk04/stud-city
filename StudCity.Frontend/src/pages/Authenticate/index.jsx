@@ -25,7 +25,9 @@ function Authenticate() {
 		event.preventDefault();
 		dispatch(handleChangeSpinerState());
 
-		if (await authenticateSerivice.authenticate(formState))
+		const isOk = await authenticateSerivice.authenticate(formState);
+
+		if (isOk)
 			navigate("/profile");
 		else
 			setFormState({ email: "", password: "" });
