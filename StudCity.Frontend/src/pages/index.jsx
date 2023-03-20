@@ -50,6 +50,10 @@ export const routes = [
 		element: <AuthRoute component={<ViewProfile />} />
 	},
 	{
+		path: '/profile/:accountId',
+		element: <ViewProfile />
+	},
+	{
 		path: '/verify-email/:accountId',
 		element: <VerifyEmail />
 	},
