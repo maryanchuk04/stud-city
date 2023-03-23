@@ -29,7 +29,8 @@
 	  background: #c0a0b9;
 	}
 }
-#message-area::-webkit-scrollbar{
+
+.scroll-none::-webkit-scrollbar{
 	display: none;
 }
 * {

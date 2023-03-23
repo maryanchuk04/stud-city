@@ -40,7 +40,7 @@ export function AllChats() {
 		}
 	]
 	return (
-		<div className="flex h-5/6 flex-col overflow-y-scroll mt-5 ">
+		<div className="flex h-5/6 flex-col overflow-y-scroll mt-5 scroll-none">
 			{
 				test.map(item => (
 					<UserMessages

@@ -22,7 +22,7 @@ export default function Chat() {
 	return (
 		<div className="w-full h-full flex flex-col justify-between bg-elephantBone">
 			<HeaderChat />
-			<div className="h-[calc(100%-5rem-16.7%)] w-full overflow-y-auto">
+			<div className="h-[calc(100%-10rem)] w-full overflow-y-auto scroll-none">
 				{
 					messages.map((message, index) => (
 						<Message
@@ -36,6 +36,7 @@ export default function Chat() {
 						/>
 					))
 				}
+				<div ref={scrollDown}></div>
 			</div>
 			<div className="h-fit w-full flex py-3">
 				<Sender sendMessages={sendMessages} />
