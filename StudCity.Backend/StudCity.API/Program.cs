@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StudCity.API.Extensions;
+using StudCity.API.Hubs;
 using StudCity.API.Mapping;
 using StudCity.API.Policies;
 using StudCity.Application.Helpers;
@@ -67,6 +68,9 @@ builder.Services.AddSingleton<ISecurityContext, SecurityContext>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddAutoMapper(typeof(RegistrationCompleteMapperProfile).GetTypeInfo().Assembly);
+builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddSignalR();
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -167,6 +171,7 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapHub<ChatHub>("/chatHub");
     endpoints.MapControllerRoute("default", "{controller}/{action=Index}/{id?}");
 });
 

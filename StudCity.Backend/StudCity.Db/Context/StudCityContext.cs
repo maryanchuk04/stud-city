@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using StudCity.Core.DTOs;
 using StudCity.Core.Entities;
 
 namespace StudCity.Db.Context;
@@ -32,4 +33,10 @@ public class StudCityContext : DbContext
     public virtual DbSet<Settings> SettingsSet { get; set; }
 
     public virtual DbSet<TeacherStore> TeachersStore { get; set; }
+
+    public virtual DbSet<UserRoom> UserRooms { get; set; }
+
+    public virtual DbSet<Room> Rooms { get; set; }
+
+    public virtual DbSet<Message> Messages { get; set; }
 }
