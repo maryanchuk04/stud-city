@@ -20,10 +20,10 @@ const Layout = ({ children }) => {
 	return (
 		<div className='h-screen'>
 			<div className='h-full'>
-				<div className='h-[8%]'>
+				<div className='h-20'>
 					<Header user={data} />
 				</div>
-				<div className='w-full flex h-[92%]'>
+				<div className='w-full flex h-[calc(100%-5rem)]'>
 					<Sidenav />
 					{
 						loading ? <Spinner className="flex m-auto h-full" /> : (
