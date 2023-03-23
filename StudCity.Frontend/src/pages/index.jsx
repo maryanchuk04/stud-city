@@ -13,6 +13,7 @@ import EditProfile from "./Profile/EditProfile";
 import ViewProfile from "./Profile/ViewProfile";
 import ContactUs from "./ContactUs";
 import AuthRoute from "../components/AuthRoute";
+import Chat from "./Chat";
 
 export const routes = [
 	{
@@ -50,12 +51,12 @@ export const routes = [
 		element: <AuthRoute component={<ViewProfile />} />
 	},
 	{
-		path: '/profile/:accountId',
-		element: <ViewProfile />
-	},
-	{
 		path: '/verify-email/:accountId',
 		element: <VerifyEmail />
+	},
+	{
+		path: '/chats/:chatId',
+		element: <AuthRoute component={<Chat />} />
 	},
 	{
 		path: '/contact-us',
