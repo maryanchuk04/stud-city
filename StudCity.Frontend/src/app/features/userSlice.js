@@ -97,6 +97,8 @@ const userSlice = createSlice({
 
 export const selectCurrentUser = (state) => state.user;
 
+export const selectCurrentUserData = (state) => state.user.data;
+
 export const selectUserForHeader = (state) => {
 	return {
 		data: {
