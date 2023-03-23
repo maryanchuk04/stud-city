@@ -20,7 +20,7 @@ export default function Message({ userId, content, when, fullName, image, id }) 
 							<span className={`${styleFullNameText}`}>{fullName}</span>
 						</div>
 						<div className={`bg-customGreen ml-auto mr-5 ${styleMessageText}`}>
-							<span className="break-all">
+							<span className="break-all whitespace-pre-line">
 								{content}
 							</span>
 						</div>
@@ -44,7 +44,7 @@ export default function Message({ userId, content, when, fullName, image, id }) 
 							<span className={`ml-6 ${styleDateText}`}>{when}</span>
 						</div>
 						<div className={`bg-[#e5e3bc] ml-5 ${styleMessageText}`}>
-							<span className="break-all">
+							<span className="break-all whitespace-pre-line">
 								{content}
 							</span>
 						</div>

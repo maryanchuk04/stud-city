@@ -9,4 +9,6 @@ public interface IRoomService
     Task<IEnumerable<RoomPreviewDto>> GetUsersRooms();
 
     Task<RoomDto> CreateRoom(IEnumerable<Guid> usersIds, string title);
+
+    Task<RoomDto> GetRoomById(Guid id);
 }

@@ -7,4 +7,6 @@ public class RoomPreviewDto
     public string Title { get; set; }
 
     public MessagePreviewDto Message { get; set; }
+
+    public string Avatar { get; set; }
 }

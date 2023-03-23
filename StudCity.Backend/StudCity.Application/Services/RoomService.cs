@@ -98,6 +98,27 @@ public class RoomService : IRoomService
         return await GetRoom(room.Id, _securityContext.GetCurrentUserId());
     }
 
+    public async Task<RoomDto> GetRoomById(Guid id)
+    {
+        var room = await _context.Rooms
+            .Include(x => x.UserRooms)
+            .ThenInclude(x => x.User)
+            .ThenInclude(x => x.Image)
+            .Include(c => c.Messages
+                .OrderByDescending(x => x.When)
+                .Take(20))
+            .ThenInclude(x => x.User)
+            .ThenInclude(x => x.Image)
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        if (room == null)
+        {
+            throw new NotFoundException(nameof(Room), id);
+        }
+
+        return _mapper.Map<RoomDto>(room);
+    }
+
     private Room CreateRoom(Guid id, Guid userId)
     {
         var temp = _context.Users.FirstOrDefault(x => x.Id == id);

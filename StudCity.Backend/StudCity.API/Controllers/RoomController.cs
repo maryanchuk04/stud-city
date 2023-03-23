@@ -55,4 +55,17 @@ public class RoomController : ControllerBase
             return BadRequest(new ErrorResponseModel(e.Message));
         }
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetChatById(Guid id)
+    {
+        try
+        {
+            return Ok(await _roomService.GetRoomById(id));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ErrorResponseModel(e.Message));
+        }
+    }
 }

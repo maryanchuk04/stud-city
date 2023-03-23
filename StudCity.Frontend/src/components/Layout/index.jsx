@@ -7,15 +7,29 @@ import Header from '../Header'
 import Scroller from '../Scroller'
 import Sidenav from '../Sidenav'
 import Spinner from '../Spinner'
+import { fetchUserChats, selectUserChats } from '../../app/features/chatsSlice'
+import { HubService } from '../../services/hubService'
 
 const Layout = ({ children }) => {
 	const { loading, data } = useSelector(selectUserForHeader);
 	const isOpen = useSelector(selectSpinnerState);
+	const rooms = useSelector(selectUserChats);
 	const dispatch = useDispatch();
+	const hub = new HubService();
 
 	useEffect(() => {
+		dispatch(fetchUserChats());
 		dispatch(fetchCurrentUser());
 	}, [])
+
+	useEffect(() => {
+		if (rooms.length > 0) {
+			hub.startConnection().then(() => {
+				hub.connectToUserRooms(rooms.map((room) => room.id));
+			})
+
+		}
+	}, [rooms])
 
 	return (
 		<div className='h-screen'>
