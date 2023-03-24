@@ -1,19 +1,28 @@
 import * as signalR from "@microsoft/signalr";
 import { LogLevel } from "@microsoft/signalr";
 import { TokenService } from "./tokenService";
+import { store } from "../app/store";
+import { addMessageAction } from "../app/features/chatsSlice";
+
+const tokenService = new TokenService();
+
+export const connectToHub = () => {
+	if(tokenService.getToken()) {
+		const signalR = new HubService();
+		signalR.startConnection(() => console.log("START_CONNECTION"));
+		return signalR;
+	}
+}
+
 
 export class HubService {
-	#tokenService = new TokenService();
-	#hubConnection;
+	#hubConnection = new signalR.HubConnectionBuilder()
+	.withUrl(process.env.REACT_APP_CHAT_HUB_URL, {
+		accessTokenFactory: () => tokenService.getToken()
+	})
+	.configureLogging(LogLevel.Information)
+	.build();
 	
-	constructor() {
-		this.#hubConnection = new signalR.HubConnectionBuilder()
-		.withUrl(process.env.REACT_APP_CHAT_HUB_URL, {
-			accessTokenFactory: () => this.#tokenService.getToken()
-		})
-		.configureLogging(LogLevel.Information).build();
-	}
-
 	/**
 	 * 
 	 * @param string ids 
@@ -29,6 +38,7 @@ export class HubService {
 	
 		this.#hubConnection.on("ReceiveMessage", (message) => {
 			console.log(message);
+			store.dispatch(addMessageAction(message));
 		});
 
 		return this.#hubConnection.start();

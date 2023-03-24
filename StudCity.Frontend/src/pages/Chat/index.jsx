@@ -1,44 +1,43 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import HeaderChat from "../../components/HeaderChat";
 import Sender from "../../components/Sender";
 import Message from "../../components/Message";
-import { TEST_ARRAY_MESSAGES } from "../../utils/constants";
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { selectCurrentUserId } from "../../app/features/userSlice"
 import { useParams } from "react-router-dom";
-import { RoomService } from "../../services/roomService";
 import Spinner from "../../components/Spinner";
+import { fetchChat, selectChat, selectChatLoading } from "../../app/features/chatsSlice";
 
-export default function Chat() {
-	const [chat, setChat] = useState(null);
+export default function Chat({ signalR }) {
 	const { chatId } = useParams();
-	const service = new RoomService();
-	const [messages, setMessages] = useState(TEST_ARRAY_MESSAGES);
+	const dispatch = useDispatch();
+
+	const chat = useSelector(selectChat);
+	const loading = useSelector(selectChatLoading);
 	const id = useSelector(selectCurrentUserId);
+
 	const scrollDown = useRef(null);
 
 	useEffect(() => {
-		(async () => {
-			setChat(await service.getChatById(chatId))
-		})()
+		chatId && dispatch(fetchChat(chatId));
 	}, [chatId])
 
 	useEffect(() => {
 		scrollDown.current?.scrollIntoView({ behavior: 'smooth' })
-	}, [messages])
+	}, [chat.messages])
 
-	const sendMessages = (message) => {
-		setMessages([...messages, message])
+	const sendMessage = (message) => {
+		signalR.sendMessage(chatId, message);
 	}
 
-	return !chat ? (
+	return loading ? (
 		<Spinner />
 	) : (
 		<div className="w-full h-full flex flex-col justify-between bg-elephantBone" >
-			<HeaderChat title={chat.title} />
+			<HeaderChat title={chat.title} users={chat.users} />
 			<div className="h-[calc(100%-10rem)] w-full overflow-y-auto scroll-none">
 				{
-					messages.map((message, index) => (
+					chat.messages.map((message, index) => (
 						<Message
 							id={id}
 							userId={message.user.id}
@@ -53,7 +52,7 @@ export default function Chat() {
 				<div ref={scrollDown}></div>
 			</div>
 			<div className="h-fit w-full flex py-3">
-				<Sender sendMessages={sendMessages} />
+				<Sender sendMessage={sendMessage} />
 			</div>
 		</div>
 	)

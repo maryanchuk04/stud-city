@@ -38,7 +38,8 @@ ServiceLifetime.Scoped);
 var mailConfig = new MailSenderConfiguration();
 builder.Configuration.GetSection("MailClient").Bind(mailConfig);
 builder.Services.AddSingleton(mailConfig);
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 var appConfig = new AppConfigurationModel();
 builder.Configuration.GetSection("AppPath").Bind(appConfig);
 builder.Services.AddSingleton(appConfig);
@@ -132,10 +133,13 @@ builder.Services
             OnMessageReceived = context =>
             {
                 var accessToken = context.Request.Query["access_token"];
+
+                // If the request is for our hub...
                 var path = context.HttpContext.Request.Path;
                 if (!string.IsNullOrEmpty(accessToken) &&
-                    path.StartsWithSegments("/chatRoom"))
+                    path.StartsWithSegments("/chatHub"))
                 {
+                    // Read the token out of the query string
                     context.Token = accessToken;
                 }
 

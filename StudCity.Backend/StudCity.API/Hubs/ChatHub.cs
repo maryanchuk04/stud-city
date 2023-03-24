@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using StudCity.Core.Interfaces;
 
 namespace StudCity.API.Hubs;
 
+[Authorize]
 public class ChatHub : Hub
 {
     private readonly IDictionary<string, string> _connections = new Dictionary<string, string>();
@@ -30,7 +32,7 @@ public class ChatHub : Hub
             var currentUserId = _securityContext.GetCurrentUserId();
             var res = await _messageService.Send(chatId, currentUserId, message);
 
-            await Clients.Group(chatId.ToString()).SendAsync("SendMessage", res);
+            await Clients.Group(chatId.ToString()).SendAsync("ReceiveMessage", res);
         }
     }
 

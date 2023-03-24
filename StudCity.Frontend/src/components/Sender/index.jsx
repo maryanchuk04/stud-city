@@ -1,10 +1,7 @@
 import React, { useState, useRef } from "react";
-import { useSelector } from "react-redux";
-import { selectCurrentUserData } from "../../app/features/userSlice";
 import Button from "../../UI/Button";
 
-export default function Sender({ sendMessages }) {
-	const { id, fullName } = useSelector(selectCurrentUserData)
+export default function Sender({ sendMessage }) {
 	const [value, setValue] = useState("");
 	const textAreaRef = useRef(null);
 	const resizeTextArea = () => {
@@ -18,14 +15,7 @@ export default function Sender({ sendMessages }) {
 
 	const handleClick = () => {
 		if (value.trim() !== "") {
-			sendMessages({
-				content: value,
-				user: {
-					id: id,
-					fullName: fullName
-				},
-				when: "23.03.2023",
-			});
+			sendMessage(value);
 			setValue("");
 		}
 	}

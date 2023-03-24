@@ -42,7 +42,7 @@ public class AuthenticateController : ControllerBase
     {
         try
         {
-            if (await _authenticateService.CanRegisterAsync(authenticateViewModel.Email))
+            if (!await _authenticateService.CanRegisterAsync(authenticateViewModel.Email))
             {
                 return BadRequest(new ErrorResponseModel("Account is already exist"));
             }
@@ -175,9 +175,11 @@ public class AuthenticateController : ControllerBase
                 return BadRequest(new ErrorResponseModel($"{registrationCompleteViewModel.UserName} username is already taken!"));
             }
 
-            await _authenticateService.RegistrationCompleteAsync(
+            var responseModel = await _authenticateService.RegistrationCompleteAsync(
                 _mapper.Map<RegistrationCompleteViewModel, RegistrationCompleteDto>(registrationCompleteViewModel));
-            return Ok();
+            HttpContext.SetTokenCookie(responseModel);
+
+            return Ok(new { Token = responseModel.JwtToken });
         }
         catch (AuthenticateException e)
         {
@@ -187,5 +189,16 @@ public class AuthenticateController : ControllerBase
         {
             return BadRequest(new ErrorResponseModel("Registration complete error", e.Message));
         }
+    }
+
+    /// <summary>
+    /// LogOut user.
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("logout")]
+    public IActionResult Logout()
+    {
+        HttpContext.DeleteRefreshToken();
+        return Ok();
     }
 }

@@ -44,7 +44,7 @@ public class RoomService : IRoomService
                 .ThenInclude(x => x.User)
             .ThenInclude(x => x.Image)
             .Include(c => c.Messages
-                .OrderByDescending(x => x.When)
+                .OrderBy(x => x.When)
                 .Take(20))
                 .ThenInclude(x => x.User)
                     .ThenInclude(x => x.Image)
@@ -81,12 +81,20 @@ public class RoomService : IRoomService
 
     public async Task<RoomDto> CreateRoom(IEnumerable<Guid> usersIds, string title)
     {
-        var room = new Room() { UserRooms = new List<UserRoom>(), Title = title, Messages = new List<Message>() };
+        var newRoomId = Guid.NewGuid();
+        var room = new Room
+        {
+            Id = newRoomId,
+            UserRooms = new List<UserRoom>(),
+            Title = title,
+            Messages = new List<Message>()
+        };
 
         foreach (var userId in usersIds)
         {
             room.UserRooms.Add(new UserRoom()
             {
+                Id = Guid.NewGuid(),
                 RoomId = room.Id,
                 UserId = userId
             });
@@ -95,28 +103,27 @@ public class RoomService : IRoomService
         _context.Rooms.Add(room);
         await _context.SaveChangesAsync();
 
-        return await GetRoom(room.Id, _securityContext.GetCurrentUserId());
+        return await GetRoomById(room.Id);
     }
 
     public async Task<RoomDto> GetRoomById(Guid id)
     {
         var room = await _context.Rooms
+            .Where(r => r.Id == id)
             .Include(x => x.UserRooms)
             .ThenInclude(x => x.User)
             .ThenInclude(x => x.Image)
-            .Include(c => c.Messages
-                .OrderByDescending(x => x.When)
-                .Take(20))
+            .Include(c => c.Messages)
             .ThenInclude(x => x.User)
             .ThenInclude(x => x.Image)
-            .FirstOrDefaultAsync(x => x.Id == id);
+            .FirstOrDefaultAsync();
 
         if (room == null)
         {
             throw new NotFoundException(nameof(Room), id);
         }
 
-        return _mapper.Map<RoomDto>(room);
+        return _mapper.Map<Room, RoomDto>(room);
     }
 
     private Room CreateRoom(Guid id, Guid userId)

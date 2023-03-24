@@ -2,8 +2,11 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { changeMenuState, selectNavbarState, toggleNavbar } from '../../app/features/navbarSlice';
 import { ICON_NAVBAR_ICONS } from '../../utils/constants';
+import IconButton from '../../UI/IconButton';
+import { AuthenticateService } from '../../services/authenticateService';
 
 const IconNavbar = () => {
+	const service = new AuthenticateService();
 	const iconStyles = "rounded-full p-2 fa-solid fa-arrow-left duration-200 ";
 	const { isOpen, active } = useSelector(selectNavbarState);
 	const dispatch = useDispatch();
@@ -14,6 +17,10 @@ const IconNavbar = () => {
 
 	const handleClickIcon = (active, activeName) => {
 		dispatch(changeMenuState({ active, activeName }));
+	}
+
+	const handleLogout = async () => {
+		await service.logOut();
 	}
 
 	return (
@@ -34,6 +41,9 @@ const IconNavbar = () => {
 			>
 				<i className={isOpen ? iconStyles : `${iconStyles} rotate-180`}></i>
 			</button>
+			<IconButton onClick={handleLogout} className='absolute bottom-4 left-1/2 transform -translate-x-1/2 h-8 w-8 hover:bg-primaryGold bg-customGreen text-black'>
+				<i className="fa-solid fa-right-from-bracket"></i>
+			</IconButton>
 		</div >
 	)
 }

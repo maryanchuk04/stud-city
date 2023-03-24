@@ -16,7 +16,7 @@ public interface IAuthenticateService
 
     Task RecoveryPassword(string hashingAccountId, string password);
 
-    Task RegistrationCompleteAsync(RegistrationCompleteDto registrationCompleteDto);
+    Task<AuthenticateResponseModel> RegistrationCompleteAsync(RegistrationCompleteDto registrationCompleteDto);
 
     Task<bool> ExistUserName(string userName);
 }

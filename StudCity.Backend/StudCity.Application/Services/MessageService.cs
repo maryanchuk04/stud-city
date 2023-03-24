@@ -27,8 +27,9 @@ public class MessageService : IMessageService
 
         var messageEntity = await _context.Messages.AddAsync(new Message { Content = message, UserId = userId, RoomId = roomId, });
 
+        await _context.SaveChangesAsync();
+
         var newMessage = await _context.Messages
-            .Include(x => x.Room)
             .Include(x=>x.User)
             .ThenInclude(x=>x.Image)
             .FirstAsync(x => x.Id == messageEntity.Entity.Id);

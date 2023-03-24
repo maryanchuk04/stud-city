@@ -10,6 +10,7 @@ const Sidenav = () => {
 		<div className='w-auto max-w-xl flex h-full'>
 			<IconNavbar />
 			{isOpen && <FullNavbar active={active} activeName={activeName} />}
+			
 		</div>
 	)
 }
