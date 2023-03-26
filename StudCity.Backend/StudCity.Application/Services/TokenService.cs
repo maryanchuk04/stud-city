@@ -44,6 +44,8 @@ public class TokenService : ITokenService
             .Include(x => x.Account)
                 .ThenInclude(x => x.AccountRoles)
                     .ThenInclude(x => x.Role)
+            .Include(x => x.Account)
+                .ThenInclude(x => x.User)
             .FirstOrDefaultAsync(x => x.AccountId == accountId && x.Token.Equals(token));
 
         if (accountTokens == null)
@@ -71,7 +73,7 @@ public class TokenService : ITokenService
             expires: DateTime.Now.AddMinutes(30000),
             signingCredentials: credentials);
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
+         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
     public AccountToken GenerateRefreshToken()
@@ -83,7 +85,7 @@ public class TokenService : ITokenService
         return _provider.ProvideRefreshToken(randomNumber);
     }
 
-    private IEnumerable<Claim> GetClaims(Account account)
+    private static IEnumerable<Claim> GetClaims(Account account)
     {
         var claims = new List<Claim>();
         if (account.UserId != null)

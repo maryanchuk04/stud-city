@@ -1,52 +1,19 @@
 import React from "react";
 import { UserMessages } from "../UserMessages";
+import { useSelector } from "react-redux";
+import { selectUserChats } from "../../app/features/chatsSlice";
 
 export function AllChats() {
-	const test = [
-		{
-			fullName: "Vova Romaniuk",
-			lastDate: "21.03.2023",
-			lastMessage: "hello hello hello hello hello hellohellohello"
-		},
-		{
-			fullName: "Vova Romaniuk",
-			lastDate: "21.03.2023",
-			lastMessage: "hello"
-		},
-		{
-			fullName: "Vova Romaniuk",
-			lastDate: "21.03.2023",
-			lastMessage: "hello"
-		},
-		{
-			fullName: "Vova Romaniuk",
-			lastDate: "21.03.2023",
-			lastMessage: "hello"
-		},
-		{
-			fullName: "Vova Romaniuk",
-			lastDate: "21.03.2023",
-			lastMessage: "hello"
-		},
-		{
-			fullName: "Vova Romaniuk",
-			lastDate: "21.03.2023",
-			lastMessage: "hello"
-		},
-		{
-			fullName: "Vova Romaniuk",
-			lastDate: "21.03.2023",
-			lastMessage: "hello"
-		}
-	]
+	const chats = useSelector(selectUserChats)
+
 	return (
 		<div className="flex h-5/6 flex-col overflow-y-scroll mt-5 scroll-none">
 			{
-				test.map(item => (
+				chats.map(item => (
 					<UserMessages
-						fullName={item.fullName}
-						lastDate={item.lastDate}
-						lastMessage={item.lastMessage}
+						id={item.id}
+						title={item.title}
+						message={item.message}
 						key={item.fullName}
 					/>
 				))

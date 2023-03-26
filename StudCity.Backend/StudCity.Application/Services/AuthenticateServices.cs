@@ -137,7 +137,7 @@ public class AuthenticateServices : IAuthenticateService
         await _mailService.SendMessage(account.Email, "Password changed!", "Your password was successfully changed");
     }
 
-    public async Task RegistrationCompleteAsync(RegistrationCompleteDto registrationCompleteDto)
+    public async Task<AuthenticateResponseModel> RegistrationCompleteAsync(RegistrationCompleteDto registrationCompleteDto)
     {
         var accountId = _securityContext.GetCurrentAccountId();
         var account = _context.Accounts
@@ -146,6 +146,7 @@ public class AuthenticateServices : IAuthenticateService
             .Include(x => x.User)
                 .ThenInclude(x => x.Settings)
             .Include(x => x.AccountRoles)
+                .ThenInclude(x => x.Role)
             .Include(x => x.RefreshTokens)
             .FirstOrDefault(x => x.Id == accountId);
 
@@ -175,16 +176,24 @@ public class AuthenticateServices : IAuthenticateService
 
         if (await _teachersStoreService.IsTeacherAsync(account.Email))
         {
-            account.AccountRoles.Add(new AccountRole { RoleId = Role.Teacher, });
+            account.AccountRoles.Add(new AccountRole { RoleId = Role.Teacher });
         }
         else
         {
-            account.AccountRoles.Add(new AccountRole { RoleId = Role.Student, });
+            account.AccountRoles.Add(new AccountRole { RoleId = Role.Student });
         }
 
         // TODO Add groups to user
         _context.Accounts.Update(account);
+
         await _context.SaveChangesAsync();
+
+        var updatedAccount = await _context.Accounts
+            .Include(x => x.AccountRoles)
+                .ThenInclude(x => x.Role)
+            .FirstAsync(x => x.Id == accountId);
+
+        return GenerateTokens(updatedAccount);
     }
 
     public async Task<bool> ExistUserName(string userName)
@@ -196,6 +205,16 @@ public class AuthenticateServices : IAuthenticateService
 
     public async Task<bool> CanRegisterAsync(string email)
     {
-        return await _context.Accounts.AnyAsync(x => x.Email == email);
+        return !await _context.Accounts.AnyAsync(x => x.Email == email);
+    }
+
+    private AuthenticateResponseModel GenerateTokens(Account account)
+    {
+        var jwtToken = _tokenService.GenerateAccessToken(account);
+        var refreshToken = _tokenService.GenerateRefreshToken();
+
+        _context.SaveChanges();
+
+        return new AuthenticateResponseModel(jwtToken, refreshToken.Token);
     }
 }

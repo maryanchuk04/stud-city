@@ -29,6 +29,9 @@ public class UserMapperProfile : Profile
 
         CreateMap<UserDto, UserShortInfo>()
             .ForMember(x => x.Role, opts => opts.MapFrom(src => src.Role));
+
+        CreateMap<User, UserPreviewDto>()
+            .ForMember(dest => dest.Image, opts => opts.MapFrom(src => src.Image.ImageUrl));
     }
 
     private static string RoleResolver(IEnumerable<AccountRole> accountRoles)

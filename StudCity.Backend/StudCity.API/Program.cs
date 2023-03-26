@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StudCity.API.Extensions;
+using StudCity.API.Hubs;
 using StudCity.API.Mapping;
 using StudCity.API.Policies;
 using StudCity.Application.Helpers;
@@ -37,7 +38,8 @@ ServiceLifetime.Scoped);
 var mailConfig = new MailSenderConfiguration();
 builder.Configuration.GetSection("MailClient").Bind(mailConfig);
 builder.Services.AddSingleton(mailConfig);
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 var appConfig = new AppConfigurationModel();
 builder.Configuration.GetSection("AppPath").Bind(appConfig);
 builder.Services.AddSingleton(appConfig);
@@ -67,6 +69,9 @@ builder.Services.AddSingleton<ISecurityContext, SecurityContext>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddAutoMapper(typeof(RegistrationCompleteMapperProfile).GetTypeInfo().Assembly);
+builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddSignalR();
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -128,10 +133,13 @@ builder.Services
             OnMessageReceived = context =>
             {
                 var accessToken = context.Request.Query["access_token"];
+
+                // If the request is for our hub...
                 var path = context.HttpContext.Request.Path;
                 if (!string.IsNullOrEmpty(accessToken) &&
-                    path.StartsWithSegments("/chatRoom"))
+                    path.StartsWithSegments("/chatHub"))
                 {
+                    // Read the token out of the query string
                     context.Token = accessToken;
                 }
 
@@ -167,6 +175,7 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapHub<ChatHub>("/chatHub");
     endpoints.MapControllerRoute("default", "{controller}/{action=Index}/{id?}");
 });
 

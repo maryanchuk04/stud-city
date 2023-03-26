@@ -56,7 +56,7 @@ export class AuthenticateService {
 	// params { firtsName, lastName, userName, gender, phoneNumber, avatar, birthday, role, groups }
 	async registrationComplete(userData) {
 		try {
-			const { status } = await this.service.post(`${this.authUrl}/registration-complete`, {
+			const { status, data } = await this.service.post(`${this.authUrl}/registration-complete`, {
 				...userData,
 				birthday: new Date(userData.birthday),
 				groups: []
@@ -64,6 +64,7 @@ export class AuthenticateService {
 
 			if (status === STATUS_OK) {
 				showAlert("Your account successfuly created!", "success");
+				this.tokenService.setToken(data.token);
 				return true;
 			}
 		}
@@ -112,4 +113,17 @@ export class AuthenticateService {
 			showAlert(err.response.data.error, "error");
 		}
 	}
+
+	async logOut() {
+		try {
+			const { status } = await this.service.get(`${this.authUrl}/logout`);
+			if (status === STATUS_OK) {
+				this.tokenService.removeToken();
+				window.location.reload();
+			}
+		} catch (error) {
+			showAlert("Something went wrong", "error");
+		}
+	}
+
 }
