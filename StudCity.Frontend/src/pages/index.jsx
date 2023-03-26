@@ -14,9 +14,6 @@ import ViewProfile from "./Profile/ViewProfile";
 import ContactUs from "./ContactUs";
 import AuthRoute from "../components/AuthRoute";
 import Chat from "./Chat";
-import { connectToHub } from "../services/hubService";
-
-const signalR = connectToHub();
 
 export const routes = [
 	{
@@ -59,7 +56,7 @@ export const routes = [
 	},
 	{
 		path: '/chats/:chatId',
-		element: <AuthRoute signalR={signalR} component={<Chat signalR={signalR} />} />
+		element: <AuthRoute component={<Chat />} />
 	},
 	{
 		path: '/contact-us',

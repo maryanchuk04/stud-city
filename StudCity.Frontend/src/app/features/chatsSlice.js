@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { HubService } from "../../services/hubService";
 import { RoomService } from "../../services/roomService";
 
 const service = new RoomService();
+const hubService = new HubService();
 
 export const fetchChat = createAsyncThunk(
 	"chats/fetchChats",
@@ -9,7 +11,22 @@ export const fetchChat = createAsyncThunk(
 		try {
 			const data = await service.getChatById(id);
 			return fulfillWithValue(data);
-		} 
+		}
+		catch (error) {
+			return rejectWithValue(error.response.data.error);
+		}
+	}
+)
+
+export const connectToChatHub = createAsyncThunk(
+	"chats/connectToHub",
+	async (_, { rejectWithValue, fulfillWithValue }) => {
+		try {
+			hubService.configure();
+			const connection = await hubService.startConnection();
+
+			return fulfillWithValue(connection);
+		}
 		catch (error) {
 			return rejectWithValue(error.response.data.error);
 		}
@@ -22,7 +39,7 @@ export const fetchUserChats = createAsyncThunk(
 		try {
 			const data = await service.getChats();
 			return fulfillWithValue(data);
-		} 
+		}
 		catch (error) {
 			return rejectWithValue(error.response.data.error);
 		}
@@ -32,7 +49,7 @@ export const fetchUserChats = createAsyncThunk(
 const chatsSlice = createSlice({
 	name: "chats",
 	initialState: {
-		data: [],
+		userChats: [],
 		chat: {
 			id: null,
 			messages: [],
@@ -41,15 +58,16 @@ const chatsSlice = createSlice({
 			image: null
 		},
 		loading: false,
+		hubConnection: null
 	},
 	reducers: {
 		addMessageAction: (state, action) => {
-			state.chat.messages = [...state.chat.messages, action.payload];	
-		}	
+			state.chat.messages = [...state.chat.messages, action.payload];
+		}
 	},
 	extraReducers: {
 		[fetchUserChats.fulfilled]: (state, action) => {
-			state.data = action.payload;
+			state.userChats = action.payload;
 		},
 		[fetchChat.pending]: (state) => {
 			state.loading = true;
@@ -57,15 +75,20 @@ const chatsSlice = createSlice({
 		[fetchChat.fulfilled]: (state, action) => {
 			state.chat = action.payload;
 			state.loading = false;
+		},
+		[connectToChatHub.fulfilled]: (state, action) => {
+			state.hubConnection = action.payload;
 		}
 	}
 });
 
 export const { addMessageAction } = chatsSlice.actions;
 
-export const selectUserChats = (state) => state.chats.data; 
+export const selectUserChats = (state) => state.chats.userChats;
 
 export const selectChat = (state) => state.chats.chat;
+
+export const selectHubConnection = (state) => state.chats.hubConnection;
 
 export const selectChatLoading = (state) => state.chats.loading;
 

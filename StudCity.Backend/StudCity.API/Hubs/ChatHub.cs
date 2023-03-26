@@ -20,7 +20,6 @@ public class ChatHub : Hub
     private async Task JoinRoom(string chatId)
     {
         await Groups.AddToGroupAsync(Context.ConnectionId, chatId);
-        _connections[Context.ConnectionId] = chatId;
         await Clients.Group(chatId).SendAsync("JoinToRoom", "Was connected to room");
         await SendUsersConnected(chatId);
     }
@@ -31,7 +30,6 @@ public class ChatHub : Hub
         {
             var currentUserId = _securityContext.GetCurrentUserId();
             var res = await _messageService.Send(chatId, currentUserId, message);
-
             await Clients.Group(chatId.ToString()).SendAsync("ReceiveMessage", res);
         }
     }

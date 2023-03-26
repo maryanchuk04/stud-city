@@ -6,12 +6,13 @@ import { useSelector, useDispatch } from "react-redux"
 import { selectCurrentUserId } from "../../app/features/userSlice"
 import { useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
-import { fetchChat, selectChat, selectChatLoading } from "../../app/features/chatsSlice";
+import { fetchChat, selectChat, selectChatLoading, selectHubConnection } from "../../app/features/chatsSlice";
 
-export default function Chat({ signalR }) {
+export default function Chat() {
 	const { chatId } = useParams();
 	const dispatch = useDispatch();
 
+	const hubConnection = useSelector(selectHubConnection);
 	const chat = useSelector(selectChat);
 	const loading = useSelector(selectChatLoading);
 	const id = useSelector(selectCurrentUserId);
@@ -27,7 +28,8 @@ export default function Chat({ signalR }) {
 	}, [chat.messages])
 
 	const sendMessage = (message) => {
-		signalR.sendMessage(chatId, message);
+		console.log(hubConnection);
+		hubConnection.invoke("SendMessage", chatId, message);
 	}
 
 	return loading ? (

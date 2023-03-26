@@ -7,12 +7,13 @@ import Header from '../Header'
 import Scroller from '../Scroller'
 import Sidenav from '../Sidenav'
 import Spinner from '../Spinner'
-import { fetchUserChats, selectUserChats } from '../../app/features/chatsSlice'
+import { fetchUserChats, selectHubConnection, selectUserChats } from '../../app/features/chatsSlice'
 
-const Layout = ({ children, signalR = null }) => {
+const Layout = ({ children }) => {
 	const { loading, data } = useSelector(selectUserForHeader);
 	const isOpen = useSelector(selectSpinnerState);
 	const rooms = useSelector(selectUserChats);
+	const hubConnection = useSelector(selectHubConnection)
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -21,10 +22,9 @@ const Layout = ({ children, signalR = null }) => {
 	}, [])
 
 	useEffect(() => {
-		console.log(signalR);
-		// if (rooms.length > 0 && signalR) {
-		// 	signalR.connectToUserRooms(rooms.map((room) => room.id));
-		// }
+		if (rooms.length > 0) {
+			hubConnection.invoke("JoinToUsersRooms", rooms.map((room) => room.id));
+		}
 	}, [rooms])
 
 	return (

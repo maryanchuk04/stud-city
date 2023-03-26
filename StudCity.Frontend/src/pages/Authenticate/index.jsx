@@ -9,6 +9,7 @@ import Button from "../../UI/Button";
 import GoogleButton from "../../UI/GoogleButton";
 import ValidateTextField from "../../UI/fields/ValidateTextField";
 import { handleChangeSpinerState } from "../../app/features/fetchSpinnerSlice";
+import { connectToChatHub, fetchUserChats } from "../../app/features/chatsSlice";
 
 function Authenticate() {
 	const authenticateSerivice = new AuthenticateService();
@@ -27,8 +28,11 @@ function Authenticate() {
 
 		const isOk = await authenticateSerivice.authenticate(formState);
 
-		if (isOk)
+		if (isOk) {
+			dispatch(fetchUserChats());
+			dispatch(connectToChatHub());
 			navigate("/profile");
+		}
 		else
 			setFormState({ email: "", password: "" });
 
