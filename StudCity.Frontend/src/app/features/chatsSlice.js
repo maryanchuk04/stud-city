@@ -20,10 +20,11 @@ export const fetchChat = createAsyncThunk(
 
 export const connectToChatHub = createAsyncThunk(
 	"chats/connectToHub",
-	async (_, { rejectWithValue, fulfillWithValue }) => {
+	async (ids, { rejectWithValue, fulfillWithValue }) => {
 		try {
 			hubService.configure();
 			const connection = await hubService.startConnection();
+			connection.invoke("JoinToUsersRooms", ids);
 
 			return fulfillWithValue(connection);
 		}

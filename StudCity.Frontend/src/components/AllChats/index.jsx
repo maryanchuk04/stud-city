@@ -14,7 +14,7 @@ export function AllChats() {
 						id={item.id}
 						title={item.title}
 						message={item.message}
-						key={item.fullName}
+						key={item.id}
 					/>
 				))
 			}

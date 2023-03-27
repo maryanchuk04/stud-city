@@ -70,7 +70,8 @@ export const saveCurrentUser = createAsyncThunk(
 const userSlice = createSlice({
 	name: 'user',
 	initialState: initialState,
-	reducers: {},
+	reducers: {
+	},
 	extraReducers: {
 		[fetchCurrentUser.pending]: (state) => {
 			state.loading = true;
