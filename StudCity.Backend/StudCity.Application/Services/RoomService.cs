@@ -106,6 +106,34 @@ public class RoomService : IRoomService
         return await GetRoomById(room.Id);
     }
 
+    public async Task<RoomDto> AddUserToRoom(Guid id, IEnumerable<Guid> usersIds)
+    {
+        var room = await _context.Rooms
+            .Include(x => x.UserRooms)
+                .ThenInclude(x => x.User)
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        if (room == null)
+        {
+            throw new NotFoundException(nameof(Room), id);
+        }
+
+        foreach (var userId in usersIds)
+        {
+            room.UserRooms.Add(new UserRoom()
+            {
+                UserId = userId,
+                RoomId = room.Id
+            });
+        }
+
+        _context.Rooms.Update(room);
+
+        await _context.SaveChangesAsync();
+
+        return await GetRoomById(id);
+    }
+
     public async Task<RoomDto> GetRoomById(Guid id)
     {
         var room = await _context.Rooms

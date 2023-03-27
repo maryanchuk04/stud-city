@@ -2,7 +2,7 @@ import * as signalR from "@microsoft/signalr";
 import { LogLevel } from "@microsoft/signalr";
 import { TokenService } from "./tokenService";
 import { store } from "../app/store";
-import { addMessageAction } from "../app/features/chatsSlice";
+import { addMessageAction, changeLastMessage, handleTyping, restoreHandleTyping } from "../app/features/chatsSlice";
 
 const tokenService = new TokenService();
 
@@ -36,8 +36,21 @@ export class HubService {
 			if (window.location.href.includes(message.roomId)) {
 				store.dispatch(addMessageAction(message));
 			}
+			store.dispatch(changeLastMessage(message));
 			// TODO Add change last message
 		});
+
+		this.#hubConnection.on("UsersInRoom", (data) => {
+			console.log(data);
+		})
+
+		this.#hubConnection.on("UserTyping", data => {
+			store.dispatch(handleTyping(data));			
+		})
+
+		this.#hubConnection.on("UserStopTyping", () => {
+			store.dispatch(restoreHandleTyping());
+		})
 
 		await this.#hubConnection.start();
 		return this.#hubConnection;

@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { selectCurrentUserId } from "../../app/features/userSlice"
 import { useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
-import { fetchChat, selectChat, selectChatLoading, selectHubConnection } from "../../app/features/chatsSlice";
+import { fetchChat, selectChat, selectChatLoading, selectHubConnection, selectTypingState } from "../../app/features/chatsSlice";
 
 export default function Chat() {
 	const { chatId } = useParams();
@@ -16,6 +16,7 @@ export default function Chat() {
 	const chat = useSelector(selectChat);
 	const loading = useSelector(selectChatLoading);
 	const id = useSelector(selectCurrentUserId);
+	const { text, userId } = useSelector(selectTypingState);
 
 	const scrollDown = useRef(null);
 
@@ -51,11 +52,14 @@ export default function Chat() {
 						/>
 					))
 				}
+				{text && userId && id !== userId && <div className="">
+					<p>{text}</p>
+				</div>}
 				<div ref={scrollDown}></div>
 			</div>
 			<div className="h-fit w-full flex py-3">
-				<Sender sendMessage={sendMessage} />
+				<Sender sendMessage={sendMessage} chatId={chatId} />
 			</div>
-		</div>
+		</div >
 	)
 }
