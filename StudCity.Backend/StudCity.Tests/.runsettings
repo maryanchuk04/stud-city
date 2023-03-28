@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <TestRunParameters>
+    <Parameter name="WebAppUrl" value="https://stud-city.azurewebsites.net" />
+  </TestRunParameters>
+  <Playwright>
+    <BrowserName>chromium</BrowserName>
+    <LaunchOptions>
+      <Headless>false</Headless>
+      <Channel>msedge</Channel>
+      <SlowMo>200</SlowMo>
+    </LaunchOptions>
+  </Playwright>
+</RunSettings>
