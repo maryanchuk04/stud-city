@@ -25,12 +25,15 @@ export default function Chat() {
 	}, [chatId])
 
 	useEffect(() => {
-		scrollDown.current?.scrollIntoView({ behavior: 'smooth' })
+		handleScroll();
 	}, [chat.messages])
 
 	const sendMessage = (message) => {
-		console.log(hubConnection);
 		hubConnection.invoke("SendMessage", chatId, message);
+	}
+
+	const handleScroll = () => {
+		scrollDown.current?.scrollIntoView({ behavior: 'smooth' })
 	}
 
 	return loading ? (
@@ -52,13 +55,15 @@ export default function Chat() {
 						/>
 					))
 				}
-				{text && userId && id !== userId && <div className="">
-					<p>{text}</p>
-				</div>}
+				{text && userId && id !== userId && (
+					<div className="ml-10">
+						<p className="text-black/40 ">{text}</p>
+					</div>
+				)}
 				<div ref={scrollDown}></div>
 			</div>
 			<div className="h-fit w-full flex py-3">
-				<Sender sendMessage={sendMessage} chatId={chatId} />
+				<Sender sendMessage={sendMessage} chatId={chatId} scrollDown={handleScroll} />
 			</div>
 		</div >
 	)

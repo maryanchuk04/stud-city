@@ -78,7 +78,6 @@ const chatsSlice = createSlice({
 			state.typing.text = action.payload.text;			
 		},
 		restoreHandleTyping: (state) => {
-			console.log("asdad")
 			state.typing.userId = null;
 			state.typing.text = null;
 		}
