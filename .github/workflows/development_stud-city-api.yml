@@ -58,11 +58,3 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D35CD43EA6694AA9969B46F7884969C1 }}
           package: .
           
-      - name: Delete artifacts
-        if: github.event.action == 'delete_all_artifacts'
-        uses: christian-korneck/delete-run-artifacts-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          parent_runid: ${{ github.event.client_payload.parent_runid  }}
-          parent_repo: ${{ github.event.client_payload.parent_repo }}
