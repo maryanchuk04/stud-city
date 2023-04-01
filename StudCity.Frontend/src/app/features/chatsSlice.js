@@ -2,12 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { HubService } from "../../services/hubService";
 import { RoomService } from "../../services/roomService";
 
-const service = new RoomService();
+
 const hubService = new HubService();
 
 export const fetchChat = createAsyncThunk(
 	"chats/fetchChats",
-	async (id, { rejectWithValue, fulfillWithValue }) => {
+	async (id, { rejectWithValue, fulfillWithValue }, service = new RoomService()) => {
 		try {
 			const data = await service.getChatById(id);
 			return fulfillWithValue(data);
@@ -36,7 +36,7 @@ export const connectToChatHub = createAsyncThunk(
 
 export const fetchUserChats = createAsyncThunk(
 	"chats/fetchUserChats",
-	async (_, { rejectWithValue, fulfillWithValue }) => {
+	async (_, { rejectWithValue, fulfillWithValue }, service = new RoomService()) => {
 		try {
 			const data = await service.getChats();
 			return fulfillWithValue(data);
@@ -75,7 +75,7 @@ const chatsSlice = createSlice({
 		},
 		handleTyping: (state, action) => {
 			state.typing.userId = action.payload.userId;
-			state.typing.text = action.payload.text;			
+			state.typing.text = action.payload.text;
 		},
 		restoreHandleTyping: (state) => {
 			state.typing.userId = null;

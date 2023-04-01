@@ -9,7 +9,6 @@ const avatarStyle = "w-12 h-12 mx-0"
 const styleMessageText = "mt-3 w-fit rounded-tl-xl rounded-br-xl rounded-bl-2xl p-2"
 
 export default function Message({ userId, content, when, fullName, image, id }) {
-
 	return (
 		userId === id ?
 			(
