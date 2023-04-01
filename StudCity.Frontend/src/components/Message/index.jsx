@@ -1,5 +1,6 @@
 import React from "react";
 import Avatar from "../../UI/Avatar";
+import { formatDateTime } from "../../utils/dates";
 
 const allContainer = "w-fit h-fit max-w-[80%] flex items-center";
 const displayText = "w-fit flex justify-between";
@@ -15,7 +16,7 @@ export default function Message({ userId, content, when, fullName, image, id }) 
 				<div className={`${allContainer} ml-auto mr-10`}>
 					<div className="w-fit">
 						<div className={`ml-auto mr-5 ${displayText} mt-2`}>
-							<span className={`mr-6 ${styleDateText}`}>{when}</span>
+							<span className={`${styleDateText}`}>{formatDateTime(when)}</span>
 						</div>
 						<div className={`bg-customGreen ml-auto mr-5 ${styleMessageText}`}>
 							<span className="break-all whitespace-pre-line">
@@ -33,7 +34,7 @@ export default function Message({ userId, content, when, fullName, image, id }) 
 					<div className="w-fit">
 						<div className={`ml-5 ${displayText} mt-2`}>
 							<span className={`${styleFullNameText}`}>{fullName}</span>
-							<span className={`ml-6 ${styleDateText}`}>{when}</span>
+							<span className={`ml-6 ${styleDateText}`}>{formatDateTime(when)}</span>
 						</div>
 						<div className={`bg-[#e5e3bc] ml-5 mt-3 w-fit rounded-tr-xl rounded-bl-xl rounded-br-2xl p-2`}>
 							<span className="break-all whitespace-pre-line">
