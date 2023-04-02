@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "../../UI/Avatar";
 import IconButton from "../../UI/IconButton";
+import CustomDialog from "../../UI/CustomDialog";
+import ChatModal from "../ChatModal";
 
 export default function HeaderChat({ title, users }) {
+	const [open, setOpen] = useState(false);
+
+	const handleClose = () => {
+		setOpen(false);
+	}
+
+	const handleOpen = () => {
+		setOpen(true);
+	}
+
 	return (
 		<div className="w-full px-12 h-20 flex py-3 justify-between border-b-2 border-gray-300">
 			<div className="w-fit flex">
@@ -13,10 +25,15 @@ export default function HeaderChat({ title, users }) {
 				</div>
 			</div>
 			<div className="">
-				<IconButton className=" bg-transparent hover:bg-black/10">
+				<IconButton className=" bg-transparent hover:bg-black/10" onClick={handleOpen}>
 					<i className="fa-solid fa-ellipsis text-black text-3xl"></i>
 				</IconButton>
 			</div>
+			{open && (
+				<CustomDialog handleClose={handleClose}>
+					<ChatModal />
+				</CustomDialog>
+			)}
 		</div>
 	);
 }

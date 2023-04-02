@@ -5,9 +5,6 @@ import { formatDateOrTime } from "../../utils/dates";
 
 export function UserMessages({ id, title, message }) {
 	const baseLinkStyles = "items-center w-full mx-auto h-24 pl-3 flex border-gray-300 cursor-pointer hover:bg-customGreen scroll-none rounded-md duration-200";
-	// const subText = (text, length) => {
-	// 	return text.length >= length ? `${text.substring(0, length)}...` : text;
-	// }
 
 	return (
 		<div>
