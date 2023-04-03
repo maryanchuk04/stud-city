@@ -30,6 +30,7 @@ public class AuthenticatePageTests : PageTest
         await Page.RunAndWaitForNavigationAsync(async () =>
         {
             await loginPage.Login(email, password);
+            await loginPage.ClickLogin();
         },
         new PageRunAndWaitForNavigationOptions
         {
@@ -47,6 +48,8 @@ public class AuthenticatePageTests : PageTest
         var res = await Page.RunAndWaitForResponseAsync(async () =>
         {
             await loginPage.Login(email, password);
+            await loginPage.ClickLogin();
+
         }, resp => resp.Status == 400, new PageRunAndWaitForResponseOptions()
         {
             Timeout = 40000

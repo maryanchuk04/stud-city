@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudCity.Infrastructure", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudCity.Tests", "StudCity.Tests\StudCity.Tests.csproj", "{52E4BB54-7FE7-427A-A206-184DC76B0E6D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudCity.Tests.BDD", "StudCity.Tests.BDD\StudCity.Tests.BDD.csproj", "{97AF84F2-EB0C-45F6-A927-485FC04DDA89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{52E4BB54-7FE7-427A-A206-184DC76B0E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52E4BB54-7FE7-427A-A206-184DC76B0E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52E4BB54-7FE7-427A-A206-184DC76B0E6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97AF84F2-EB0C-45F6-A927-485FC04DDA89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97AF84F2-EB0C-45F6-A927-485FC04DDA89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97AF84F2-EB0C-45F6-A927-485FC04DDA89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97AF84F2-EB0C-45F6-A927-485FC04DDA89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 					HideSolutionNode = FALSE
