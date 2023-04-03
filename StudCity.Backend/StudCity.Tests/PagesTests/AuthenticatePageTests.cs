@@ -3,7 +3,7 @@ using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
 using StudCity.Tests.Pages;
 
-namespace StudCity.Tests;
+namespace StudCity.Tests.PagesTests;
 
 [TestFixture]
 public class AuthenticatePageTests : PageTest
@@ -22,6 +22,7 @@ public class AuthenticatePageTests : PageTest
 
     [Test]
     [TestCase("lion20914king@gmail.com", "Maks-010104")]
+    [Obsolete("Obsolete")]
     public async Task Login_And_Navigate_To_Profile(string email, string password)
     {
         LoginPage loginPage = new LoginPage(Page);
