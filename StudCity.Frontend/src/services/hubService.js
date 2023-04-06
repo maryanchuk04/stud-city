@@ -14,7 +14,6 @@ export const connectToHub = () => {
 	}
 }
 
-
 export class HubService {
 	#hubConnection;
 
@@ -45,7 +44,7 @@ export class HubService {
 		})
 
 		this.#hubConnection.on("UserTyping", data => {
-			store.dispatch(handleTyping(data));			
+			store.dispatch(handleTyping(data));
 		})
 
 		this.#hubConnection.on("UserStopTyping", () => {

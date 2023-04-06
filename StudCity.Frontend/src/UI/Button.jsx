@@ -2,7 +2,7 @@ import React from "react";
 
 function Button({ children, className = "", disabled = false, type = 'primary', ...custom }) {
 	const primary = 'bg-primaryAuthentication';
-	const secondary = "bg-transparent border-2 border-primaryGold text-primaryGold"
+	const secondary = "border-2 border-primaryGold text-primaryGold"
 
 	const typeClassNames = () => {
 		switch (type) {
@@ -15,7 +15,7 @@ function Button({ children, className = "", disabled = false, type = 'primary', 
 
 	return (
 		<button
-			className={`rounded-2xl disabled:cursor-not-allowed disabled:opacity-50 text-primaryWhite  mx-auto mt-3 h-12 font-normal text-xl w-full ${typeClassNames()} ${className}`}
+			className={`rounded-2xl disabled:cursor-not-allowed disabled:opacity-50 mx-auto mt-3 h-12 font-normal text-xl w-full ${typeClassNames()} ${className}`}
 			disabled={disabled}
 			type="submit"
 			{...custom}
