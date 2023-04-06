@@ -14,4 +14,8 @@ public class Message : BaseEntity
     public Room Room { get; set; }
 
     public Guid RoomId { get; set; }
+
+    //public List<Guid> SeenMessage { get; set; }
+
+    //public bool AllSeen { get; set; }
 }

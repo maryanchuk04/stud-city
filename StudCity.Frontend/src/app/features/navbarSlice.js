@@ -13,7 +13,10 @@ export const navbarSlice = createSlice({
 			state.isOpen = !state.isOpen;
 		},
 		changeMenuState: (state, action) => {
-			state.isOpen = true;
+			if (state.active === action.payload.active)
+				state.isOpen = !state.isOpen;
+			else
+				state.isOpen = true;
 			state.active = action.payload.active;
 			state.activeName = action.payload.activeName;
 		}

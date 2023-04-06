@@ -6,7 +6,7 @@ public class MessageDto
 
     public string Content { get; set; }
 
-    public string When { get; set; }
+    public DateTime When { get; set; }
 
     public UserPreviewDto User { get; set; }
 

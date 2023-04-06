@@ -10,6 +10,7 @@ public class ChatHub : Hub
     private readonly IDictionary<string, string> _connections = new Dictionary<string, string>();
     private readonly IMessageService _messageService;
     private readonly ISecurityContext _securityContext;
+    private readonly IUserService _userService;
 
     public ChatHub(IMessageService messageService, ISecurityContext securityContext)
     {
@@ -20,6 +21,7 @@ public class ChatHub : Hub
     private async Task JoinRoom(string chatId)
     {
         await Groups.AddToGroupAsync(Context.ConnectionId, chatId);
+        _connections[Context.ConnectionId] = chatId;
         await Clients.Group(chatId).SendAsync("JoinToRoom", "Was connected to room");
         await SendUsersConnected(chatId);
     }
@@ -34,6 +36,20 @@ public class ChatHub : Hub
         }
     }
 
+    public async Task Typing(string chatId, string fullName)
+    {
+        await Clients.Group(chatId).SendAsync("UserTyping", new
+        {
+            userId = _securityContext.GetCurrentUserId(),
+            text = $"{fullName} is typing..."
+        });
+    }
+
+    public async Task StopTyping(string chatId, string fullName)
+    {
+        await Clients.Group(chatId).SendAsync("UserStopTyping");
+    }
+
     public async Task JoinToUsersRooms(List<string> chatsIds)
     {
         foreach (var item in chatsIds)
@@ -45,7 +61,8 @@ public class ChatHub : Hub
     private Task SendUsersConnected(string chatId)
     {
         var users = _connections.Values.Where(x => x == chatId);
-
         return Clients.Group(chatId).SendAsync("UsersInRoom", users);
     }
+
+
 }
