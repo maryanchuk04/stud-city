@@ -2,12 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { HubService } from "../../services/hubService";
 import { RoomService } from "../../services/roomService";
 
-const service = new RoomService();
+
 const hubService = new HubService();
 
 export const fetchChat = createAsyncThunk(
 	"chats/fetchChats",
-	async (id, { rejectWithValue, fulfillWithValue }) => {
+	async (id, { rejectWithValue, fulfillWithValue }, service = new RoomService()) => {
 		try {
 			const data = await service.getChatById(id);
 			return fulfillWithValue(data);
@@ -36,7 +36,7 @@ export const connectToChatHub = createAsyncThunk(
 
 export const fetchUserChats = createAsyncThunk(
 	"chats/fetchUserChats",
-	async (_, { rejectWithValue, fulfillWithValue }) => {
+	async (_, { rejectWithValue, fulfillWithValue }, service = new RoomService()) => {
 		try {
 			const data = await service.getChats();
 			return fulfillWithValue(data);
@@ -58,12 +58,28 @@ const chatsSlice = createSlice({
 			title: null,
 			image: null
 		},
+		typing: {
+			text: null,
+			userId: null
+		},
 		loading: false,
 		hubConnection: null
 	},
 	reducers: {
 		addMessageAction: (state, action) => {
 			state.chat.messages = [...state.chat.messages, action.payload];
+		},
+		changeLastMessage: (state, action) => {
+			const index = state.userChats.findIndex((chat => chat.id === action.payload.roomId));
+			state.userChats[index].message = action.payload;
+		},
+		handleTyping: (state, action) => {
+			state.typing.userId = action.payload.userId;
+			state.typing.text = action.payload.text;
+		},
+		restoreHandleTyping: (state) => {
+			state.typing.userId = null;
+			state.typing.text = null;
 		}
 	},
 	extraReducers: {
@@ -83,7 +99,7 @@ const chatsSlice = createSlice({
 	}
 });
 
-export const { addMessageAction } = chatsSlice.actions;
+export const { addMessageAction, changeLastMessage, handleTyping, restoreHandleTyping } = chatsSlice.actions;
 
 export const selectUserChats = (state) => state.chats.userChats;
 
@@ -92,5 +108,7 @@ export const selectChat = (state) => state.chats.chat;
 export const selectHubConnection = (state) => state.chats.hubConnection;
 
 export const selectChatLoading = (state) => state.chats.loading;
+
+export const selectTypingState = (state) => state.chats.typing;
 
 export default chatsSlice.reducer;

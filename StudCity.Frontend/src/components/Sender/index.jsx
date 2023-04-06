@@ -1,14 +1,41 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useSelector } from "react-redux/es/exports";
+import { selectHubConnection } from "../../app/features/chatsSlice";
+import { selectCurrentUserData } from "../../app/features/userSlice";
 import Button from "../../UI/Button";
 
-export default function Sender({ sendMessage }) {
+export default function Sender({ sendMessage, chatId, scrollDown }) {
+	const [isTyping, setIsTyping] = useState(false);
+	const hubConnection = useSelector(selectHubConnection);
+	const { fullName } = useSelector(selectCurrentUserData);
 	const [value, setValue] = useState("");
 	const textAreaRef = useRef(null);
+
+	useEffect(() => {
+		let timeoutId = null;
+		if (!isTyping) {
+			timeoutId = setTimeout(handleStopInput, 4000)
+		}
+
+		return () => clearTimeout(timeoutId);
+	}, [isTyping])
+
 	const resizeTextArea = () => {
 		textAreaRef.current.style.height = "20px";
 		textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
 	};
+
+	const handleKeyDowm = () => {
+		scrollDown();
+		setIsTyping(true);
+	}
+
+	const handleKeyUp = () => {
+		setIsTyping(false);
+	}
+
 	const handleChange = e => {
+		hubConnection.invoke("Typing", chatId, fullName);
 		resizeTextArea()
 		setValue(e.target.value);
 	};
@@ -20,6 +47,10 @@ export default function Sender({ sendMessage }) {
 		}
 	}
 
+	const handleStopInput = () => {
+		hubConnection.invoke("StopTyping", chatId, fullName);
+	}
+
 	return (
 		<div className="h-fit w-11/12 items-center mx-auto my-auto flex rounded-xl border-[#647962] border-2">
 			<textarea
@@ -28,7 +59,8 @@ export default function Sender({ sendMessage }) {
 				value={value}
 				ref={textAreaRef}
 				onChange={handleChange}
-
+				onKeyUp={handleKeyUp}
+				onKeyDown={handleKeyDowm}
 			/>
 			<Button
 				className="bg-transparent w-12 mt-auto mr-4 ml-auto text-[#647962]"
