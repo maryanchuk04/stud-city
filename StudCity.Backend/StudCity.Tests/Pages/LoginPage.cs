@@ -25,6 +25,5 @@ public class LoginPage
     {
         await _txtEmail.FillAsync(email);
         await _txtPassword.FillAsync(password);
-        await ClickLogin();
     }
 }
