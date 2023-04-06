@@ -1,54 +1,51 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { HubService } from "../../services/hubService";
-import { RoomService } from "../../services/roomService";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { HubService } from '../../services/hubService';
+import { RoomService } from '../../services/roomService';
 
 const service = new RoomService();
 const hubService = new HubService();
 
 export const fetchChat = createAsyncThunk(
-	"chats/fetchChats",
+	'chats/fetchChats',
 	async (id, { rejectWithValue, fulfillWithValue }) => {
 		try {
 			const data = await service.getChatById(id);
 			return fulfillWithValue(data);
-		}
-		catch (error) {
+		} catch (error) {
 			return rejectWithValue(error.response.data.error);
 		}
 	}
-)
+);
 
 export const connectToChatHub = createAsyncThunk(
-	"chats/connectToHub",
+	'chats/connectToHub',
 	async (ids, { rejectWithValue, fulfillWithValue }) => {
 		try {
 			hubService.configure();
 			const connection = await hubService.startConnection();
-			connection.invoke("JoinToUsersRooms", ids);
+			connection.invoke('JoinToUsersRooms', ids);
 
 			return fulfillWithValue(connection);
-		}
-		catch (error) {
+		} catch (error) {
 			return rejectWithValue(error.response.data.error);
 		}
 	}
-)
+);
 
 export const fetchUserChats = createAsyncThunk(
-	"chats/fetchUserChats",
+	'chats/fetchUserChats',
 	async (_, { rejectWithValue, fulfillWithValue }) => {
 		try {
 			const data = await service.getChats();
 			return fulfillWithValue(data);
-		}
-		catch (error) {
+		} catch (error) {
 			return rejectWithValue(error.response.data.error);
 		}
 	}
-)
+);
 
 const chatsSlice = createSlice({
-	name: "chats",
+	name: 'chats',
 	initialState: {
 		userChats: [],
 		chat: {
@@ -56,15 +53,24 @@ const chatsSlice = createSlice({
 			messages: [],
 			users: [],
 			title: null,
-			image: null
+			image: null,
 		},
+		notification: [],
 		loading: false,
-		hubConnection: null
+		hubConnection: null,
 	},
 	reducers: {
 		addMessageAction: (state, action) => {
 			state.chat.messages = [...state.chat.messages, action.payload];
-		}
+		},
+		addMessageNotification: (state, action) => {
+			state.notification = [...state.notification, action.payload];
+		},
+		removeMessageNotification: (state, action) => {
+			state.notification = state.notification.filter(
+				(el) => el.id !== action.payload
+			);
+		},
 	},
 	extraReducers: {
 		[fetchUserChats.fulfilled]: (state, action) => {
@@ -79,15 +85,21 @@ const chatsSlice = createSlice({
 		},
 		[connectToChatHub.fulfilled]: (state, action) => {
 			state.hubConnection = action.payload;
-		}
-	}
+		},
+	},
 });
 
-export const { addMessageAction } = chatsSlice.actions;
+export const {
+	addMessageAction,
+	addMessageNotification,
+	removeMessageNotification,
+} = chatsSlice.actions;
 
 export const selectUserChats = (state) => state.chats.userChats;
 
 export const selectChat = (state) => state.chats.chat;
+
+export const selectNotification = (state) => state.chats.notification;
 
 export const selectHubConnection = (state) => state.chats.hubConnection;
 
