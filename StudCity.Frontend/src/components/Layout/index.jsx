@@ -8,6 +8,7 @@ import Scroller from '../Scroller'
 import Sidenav from '../Sidenav'
 import Spinner from '../Spinner'
 import { fetchUserChats } from '../../app/features/chatsSlice'
+import { NotificatinContainer } from '../NotificationContainer'
 
 const Layout = ({ children }) => {
 	const { loading, data } = useSelector(selectUserForHeader);
@@ -21,6 +22,7 @@ const Layout = ({ children }) => {
 
 	return (
 		<div className='h-screen'>
+			<NotificatinContainer />
 			<div className='h-full'>
 				<div className='h-20'>
 					<Header user={data} />
