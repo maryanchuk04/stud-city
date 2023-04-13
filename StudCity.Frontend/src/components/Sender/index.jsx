@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux/es/exports";
 import { selectHubConnection } from "../../app/features/chatsSlice";
 import { selectCurrentUserData } from "../../app/features/userSlice";
+import useSound from "use-sound";
+import sendMessageSound from "../../assets/sounds/send-message.mp3"
 import Button from "../../UI/Button";
 
 export default function Sender({ sendMessage, chatId, scrollDown }) {
@@ -10,6 +12,7 @@ export default function Sender({ sendMessage, chatId, scrollDown }) {
 	const { fullName } = useSelector(selectCurrentUserData);
 	const [value, setValue] = useState("");
 	const textAreaRef = useRef(null);
+	const [play] = useSound(sendMessageSound);
 
 	useEffect(() => {
 		let timeoutId = null;
@@ -45,6 +48,8 @@ export default function Sender({ sendMessage, chatId, scrollDown }) {
 			sendMessage(value);
 			setValue("");
 		}
+		play();
+		console.log("wirk")
 	}
 
 	const handleStopInput = () => {
