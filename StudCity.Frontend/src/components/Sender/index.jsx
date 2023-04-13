@@ -7,12 +7,13 @@ import sendMessageSound from "../../assets/sounds/send-message.mp3"
 import Button from "../../UI/Button";
 
 export default function Sender({ sendMessage, chatId, scrollDown }) {
+	const [play] = useSound(sendMessageSound);
 	const [isTyping, setIsTyping] = useState(false);
 	const hubConnection = useSelector(selectHubConnection);
 	const { fullName } = useSelector(selectCurrentUserData);
 	const [value, setValue] = useState("");
 	const textAreaRef = useRef(null);
-	const [play] = useSound(sendMessageSound);
+
 
 	useEffect(() => {
 		let timeoutId = null;
