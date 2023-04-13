@@ -49,7 +49,6 @@ export default function Sender({ sendMessage, chatId, scrollDown }) {
 			setValue("");
 		}
 		play();
-		console.log("wirk")
 	}
 
 	const handleStopInput = () => {
