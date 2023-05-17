@@ -29,9 +29,15 @@ export default function Sender({ sendMessage, chatId, scrollDown }) {
 		textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
 	};
 
-	const handleKeyDowm = () => {
+	const handleKeyDowm = (event) => {
 		scrollDown();
 		setIsTyping(true);
+		if (event.keyCode === 13 && !event.shiftKey) {
+			event.preventDefault();
+			handleClick();
+		} else if (event.keyCode === 13 && event.shiftKey) {
+			textAreaRef.current.value += "\n";
+		}
 	}
 
 	const handleKeyUp = () => {
@@ -57,7 +63,9 @@ export default function Sender({ sendMessage, chatId, scrollDown }) {
 	}
 
 	return (
-		<div className="h-fit w-11/12 items-center mx-auto my-auto flex rounded-xl border-[#647962] border-2">
+		<form
+			className="h-fit w-11/12 items-center mx-auto my-auto flex rounded-xl border-[#647962] border-2"
+		>
 			<textarea
 				className="ml-5 w-10/12 max-h-[100px] h-6 bg-transparent border-0 border-[#647962] outline-none resize-none scroll-none font-medium text-[#647962] placeholder:text-[#647962]"
 				placeholder="Input your message"
@@ -65,15 +73,16 @@ export default function Sender({ sendMessage, chatId, scrollDown }) {
 				ref={textAreaRef}
 				onChange={handleChange}
 				onKeyUp={handleKeyUp}
-				onKeyDown={handleKeyDowm}
+				onKeyDown={(event) => handleKeyDowm(event)}
 			/>
 			<Button
 				className="bg-transparent w-12 mt-auto mr-4 ml-auto text-[#647962]"
 				onClick={handleClick}
+				type="submit"
 			>
 				<i className="fa-solid fa-paper-plane"></i>
 			</Button>
-		</div>
+		</form>
 	)
 
 }
