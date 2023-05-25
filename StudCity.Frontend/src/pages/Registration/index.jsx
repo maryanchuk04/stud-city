@@ -8,7 +8,7 @@ import Button from "../../UI/Button";
 import GoogleButton from "../../UI/GoogleButton";
 import { passwordMatchValidation, passwordValidation, emailValidator } from "../../utils/validators/validators";
 import { AuthenticateService } from "../../services/authenticateService";
-import { handleChangeSpinerState } from "../../features/fetchSpinnerSlice";
+import { handleChangeSpinerState } from "../../app/features/fetchSpinnerSlice";
 
 function Registration() {
 	const dispatch = useDispatch();

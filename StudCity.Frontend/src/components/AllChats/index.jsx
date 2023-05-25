@@ -1,7 +1,7 @@
 import React from "react";
 import { UserMessages } from "../UserMessages";
 import { useSelector } from "react-redux";
-import { selectUserChats } from "../../features/chatsSlice";
+import { selectUserChats } from "../../app/features/chatsSlice";
 
 export function AllChats() {
 	const chats = useSelector(selectUserChats)

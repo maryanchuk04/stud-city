@@ -8,8 +8,8 @@ import PasswordTextField from "../../UI/fields/PasswordTextField";
 import Button from "../../UI/Button";
 import GoogleButton from "../../UI/GoogleButton";
 import ValidateTextField from "../../UI/fields/ValidateTextField";
-import { handleChangeSpinerState } from "../../features/fetchSpinnerSlice";
-import { connectToChatHub, fetchUserChats } from "../../features/chatsSlice";
+import { handleChangeSpinerState } from "../../app/features/fetchSpinnerSlice";
+import { connectToChatHub, fetchUserChats } from "../../app/features/chatsSlice";
 
 function Authenticate() {
 	const authenticateSerivice = new AuthenticateService();

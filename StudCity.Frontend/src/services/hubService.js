@@ -2,7 +2,7 @@ import * as signalR from "@microsoft/signalr";
 import { LogLevel } from "@microsoft/signalr";
 import { TokenService } from "./tokenService";
 import { store } from "../app/store";
-import { addMessageAction, addMessageNotification, removeMessageNotification, changeLastMessage, handleTyping, restoreHandleTyping } from "../features/chatsSlice";
+import { addMessageAction, addMessageNotification, removeMessageNotification, changeLastMessage, handleTyping, restoreHandleTyping } from "../app/features/chatsSlice";
 
 const tokenService = new TokenService();
 

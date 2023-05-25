@@ -1,7 +1,7 @@
 import React from "react";
 
 function Button({ children, className = "", disabled = false, type = 'primary', ...custom }) {
-	const primary = 'bg-primaryAuthentication';
+	const primary = 'bg-primaryAuthentication text-white';
 	const secondary = "border-2 border-primaryGold text-primaryGold"
 
 	const typeClassNames = () => {

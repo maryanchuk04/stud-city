@@ -6,7 +6,7 @@ import ValidateTextField from "../../../../UI/fields/ValidateTextField";
 import DatePicker from "../../../../UI/DatePicker";
 import { phoneNumberValidator, profileDetailsValidator } from '../../../../utils/validators/editProfileValidators';
 import { useDispatch } from 'react-redux';
-import { saveCurrentUser } from '../../../../features/userSlice';
+import { saveCurrentUser } from '../../../../app/features/userSlice';
 import { showAlert } from '../../../../services/showAlert';
 
 const ProfileDetails = ({ user }) => {

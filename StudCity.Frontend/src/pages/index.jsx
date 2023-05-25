@@ -1,5 +1,4 @@
 import React from "react"
-import Main from "./Main"
 import Authenticate from "./Authenticate"
 import Registration from './Registration';
 import RegistrationComplete from "./RegistrationComplete";
@@ -14,11 +13,12 @@ import ViewProfile from "./Profile/ViewProfile";
 import ContactUs from "./ContactUs";
 import AuthRoute from "../components/AuthRoute";
 import Chat from "./Chat";
+import { Welcome } from "./Welcome";
 
 export const routes = [
 	{
 		path: "/",
-		element: <Main />,
+		element: <Welcome />,
 	},
 	{
 		path: '/authenticate',

@@ -6,7 +6,7 @@ import {
 	changeActiveState,
 	selectRegisterCompleteDefaultInfo,
 	changeRegisterCompleteState
-} from "../../features/registerCompleteSlice";
+} from "../../app/features/registerCompleteSlice";
 import {
 	getRegisterCompleteDefautlData,
 	REGISTER_COMPLETE_STEPS,

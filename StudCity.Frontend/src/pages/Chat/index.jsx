@@ -3,10 +3,10 @@ import HeaderChat from "../../components/HeaderChat";
 import Sender from "../../components/Sender";
 import Message from "../../components/Message";
 import { useSelector, useDispatch } from "react-redux"
-import { selectCurrentUserId } from "../../features/userSlice"
+import { selectCurrentUserId } from "../../app/features/userSlice"
 import { useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
-import { fetchChat, selectChat, selectChatLoading, selectHubConnection, selectTypingState } from "../../features/chatsSlice";
+import { fetchChat, selectChat, selectChatLoading, selectHubConnection, selectTypingState } from "../../app/features/chatsSlice";
 
 export default function Chat() {
 	const { chatId } = useParams();

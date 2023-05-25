@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { NotificatinMessage } from "../NotificationMessage";
 import { useSelector } from 'react-redux'
-import { selectNotification } from "../../features/chatsSlice";
+import { selectNotification } from "../../app/features/chatsSlice";
 
 export function NotificatinContainer() {
 	const messages = useSelector(selectNotification);
