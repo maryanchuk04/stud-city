@@ -1,6 +1,11 @@
-# stud-city
+# StudCity (Our website in the development stage)
 
-## StudCity
+
+## Description
+> This is cool web application. That will be best app for student and teachers communication.
+
+
+
 
 ### Frontend
 [Deployment link](https://stud-city.azurewebsites.net)
