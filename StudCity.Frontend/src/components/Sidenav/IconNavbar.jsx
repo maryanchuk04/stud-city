@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { changeMenuState, selectNavbarState, toggleNavbar } from '../../app/features/navbarSlice';
+import { changeMenuState, selectNavbarState, toggleNavbar } from '../../features/navbarSlice';
 import { ICON_NAVBAR_ICONS } from '../../utils/constants';
 import IconButton from '../../UI/IconButton';
 import { AuthenticateService } from '../../services/authenticateService';

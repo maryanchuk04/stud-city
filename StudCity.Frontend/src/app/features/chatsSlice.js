@@ -62,6 +62,7 @@ const chatsSlice = createSlice({
 			title: null,
 			image: null,
 		},
+		notification: [],
 		typing: {
 			text: null,
 			userId: null,
@@ -87,6 +88,14 @@ const chatsSlice = createSlice({
 			state.typing.userId = null;
 			state.typing.text = null;
 		},
+		addMessageNotification: (state, action) => {
+			state.notification = [...state.notification, action.payload];
+		},
+		removeMessageNotification: (state, action) => {
+			state.notification = state.notification.filter(
+				(el) => el.id !== action.payload
+			);
+		},
 	},
 	extraReducers: {
 		[fetchUserChats.fulfilled]: (state, action) => {
@@ -110,6 +119,8 @@ export const {
 	changeLastMessage,
 	handleTyping,
 	restoreHandleTyping,
+	addMessageNotification,
+	removeMessageNotification,
 } = chatsSlice.actions;
 
 export const selectUserChats = (state) => state.chats.userChats;

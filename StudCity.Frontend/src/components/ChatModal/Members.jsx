@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { selectChat } from '../../app/features/chatsSlice'
+import { selectChat } from '../../features/chatsSlice'
 import UserPreview from '../UserPreview';
 import SearchField from '../../UI/fields/SearchField';
 import Button from '../../UI/Button';

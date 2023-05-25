@@ -3,7 +3,7 @@ import ProtectedRoute from '../ProtectedRoute'
 import { tokenProtection } from '../../pages/routeProtection'
 import Layout from '../Layout'
 import { useDispatch, useSelector } from 'react-redux'
-import { connectToChatHub, selectHubConnection, selectUserChats } from '../../app/features/chatsSlice';
+import { connectToChatHub, selectHubConnection, selectUserChats } from '../../features/chatsSlice';
 import { TokenService } from '../../services/tokenService'
 
 const AuthRoute = ({ component }) => {

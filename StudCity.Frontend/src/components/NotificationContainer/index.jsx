@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { NotificatinMessage } from "../NotificationMessage";
 import { useSelector } from 'react-redux'
-import { selectNotification } from "../../app/features/chatsSlice";
+import { selectNotification } from "../../features/chatsSlice";
 
 export function NotificatinContainer() {
 	const messages = useSelector(selectNotification);
@@ -12,21 +12,15 @@ export function NotificatinContainer() {
 		scrollDown.current?.scrollIntoView({ behavior: "smooth" });
 	}, [messages]);
 
-	// const addMessage = (message) => {
-	// 	dispatch(addMessageNotification(message));
-	// 	setTimeout(() => {
-	// 		dispatch(removeMessageNotification(message.id));
-	// 	}, 5000);
-	// };
 	return (
 		messages && messages.length > 0 &&
-		(<div className="absolute w-60 h-screen z-50 right-10 flex flex-col overflow-y-auto scroll-none p-2 pt-8">
+		(<div className="absolute w-60 h-screen z-50 top-0 right-10 flex flex-col overflow-y-auto scroll-none p-2 pt-8">
 			{messages.map((element, index) => (
 				<NotificatinMessage
 					key={index}
 					content={element.content}
 					image={element.image}
-					userName={element.userName}
+					userName={element?.user?.fullName}
 				/>
 			))}
 			<div ref={scrollDown}></div>

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCurrentUser, selectUserForHeader } from '../../app/features/userSlice'
-import { selectSpinnerState } from '../../app/features/fetchSpinnerSlice'
+import { fetchCurrentUser, selectUserForHeader } from '../../features/userSlice'
+import { selectSpinnerState } from '../../features/fetchSpinnerSlice'
 import FetchSpinner from '../FetchSpinner'
 import Header from '../Header'
 import Scroller from '../Scroller'
 import Sidenav from '../Sidenav'
 import Spinner from '../Spinner'
-import { fetchUserChats } from '../../app/features/chatsSlice'
+import { fetchUserChats } from '../../features/chatsSlice'
 import { NotificatinContainer } from '../NotificationContainer'
 
 const Layout = ({ children }) => {
@@ -22,7 +22,6 @@ const Layout = ({ children }) => {
 
 	return (
 		<div className='h-screen'>
-			<NotificatinContainer />
 			<div className='h-full'>
 				<div className='h-20'>
 					<Header user={data} />
@@ -39,6 +38,7 @@ const Layout = ({ children }) => {
 				</div>
 			</div>
 			{isOpen && <FetchSpinner />}
+			<NotificatinContainer />
 		</div >
 	)
 }

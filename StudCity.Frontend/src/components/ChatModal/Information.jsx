@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { selectChat } from '../../app/features/chatsSlice'
+import { selectChat } from '../../features/chatsSlice'
 import Avatar from '../../UI/Avatar';
 
 const Information = () => {
