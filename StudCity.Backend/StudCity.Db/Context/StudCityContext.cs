@@ -39,4 +39,7 @@ public class StudCityContext : DbContext
     public virtual DbSet<Room> Rooms { get; set; }
 
     public virtual DbSet<Message> Messages { get; set; }
+
+//    public virtual DbSet<UserGroup> UserGroups { get; set; }
+//    public virtual DbSet<Group> Groups { get; set; }
 }

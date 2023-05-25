@@ -4,7 +4,7 @@ import { showAlert } from '../../services/showAlert';
 
 const initialState = {
 	data: {
-		id: '',
+		id: null,
 		firstName: '',
 		lastName: '',
 		fullName: '',
@@ -25,11 +25,7 @@ const initialState = {
 
 export const fetchCurrentUser = createAsyncThunk(
 	'user/getCurrentUser',
-	async (
-		_,
-		{ fulfillWithValue, rejectWithValue },
-		userService = new UserService()
-	) => {
+	async (_, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
 		try {
 			const { data } = await userService.getCurrentUser();
 			return fulfillWithValue(data);
@@ -47,13 +43,10 @@ export const fetchCurrentUser = createAsyncThunk(
 
 export const saveCurrentUser = createAsyncThunk(
 	'user/saveCurrentUser',
-	async (
-		userData,
-		{ fulfillWithValue, rejectWithValue },
-		userService = new UserService()
-	) => {
+	async (userData, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
 		try {
 			await userService.editCurrentUser(userData);
+			showAlert('User data has been saved', 'success');
 			return fulfillWithValue(userData);
 		} catch (err) {
 			if (!err.response) {
@@ -70,8 +63,7 @@ export const saveCurrentUser = createAsyncThunk(
 const userSlice = createSlice({
 	name: 'user',
 	initialState: initialState,
-	reducers: {
-	},
+	reducers: {},
 	extraReducers: {
 		[fetchCurrentUser.pending]: (state) => {
 			state.loading = true;

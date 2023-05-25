@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Container from '../../components/Container';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCurrentUser, selectCurrentUserData } from '../../app/features/userSlice';
+import Avatar from '../../UI/Avatar';
 
 const NavItem = ({ children, to }) => {
 	return (
@@ -15,27 +18,51 @@ const NavItem = ({ children, to }) => {
 };
 
 export const Welcome = () => {
+	const dispatch = useDispatch();
+	const user = useSelector(selectCurrentUserData);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		dispatch(fetchCurrentUser());
+	}, []);
+
 	return (
 		<div
-			className='h-screen w-full'
+			className='h-screen w-full relative'
 			style={{ backgroundImage: "url('/images/wickedbackground.png')" }}
 		>
 			<div className=''>
-				<Container>
+				<Container className=''>
 					<header className='py-4 w-full flex justify-between h-40 items-center'>
 						<div className='w-56 h-full'>
 							<img src='/logo.png' alt='' className='w-full h-full' />
 						</div>
 						<div className='flex w-fit items-center'>
 							<NavItem to='contact-us'>Contact</NavItem>
-							<NavItem to='authenticate'>Login</NavItem>
-							<button
-								onClick={() => navigate('/registration')}
-								className='animate-pulse text-2xl font-extrabold text-white p-3 bg-primaryAuthentication rounded-[50px] shadow-lg px-10 hover:bg-primaryRegistration duration-300'
-							>
-								Join now
-							</button>
+							{user.id ? (
+								<div
+									onClick={() => navigate('/profile')}
+									className='cursor-pointer rounded-xl shadow-xl p-4 bg-primaryRegistration/30 w-fit flex items-center animate-pulse'
+								>
+									<Avatar src={user.avatar} className='h-12 w-12' />
+									<div>
+										<h2 className='font-extrabold text-xl ml-4'>
+											{user.fullName}
+										</h2>
+										<h1 className='font-bold text-xl ml-4'>{user.email}</h1>
+									</div>
+								</div>
+							) : (
+								<React.Fragment>
+									<NavItem to='authenticate'>Login</NavItem>
+									<button
+										onClick={() => navigate('/registration')}
+										className='animate-pulse text-2xl font-extrabold text-white p-3 bg-primaryAuthentication rounded-[50px] shadow-lg px-10 hover:bg-primaryRegistration duration-300'
+									>
+										Join now
+									</button>
+								</React.Fragment>
+							)}
 						</div>
 					</header>
 					<div className='h-[calc(100vh-10rem)] py-20 relative w-fit'>

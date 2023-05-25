@@ -1,6 +1,6 @@
-import React from 'react'
-import Switch from '../Switch'
-import MenuComponents from './MenuItems'
+import React from 'react';
+import Switch from '../Switch';
+import MenuComponents from './MenuItems';
 
 const FullNavbar = ({ active, activeName }) => {
 	return (
@@ -9,8 +9,8 @@ const FullNavbar = ({ active, activeName }) => {
 				<h1 className='text-2xl font-semibold'>{activeName}</h1>
 				<Switch active={active} components={MenuComponents} />
 			</div>
-		</div >
-	)
-}
+		</div>
+	);
+};
 
-export default FullNavbar
+export default FullNavbar;
