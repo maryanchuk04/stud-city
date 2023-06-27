@@ -240,3 +240,13 @@ export const ICON_NAVBAR_ICONS = [
 		name: 'My Groups',
 	},
 ];
+export const VIEW_MODE_ICONS = [
+	{
+		icon: 'fa-solid fa-grid',
+		name: 'grid',
+	},
+	{
+		icon: 'fa-solid fa-list',
+		name: 'list',
+	},
+];

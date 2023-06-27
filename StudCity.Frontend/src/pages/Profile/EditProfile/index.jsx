@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import ProfileDetails from "./ProfileDetails";
@@ -25,7 +24,7 @@ function EditProfile() {
 		<div className="w-full h-full flex flex-col bg-elephantBone">
 			<Container className="h-full flex flex-col mx-auto">
 				<div className="h-20 w-full border-b-2 border-[#D1D7D4] flex items-center">
-					<h4 className="text-3xl font-medium" >{EDIT_PROFILE_SIDEBAR[menuState].title}</h4>
+					<h4 id='title' className="text-3xl font-medium" >{EDIT_PROFILE_SIDEBAR[menuState].title}</h4>
 				</div>
 				<div className="h-5/6 flex w-full">
 					<div className="w-[18%] h-full ">
