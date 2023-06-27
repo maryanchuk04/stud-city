@@ -13,6 +13,6 @@ export const groupsSlice = createSlice({
 });
 export const { changeViewMode } = groupsSlice.actions;
 
-export const selectViewMode = (state) => state?.groups?.viewMode;
+export const selectViewMode = (state) => state.groups.viewMode;
 
 export default groupsSlice.reducer;
