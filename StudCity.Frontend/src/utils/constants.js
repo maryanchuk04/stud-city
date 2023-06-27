@@ -250,3 +250,8 @@ export const VIEW_MODE_ICONS = [
 		name: 'list',
 	},
 ];
+export const OPTIONS_FOR_SELECTOR_GROUPS = [
+	'Default',
+	'Descending of popularity',
+	'Ascending of popularity',
+];
