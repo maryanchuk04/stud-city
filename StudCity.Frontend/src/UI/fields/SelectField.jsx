@@ -9,8 +9,10 @@ const SelectField = ({ options, value, placeholder = "", className = "", onChang
 			placeholder={placeholder}
 			onChange={onChange}
 		>
-			{options.map((option) => (
-				<Option key={option}>{option}</Option>
+			{options?.map((option, index) => (
+				index === 0 ?
+					<Option key={option} isSelected={true}>{option}</Option>
+					: <Option key={option}>{option}</Option>
 			))}
 		</select>
 	)

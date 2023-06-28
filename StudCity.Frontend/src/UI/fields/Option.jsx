@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Option = ({ children }) => {
+const Option = ({ children, isSelected = false }) => {
 	return (
-		<option className="bg-primaryAuthentication text-primaryWhite rounded hover:bg-primaryWhite ">
+		<option className="bg-primaryAuthentication text-primaryWhite rounded hover:bg-primaryWhite" selected={isSelected}>
 			{children}
 		</option>
 	)
