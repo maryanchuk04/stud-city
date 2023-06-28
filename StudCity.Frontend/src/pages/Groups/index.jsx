@@ -11,6 +11,7 @@ import GroupsModes from './GroupsModes';
 const Groups = () => {
 	const dispatch = useDispatch();
 	const viewMode = useSelector(selectViewMode);
+
 	const handleChangeViewMode = (value) => {
 		dispatch(changeViewMode(value));
 	}
