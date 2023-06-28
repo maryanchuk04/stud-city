@@ -4,7 +4,7 @@ export default function ListCard({ group }) {
 	return (
 		<div className="w-full mx-auto h-full flex">
 			<div className='h-full w-6/12 rounded-t-xl relative'>
-				<img src={group.image} alt="" className='h-full w-full' />
+				<img src={group.image} alt={group.name} className='h-full w-full' />
 				<div className='absolute bg-white h-7 w-7 top-2 right-2 rounded shadow-form flex justify-center items-center'>
 					{group.isPrivate
 						? <i className="fa-solid fa-lock"></i>
