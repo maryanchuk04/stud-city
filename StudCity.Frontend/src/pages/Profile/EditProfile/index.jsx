@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import ProfileDetails from "./ProfileDetails";
@@ -6,6 +5,7 @@ import ProfileSidebar from "./ProfileSidebar";
 import { EDIT_PROFILE_SIDEBAR } from "../../../utils/constants"
 import { selectCurrentUser } from "../../../app/features/userSlice";
 import Container from "../../../components/Container";
+import ProfileSettings from "./ProfileSettings";
 
 function EditProfile() {
 	const { data } = useSelector(selectCurrentUser);
@@ -16,6 +16,8 @@ function EditProfile() {
 		switch (menuState) {
 			case 0:
 				return <ProfileDetails user={data} />
+			case 1:
+				return <ProfileSettings />
 			default:
 				return <h1>In progress...</h1>
 		}
