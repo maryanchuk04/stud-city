@@ -108,7 +108,7 @@ export const MONTH = [
 	'December',
 ];
 
-export const getRegisterCompleteDefautlData = (defaultData) => {
+export const getRegisterCompleteDefaultData = (defaultData) => {
 	return {
 		userInformation: {
 			firstName: defaultData.userInformation.firstName || '',

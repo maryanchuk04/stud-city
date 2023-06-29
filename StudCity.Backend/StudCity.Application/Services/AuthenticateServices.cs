@@ -38,15 +38,28 @@ public class AuthenticateServices : IAuthenticateService
 
     public async Task<Guid> RegistrationBeginAsync(string email, string password)
     {
+        string? hash = !string.IsNullOrEmpty(password)
+            ? _passwordHasher.HashPassword(password)
+            : null;
+
         var account = new Account()
         {
             Email = email,
-            Password = _passwordHasher.HashPassword(password),
+            Password = hash,
             AccountRoles = new[] { new AccountRole { RoleId = Role.User } },
             IsBlocked = true,
         };
 
         var result = await _context.Accounts.AddAsync(account);
+
+        if (hash is null)
+        {
+            account.IsBlocked = false;
+            await _context.SaveChangesAsync();
+
+            return result.Entity.Id;
+        }
+
         var confirmationToken = await _tokenService.GenerateEmailConfirmationTokenAsync(result.Entity.Id);
 
         await _mailService.SendRegistrationMessageAsync(email, confirmationToken.Token);
