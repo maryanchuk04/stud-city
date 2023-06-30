@@ -5,6 +5,9 @@ import Container from '../../components/Container';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCurrentUser, selectCurrentUserData } from '../../app/features/userSlice';
 import Avatar from '../../UI/Avatar';
+import { TokenService } from '../../services/tokenService';
+
+const tokenService = new TokenService();
 
 const NavItem = ({ children, to }) => {
 	return (
@@ -23,7 +26,7 @@ export const Welcome = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		dispatch(fetchCurrentUser());
+		tokenService.getToken() && dispatch(fetchCurrentUser());
 	}, []);
 
 	return (
@@ -39,7 +42,7 @@ export const Welcome = () => {
 						</div>
 						<div className='flex w-fit items-center'>
 							<NavItem to='contact-us'>Contact</NavItem>
-							{user.id ? (
+							{user?.id ? (
 								<div
 									onClick={() => navigate('/profile')}
 									className='cursor-pointer rounded-xl shadow-xl p-4 bg-primaryRegistration/30 w-fit flex items-center animate-pulse'

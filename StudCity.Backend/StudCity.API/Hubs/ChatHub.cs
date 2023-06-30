@@ -52,6 +52,11 @@ public class ChatHub : Hub
 
     public async Task JoinToUsersRooms(List<string> chatsIds)
     {
+        if (chatsIds is null || chatsIds.Count == 0)
+        {
+            return;
+        }
+
         foreach (var item in chatsIds)
         {
             await JoinRoom(item);
