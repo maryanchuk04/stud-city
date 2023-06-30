@@ -21,6 +21,11 @@ jobs:
         with:
           node-version: '16.x'
 
+      - name: clear node modules
+        run: |
+          cd StudCity.Frontend
+          rm -rf node_modules
+
       - name: npm install, build, and test
         run: |
           cd StudCity.Frontend
