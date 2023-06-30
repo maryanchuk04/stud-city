@@ -1,8 +1,10 @@
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudCity.API.Extensions;
 using StudCity.API.ViewModels;
+using StudCity.Core.CommandHandlers;
 using StudCity.Core.DTOs;
 using StudCity.Core.Exceptions;
 using StudCity.Core.Interfaces;
@@ -18,16 +20,18 @@ public class AuthenticateController : ControllerBase
 {
     private readonly IAuthenticateService _authenticateService;
     private readonly IMapper _mapper;
+    private readonly IMediator _mediator;
 
     /// <summary>
     /// Authenticate DI.
     /// </summary>
     /// <param name="authenticateService">DI auth service.</param>
     /// <param name="mapper">Automapper.</param>
-    public AuthenticateController(IAuthenticateService authenticateService, IMapper mapper)
+    public AuthenticateController(IAuthenticateService authenticateService, IMapper mapper, IMediator mediator)
     {
         _authenticateService = authenticateService;
         _mapper = mapper;
+        _mediator = mediator;
     }
 
     /// <summary>
@@ -188,6 +192,26 @@ public class AuthenticateController : ControllerBase
         catch (Exception e)
         {
             return BadRequest(new ErrorResponseModel("Registration complete error", e.Message));
+        }
+    }
+
+    [HttpPost("google")]
+    public async Task<ActionResult<AuthenticateResponseModel>> GoogleAuthenticate([FromBody] GoogleAuthViewModel model)
+    {
+        try
+        {
+            var result = await _mediator.Send(new GoogleAuthenticateCommand(model.Email, model.Picture, model.Hd, model.Name));
+            HttpContext.SetTokenCookie(result);
+
+            return Ok(new { Token = result.JwtToken, result.IsRegistration });
+        }
+        catch (AuthenticateException e)
+        {
+            return BadRequest(new ErrorResponseModel(e.Message));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ErrorResponseModel("Google authenticate error", e.Message));
         }
     }
 

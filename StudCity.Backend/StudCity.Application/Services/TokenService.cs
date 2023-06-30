@@ -73,7 +73,7 @@ public class TokenService : ITokenService
             expires: DateTime.Now.AddMinutes(30000),
             signingCredentials: credentials);
 
-         return new JwtSecurityTokenHandler().WriteToken(token);
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
     public AccountToken GenerateRefreshToken()

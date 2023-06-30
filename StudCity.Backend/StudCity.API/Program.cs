@@ -15,6 +15,7 @@ using StudCity.API.Policies;
 using StudCity.Application.Helpers;
 using StudCity.Application.Providers;
 using StudCity.Application.Services;
+using StudCity.Core.CommandHandlers;
 using StudCity.Core.ConfigurationModels;
 using StudCity.Core.Interfaces;
 using StudCity.Core.Interfaces.Infrastructure;
@@ -55,6 +56,8 @@ builder.Services.AddSingleton(jwtConfiguration);
 
 // Add services to the container.
 builder.ConfigureValidation();
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssemblyContaining<GoogleAuthenticateCommand>());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasherService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateServices>();

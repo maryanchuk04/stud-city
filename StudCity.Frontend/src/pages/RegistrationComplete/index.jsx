@@ -8,7 +8,7 @@ import {
 	changeRegisterCompleteState
 } from "../../app/features/registerCompleteSlice";
 import {
-	getRegisterCompleteDefautlData,
+	getRegisterCompleteDefaultData,
 	REGISTER_COMPLETE_STEPS,
 	REGISTER_COMPLETE_STEPS_COUNT
 } from "../../utils/constants";
@@ -30,7 +30,7 @@ const RegistrationComplete = () => {
 	const defaultData = useSelector(selectRegisterCompleteDefaultInfo);
 
 	const [valid, setValid] = useState(false);
-	const [state, setState] = useState(getRegisterCompleteDefautlData(defaultData));
+	const [state, setState] = useState(getRegisterCompleteDefaultData(defaultData));
 
 	useEffect(() => {
 		setValid(stepValidator());
