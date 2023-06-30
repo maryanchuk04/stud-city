@@ -12,7 +12,6 @@ export const googleLogin = createAsyncThunk(
             const { name, picture, email, hd } = await googleAuthenticate(googleAccessToken);
 
             const { isRegistration, isSuccess } = await authService.googleLogin({ name, picture, email, hd });
-			console.log(isSuccess, isRegistration);
             if (isSuccess) {
                 return fulfillWithValue({ isSuccess, isRegistration });
             }

@@ -29,7 +29,7 @@ function GoogleButton({ className = '' }) {
 
     return (
         <button
-            onClick={() => login()}
+            onClick={login}
             type='button'
             className={`flex break-inside bg-white text-primaryAuthentication border-2 border-primaryAuthentication rounded-3xl mx-auto mb-4 w-full h-12 ${className}`}
         >
