@@ -19,7 +19,6 @@ const ChooseGroups = ({ groups, setGroups }) => {
 			setGroups(groups.filter(group => group !== id));
 			return;
 		}
-		console.log(id)
 		setGroups([...groups, id]);
 	}
 
