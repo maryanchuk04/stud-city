@@ -38,7 +38,7 @@ const ChooseGroups = ({ groups, setGroups }) => {
 							group={group}
 							isActive={isActive}
 							handleClick={handleClick}
-							viewMode={"grid"}
+							viewMode="grid"
 						/>
 					})
 					}
