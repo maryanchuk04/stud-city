@@ -32,15 +32,14 @@ const ChooseGroups = ({ groups, setGroups }) => {
 			<h1 className="text-4xl text-center mb-6">Choose your first groups</h1>
 			<Scroller>
 				{allGroups.length ? <div className='w-11/12 mx-auto py-6 grid grid-cols-2 gap-5 place-items-center'>
-					{allGroups.map((group) => {
-						const isActive = groups.includes(group.id);
-						return <GroupCard key={group.id}
+					{allGroups.map((group) => (
+						<GroupCard key={group.id}
 							group={group}
-							isActive={isActive}
+							isActive={groups.includes(group.id)}
 							handleClick={handleClick}
 							viewMode="grid"
 						/>
-					})
+					))
 					}
 					<div className='flex flex-col justify-center items-center'>
 						<IconButton className='my-2' onClick={fetchGroups}>
