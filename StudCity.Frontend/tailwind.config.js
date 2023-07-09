@@ -18,6 +18,7 @@ module.exports = {
 				elephantBone: '#fffff0',
 				yellowGreen: '#b4b45d',
 				customGreen: '#bbddb7',
+				borderGray: '#D1D7D4',
 			},
 			backgroundImage: {
 				mainPageGradient:

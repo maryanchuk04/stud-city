@@ -12,7 +12,7 @@ const CustomHeader = ({
 	prevMonthButtonDisabled,
 	nextMonthButtonDisabled,
 }) => {
-	const buttonStyles = "border-2 bg-white border-[#D1D7D4] rounded-full px-2 py-1";
+	const buttonStyles = "border-2 bg-white border-borderGray rounded-full px-2 py-1";
 	const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
 	return (
 		<div className="gap-2 flex justify-between w-11/12 mx-auto items-center">

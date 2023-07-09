@@ -68,9 +68,9 @@ function Authenticate() {
 							className="disabled:opacity-50"
 						>Submit</Button>
 						<div className="flex justify-between my-2 items-center">
-							<hr className="w-[40%] h-0.5 bg-[#D1D7D4] ml-3" />
+							<hr className="w-[40%] h-0.5 bg-borderGray ml-3" />
 							<span className="w-[10%] text-center text-[#506466]">or</span>
-							<hr className="w-[40%] h-0.5 bg-[#D1D7D4] mr-3" />
+							<hr className="w-[40%] h-0.5 bg-borderGray mr-3" />
 						</div>
 						<GoogleButton />
 					</form>
