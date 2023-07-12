@@ -108,7 +108,7 @@ export const MONTH = [
 	'December',
 ];
 
-export const getRegisterCompleteDefautlData = (defaultData) => {
+export const getRegisterCompleteDefaultData = (defaultData) => {
 	return {
 		userInformation: {
 			firstName: defaultData.userInformation.firstName || '',
@@ -239,4 +239,19 @@ export const ICON_NAVBAR_ICONS = [
 		icon: 'fa-light fa-screen-users',
 		name: 'My Groups',
 	},
+];
+export const VIEW_MODE_ICONS = [
+	{
+		icon: 'fa-solid fa-grid',
+		name: 'grid',
+	},
+	{
+		icon: 'fa-solid fa-list',
+		name: 'list',
+	},
+];
+export const OPTIONS_FOR_SELECTOR_GROUPS = [
+	'Default',
+	'Descending of popularity',
+	'Ascending of popularity',
 ];

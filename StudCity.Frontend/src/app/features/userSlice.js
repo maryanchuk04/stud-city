@@ -28,6 +28,7 @@ export const fetchCurrentUser = createAsyncThunk(
 	async (_, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
 		try {
 			const { data } = await userService.getCurrentUser();
+
 			return fulfillWithValue(data);
 		} catch (err) {
 			if (!err.response) {

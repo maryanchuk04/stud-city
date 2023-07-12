@@ -1,3 +1,5 @@
+using StudCity.Core.Enums;
+
 namespace StudCity.Core.Entities;
 
 public class Account : BaseEntity
@@ -11,6 +13,8 @@ public class Account : BaseEntity
     public User User { get; set; }
 
     public Guid? UserId { get; set; }
+
+    public AuthType AuthType { get; set; }
 
     public ICollection<AccountRole> AccountRoles { get; set; }
 
