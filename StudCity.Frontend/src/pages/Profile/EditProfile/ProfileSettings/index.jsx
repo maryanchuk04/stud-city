@@ -5,7 +5,7 @@ import Button from "../../../../UI/Button";
 
 export default function ProfileSettings() {
 	return (
-		<div className="w-10/12 min-h-fit max-h-full mx-auto ml-6 flex flex-col gap-5">
+		<div className="w-full min-h-fit max-h-full mx-auto flex flex-col gap-5">
 			<Accord isExpanded={true}>
 				<HeaderAccord>Theme:</HeaderAccord>
 				<ToggleContainerText>Dark mode</ToggleContainerText>
@@ -55,7 +55,7 @@ const Accord = ({ children, isExpanded = false }) => {
 	const [expanded, setExpanded] = useState(isExpanded);
 
 	return (
-		<div className="border-2 border-borderGray py-2 px-5 rounded-lg first:mt-5 last:mb-5">
+		<div className="border-2 border-customGray py-2 px-5 rounded-lg first:mt-5 last:mb-5">
 			{expanded ?
 				React.Children.map(children, (child, index) => {
 					if (index === 0) {

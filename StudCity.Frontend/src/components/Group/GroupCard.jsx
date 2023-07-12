@@ -17,7 +17,7 @@ const GroupCard = ({ group, isActive, handleClick }) => {
 				<div className='w-full h-1/2'>
 					<div className='flex flex-col p-3'>
 						<h1 className='text-lg font-bold'>{group.name}</h1>
-						<p className='text-base text-gray-400'>Participants: {group.usersCount}</p>
+						<p className='text-base text-customGray-400'>Participants: {group.usersCount}</p>
 					</div>
 				</div>
 			</div>
