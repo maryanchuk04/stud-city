@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { formatDateOrTime } from "../../utils/dates";
 
 export function UserMessages({ id, title, message }) {
-	const baseLinkStyles = "items-center w-full mx-auto h-24 pl-3 flex border-gray-300 cursor-pointer hover:bg-customGreen scroll-none rounded-md duration-200";
+	const baseLinkStyles = "items-center w-full mx-auto h-24 pl-3 flex border-customGray-300 cursor-pointer hover:bg-customGreen scroll-none rounded-md duration-200";
 
 	return (
 		<div>
