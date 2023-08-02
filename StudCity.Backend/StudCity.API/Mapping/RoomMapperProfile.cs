@@ -10,7 +10,9 @@ public class RoomMapperProfile : Profile
     {
         CreateMap<Room, RoomDto>()
             .ForMember(x => x.Messages, opts => opts.MapFrom(x => x.Messages))
-            .ForMember(x => x.Users, opts => opts.MapFrom(src => src.UserRooms.Select(x => x.User)));
+            .ForMember(x => x.Users, opts => opts.MapFrom(src => src.UserRooms.Select(x => x.User)))
+            .ForMember(x => x.Image, opts => opts.MapFrom(src => src.Image.ImageUrl));
+
         CreateMap<Room, RoomPreviewDto>()
             .ForMember(x => x.Message, opts => opts.MapFrom(src => src.Messages.LastOrDefault()));
     }
