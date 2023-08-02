@@ -50,7 +50,24 @@ export const fetchUserChats = createAsyncThunk(
 		}
 	}
 );
-
+export const createChat = createAsyncThunk(
+	'room/createChat',
+	async (
+		chatData,
+		{ fulfillWithValue, rejectWithValue },
+		roomService = new RoomService()
+	) => {
+		try {
+			const data = await roomService.createChat(chatData);
+			return fulfillWithValue(data);
+		} catch (err) {
+			if (!err.response) {
+				return;
+			}
+			return rejectWithValue(chatData);
+		}
+	}
+);
 const chatsSlice = createSlice({
 	name: 'chats',
 	initialState: {
@@ -110,6 +127,9 @@ const chatsSlice = createSlice({
 		},
 		[connectToChatHub.fulfilled]: (state, action) => {
 			state.hubConnection = action.payload;
+		},
+		[createChat.fulfilled]: (state, { payload }) => {
+			state.userChats = [...state.userChats, payload];
 		},
 	},
 });

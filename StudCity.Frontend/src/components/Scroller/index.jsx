@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Scroller = ({ children }) => {
+const Scroller = ({ children, resRef = null }) => {
 	return (
-		<div className='h-full w-full overflow-y-auto'>
+		<div ref={resRef} className='h-full w-full overflow-y-auto'>
 			{children}
 		</div>
 	)

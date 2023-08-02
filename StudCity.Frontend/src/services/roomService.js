@@ -1,8 +1,8 @@
-import { BaseService } from "./baseService";
-import { showAlert } from "./showAlert";
+import { BaseService } from './baseService';
+import { showAlert } from './showAlert';
 
 export class RoomService {
-	#url = "/room";
+	#url = '/room';
 
 	constructor() {
 		this.service = new BaseService();
@@ -13,14 +13,13 @@ export class RoomService {
 			const { data } = await this.service.get(`${this.#url}/${id}`);
 
 			return data;
-		}
-		catch(err) {
+		} catch (err) {
 			if (!err.response) {
-				showAlert("Something went wrong!", "error");
+				showAlert('Something went wrong!', 'error');
 				return;
 			}
 
-			showAlert(err.response.data.error, "error");
+			showAlert(err.response.data.error, 'error');
 			return;
 		}
 	}
@@ -30,14 +29,29 @@ export class RoomService {
 			const { data } = await this.service.get(this.#url);
 
 			return data;
-		}
-		catch(err) {
+		} catch (err) {
 			if (!err.response) {
-				showAlert("Something went wrong!", "error");
+				showAlert('Something went wrong!', 'error');
 				return;
 			}
 
-			showAlert(err.response.data.error, "error");
+			showAlert(err.response.data.error, 'error');
+			return;
+		}
+	}
+
+	async createChat(chatData) {
+		try {
+			const { data } = await this.service.post(this.#url, chatData);
+
+			return data;
+		} catch (err) {
+			if (!err.response) {
+				showAlert('Something went wrong!', 'error');
+				return;
+			}
+
+			showAlert(err.response.data.error, 'error');
 			return;
 		}
 	}

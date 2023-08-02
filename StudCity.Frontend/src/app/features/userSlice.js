@@ -20,12 +20,20 @@ const initialState = {
 			backgroundImage: '',
 		},
 	},
+	searchData: {
+		loading: false,
+		data: [],
+	},
 	loading: false,
 };
 
 export const fetchCurrentUser = createAsyncThunk(
 	'user/getCurrentUser',
-	async (_, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
+	async (
+		_,
+		{ fulfillWithValue, rejectWithValue },
+		userService = new UserService()
+	) => {
 		try {
 			const { data } = await userService.getCurrentUser();
 
@@ -42,9 +50,34 @@ export const fetchCurrentUser = createAsyncThunk(
 	}
 );
 
+export const getUsersSearch = createAsyncThunk(
+	'user/getUsersSearch',
+	async (
+		searchData,
+		{ fulfillWithValue, rejectWithValue },
+		userService = new UserService()
+	) => {
+		try {
+			const data = await userService.getUsers(searchData);
+			return fulfillWithValue(data);
+		} catch (err) {
+			if (!err.response) {
+				showAlert('Something went wrong', 'error');
+				return;
+			}
+			showAlert(err.response.data.error, 'error');
+			return rejectWithValue(searchData);
+		}
+	}
+);
+
 export const saveCurrentUser = createAsyncThunk(
 	'user/saveCurrentUser',
-	async (userData, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
+	async (
+		userData,
+		{ fulfillWithValue, rejectWithValue },
+		userService = new UserService()
+	) => {
 		try {
 			await userService.editCurrentUser(userData);
 			showAlert('User data has been saved', 'success');
@@ -66,6 +99,19 @@ const userSlice = createSlice({
 	initialState: initialState,
 	reducers: {},
 	extraReducers: {
+		[getUsersSearch.pending]: (state) => {
+			state.searchData.loading = true;
+		},
+		[getUsersSearch.rejected]: (state) => {
+			state.searchData.loading = false;
+		},
+		[getUsersSearch.fulfilled]: (state, { payload }) => {
+			state.searchData.data = {
+				...state.searchData.data,
+				...payload,
+			};
+			state.searchData.loading = false;
+		},
 		[fetchCurrentUser.pending]: (state) => {
 			state.loading = true;
 		},
@@ -103,6 +149,8 @@ export const selectUserForHeader = (state) => {
 		loading: state.user.loading,
 	};
 };
+
+export const selectDataUsersFound = (state) => state.user.searchData;
 
 export const selectCurrentUserId = (state) => state.user.data.id;
 
