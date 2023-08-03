@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { HubService } from '../../services/hubService';
 import { RoomService } from '../../services/roomService';
+import { showAlert } from '../../services/showAlert';
 
 const hubService = new HubService();
 
@@ -62,6 +63,7 @@ export const createChat = createAsyncThunk(
 			return fulfillWithValue(data);
 		} catch (err) {
 			if (!err.response) {
+				showAlert('Something went wrong!', 'error');
 				return;
 			}
 			return rejectWithValue(chatData);

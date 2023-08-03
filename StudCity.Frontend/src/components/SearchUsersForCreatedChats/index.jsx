@@ -107,7 +107,7 @@ export default function UserGroupSearch({ setSelectedUsers, selectedUsers }) {
 					</div>
 				</div>
 				<div className="h-[320px] max-h-5/6 w-full flex pt-2" >
-					<Scroller resRef={containerRef}>
+					<Scroller parentRef={containerRef}>
 						{indexPage === 1 && loading
 							? <Spinner />
 							: (

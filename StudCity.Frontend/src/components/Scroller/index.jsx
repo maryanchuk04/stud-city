@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 
-const Scroller = ({ children, resRef = null }) => {
+const Scroller = ({ children, parentRef = null }) => {
 	const containerRef = useRef(null);
 
 	useEffect(() => {
@@ -25,7 +25,7 @@ const Scroller = ({ children, resRef = null }) => {
 
 
 	return (
-		<div ref={resRef} className='h-full w-full overflow-y-auto'>
+		<div ref={parentRef} className='h-full w-full overflow-y-auto'>
 			{children}
 		</div >
 	)
