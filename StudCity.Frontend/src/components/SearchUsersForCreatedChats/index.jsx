@@ -172,10 +172,3 @@ function SelectedUsers({ selectedUsers }) {
 		</div>
 	)
 }
-
-// in the near future
-// function Group() {
-// 	return (
-// 		<div className=""></div>
-// 	)
-// }
