@@ -8,7 +8,7 @@ public interface IRoomService
 
     Task<IEnumerable<RoomPreviewDto>> GetUsersRooms();
 
-    Task<RoomDto> CreateRoom(IEnumerable<Guid> usersIds, string title);
+    Task<RoomDto> CreateRoom(List<Guid> usersIds, string title, string imageUrl);
 
     Task<RoomDto> AddUserToRoom(Guid id, IEnumerable<Guid> usersIds);
 

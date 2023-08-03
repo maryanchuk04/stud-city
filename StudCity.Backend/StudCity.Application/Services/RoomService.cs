@@ -50,19 +50,15 @@ public class RoomService : IRoomService
                     .ThenInclude(x => x.Image)
             .FirstOrDefault(x => x.Id == room.Id);
 
-        if (res == null)
-        {
-            throw new NotFoundException(nameof(Room), room.Id);
-        }
-
-        return _mapper.Map<Room, RoomDto>(res);
+        return res == null ? throw new NotFoundException(nameof(Room), room.Id)
+            : _mapper.Map<Room, RoomDto>(res);
     }
 
     public async Task<IEnumerable<RoomPreviewDto>> GetUsersRooms()
     {
         var rooms = _context.Rooms
-            .Include(x=>x.UserRooms)
-            .ThenInclude(x=>x.User)
+            .Include(x => x.UserRooms)
+                .ThenInclude(x => x.User)
             .Where(x => x.UserRooms.Any(u => u.User.Id == _securityContext.GetCurrentUserId()));
 
         if (!rooms.Any())
@@ -79,16 +75,24 @@ public class RoomService : IRoomService
         return _mapper.Map<IEnumerable<Room>, IEnumerable<RoomPreviewDto>>(res);
     }
 
-    public async Task<RoomDto> CreateRoom(IEnumerable<Guid> usersIds, string title)
+    public async Task<RoomDto> CreateRoom(
+        List<Guid> usersIds,
+        string title,
+        string imageUrl)
     {
         var newRoomId = Guid.NewGuid();
+        var currentUserId = _securityContext.GetCurrentUserId();
+
         var room = new Room
         {
             Id = newRoomId,
             UserRooms = new List<UserRoom>(),
             Title = title,
-            Messages = new List<Message>()
+            Image = new Image(imageUrl),
+            Messages = new List<Message>(),
         };
+
+        usersIds.Add(currentUserId);
 
         foreach (var userId in usersIds)
         {
@@ -96,7 +100,7 @@ public class RoomService : IRoomService
             {
                 Id = Guid.NewGuid(),
                 RoomId = room.Id,
-                UserId = userId
+                UserId = userId,
             });
         }
 
@@ -111,19 +115,15 @@ public class RoomService : IRoomService
         var room = await _context.Rooms
             .Include(x => x.UserRooms)
                 .ThenInclude(x => x.User)
-            .FirstOrDefaultAsync(x => x.Id == id);
-
-        if (room == null)
-        {
-            throw new NotFoundException(nameof(Room), id);
-        }
+            .FirstOrDefaultAsync(x => x.Id == id)
+                ?? throw new NotFoundException(nameof(Room), id);
 
         foreach (var userId in usersIds)
         {
             room.UserRooms.Add(new UserRoom()
             {
                 UserId = userId,
-                RoomId = room.Id
+                RoomId = room.Id,
             });
         }
 
@@ -139,19 +139,15 @@ public class RoomService : IRoomService
         var room = await _context.Rooms
             .Where(r => r.Id == id)
             .Include(x => x.UserRooms)
-            .ThenInclude(x => x.User)
-            .ThenInclude(x => x.Image)
+                .ThenInclude(x => x.User)
+                    .ThenInclude(x => x.Image)
             .Include(c => c.Messages)
-            .ThenInclude(x => x.User)
-            .ThenInclude(x => x.Image)
+                .ThenInclude(x => x.User)
+                    .ThenInclude(x => x.Image)
             .FirstOrDefaultAsync();
 
-        if (room == null)
-        {
-            throw new NotFoundException(nameof(Room), id);
-        }
-
-        return _mapper.Map<Room, RoomDto>(room);
+        return room == null ? throw new NotFoundException(nameof(Room), id)
+            : _mapper.Map<Room, RoomDto>(room);
     }
 
     private Room CreateRoom(Guid id, Guid userId)
@@ -159,13 +155,13 @@ public class RoomService : IRoomService
         var temp = _context.Users.FirstOrDefault(x => x.Id == id);
         var room = new Room
         {
-            Title = temp?.FirstName + " " + temp?.LastName
+            Title = temp?.FirstName + " " + temp?.LastName,
         };
 
         room.UserRooms = new List<UserRoom>
         {
-            new() { Room = room, UserId = id },
-            new() { Room = room, UserId = userId },
+            new () { Room = room, UserId = id },
+            new () { Room = room, UserId = userId },
         };
 
         return room;

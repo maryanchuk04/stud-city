@@ -1,3 +1,7 @@
+// <copyright file="RoomController.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudCity.API.ViewModels;
@@ -35,7 +39,7 @@ public class RoomController : ControllerBase
     {
         try
         {
-            return Ok(await _roomService.CreateRoom(viewModel.UsersIds, viewModel.Title));
+            return Ok(await _roomService.CreateRoom(viewModel.UsersIds.ToList(), viewModel.Title, viewModel.ImageUrl));
         }
         catch (Exception e)
         {

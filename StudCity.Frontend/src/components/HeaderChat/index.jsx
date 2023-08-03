@@ -16,7 +16,7 @@ export default function HeaderChat({ title, users }) {
 	}
 
 	return (
-		<div className="w-full px-12 h-20 flex py-3 justify-between border-b-2 border-gray-300">
+		<div className="w-full px-12 h-20 flex py-3 justify-between border-b-2 border-customGray-300">
 			<div className="w-fit flex">
 				<Avatar className="w-14 h-14 mx-0" />
 				<div className="ml-5 h-full flex flex-col justify-between">

@@ -49,7 +49,7 @@ function PasswordTextField({ className = "", placeholder, required, setDisabled,
 				</svg>
 			)}
 			<input
-				className={`active:border-none w-full static active:border-primaryAuthentication focus:border-primaryAuthentication text-[#506466] my-3 outline-none h-12 px-3 py-1 font-normal rounded-2xl border-solid border-2 placeholder:decoration-[#A0A9AB] text-base border-[#D1D7D4] ${className}`}
+				className={`active:border-none w-full static active:border-primaryAuthentication focus:border-primaryAuthentication text-[#506466] my-3 outline-none h-12 px-3 py-1 font-normal rounded-2xl border-solid border-2 placeholder:decoration-[#A0A9AB] text-base border-customGray ${className}`}
 				type={!hidden ? "password" : "text"}
 				placeholder={placeholder}
 				required={required}

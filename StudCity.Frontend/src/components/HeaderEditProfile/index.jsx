@@ -30,7 +30,7 @@ function HeaderEditProfile({ user, setUser, handleSave, handleCancel }) {
 					className="h-full w-full object-cover" alt=""
 				/>
 				<Button
-					className="absolute bottom-3 right-3 w-12 h-12 border-2 border-gray-200 bg-white opacity-40 shadow-form"
+					className="absolute bottom-3 right-3 w-12 h-12 border-2 border-customGray-200 bg-white opacity-40 shadow-form"
 					onClick={() => setShowDialogForBackground(true)}
 				>
 					<i className="text-black fa-regular fa-camera"></i>

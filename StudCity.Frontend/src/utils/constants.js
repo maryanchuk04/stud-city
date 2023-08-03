@@ -119,7 +119,7 @@ export const getRegisterCompleteDefaultData = (defaultData) => {
 			birthday: defaultData.userInformation.birthday || '',
 		},
 		avatar: '',
-		groups: [],
+		groups: GROUP_MOCK,
 		settings: {},
 	};
 };

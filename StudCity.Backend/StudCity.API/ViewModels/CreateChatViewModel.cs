@@ -6,4 +6,5 @@ public class CreateChatViewModel
 
     public string Title { get; set; }
 
+    public string ImageUrl { get; set; }
 }
