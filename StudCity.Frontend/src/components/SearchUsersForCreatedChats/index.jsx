@@ -47,7 +47,6 @@ export default function UserGroupSearch({ setSelectedUsers, selectedUsers }) {
 	useEffect(() => {
 		dispatch(getUsersSearch({
 			page: 1,
-			pageSize: 10,
 			searchWord: searchData
 		}))
 	}, [searchData])
@@ -57,7 +56,6 @@ export default function UserGroupSearch({ setSelectedUsers, selectedUsers }) {
 		if (indexPage > 1 && (totalItemsCount / (10 * (indexPage - 1))) > 1) {
 			dispatch(getUsersSearch({
 				page: indexPage,
-				pageSize: 10,
 				searchWord: searchData
 			}))
 		}
