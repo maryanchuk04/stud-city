@@ -28,7 +28,7 @@ export default function CreateChatModal({ handleClose }) {
 			title: nameGroup,
 			imageUrl: avatar
 		}))
-		handleClose();
+		handleClose(false);
 	}
 
 	const handleChangeName = ({ target }) => {
@@ -112,7 +112,7 @@ export default function CreateChatModal({ handleClose }) {
 						<div className="">
 							<Button
 								className='bg-white mx-0 mt-0 py-2 px-3 border-primaryAuthentication border mr-5 w-fit text-primaryAuthentication'
-								onClick={handleClose}
+								onClick={() => handleClose(false)}
 							>
 								Cancel
 							</Button>
