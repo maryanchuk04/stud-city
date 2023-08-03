@@ -113,20 +113,14 @@ export default function UserGroupSearch({ setSelectedUsers, selectedUsers }) {
 							: (
 								users?.length > 0
 									? <div className="h-fit">
-										{users?.map((elem, index) => {
-											if (selectedUsers?.some(item => item.id === elem.id)) {
-												return <User
-													user={elem}
-													key={elem?.id || index}
-													onClick={handleClick}
-													className='bg-customGreen'
-												/>
-											} else return <User
+										{users?.map((elem) => (
+											<User
 												user={elem}
-												key={elem?.id || index}
+												key={elem.id}
 												onClick={handleClick}
+												className={selectedUsers?.some(item => item.id === elem.id) ? 'bg-customGreen' : ''}
 											/>
-										})}
+										))}
 										{indexPage > 1 && loading && (<div className="h-24 flex w-full">
 											<Spinner />
 										</div>)}

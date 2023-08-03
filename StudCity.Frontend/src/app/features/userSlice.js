@@ -20,7 +20,7 @@ const initialState = {
 			backgroundImage: '',
 		},
 	},
-	searchData: {
+	users: {
 		loading: false,
 		data: [],
 	},
@@ -53,12 +53,12 @@ export const fetchCurrentUser = createAsyncThunk(
 export const getUsersSearch = createAsyncThunk(
 	'user/getUsersSearch',
 	async (
-		searchData,
+		users,
 		{ fulfillWithValue, rejectWithValue },
 		userService = new UserService()
 	) => {
 		try {
-			const data = await userService.getUsers(searchData);
+			const data = await userService.getUsers(users);
 			return fulfillWithValue(data);
 		} catch (err) {
 			if (!err.response) {
@@ -66,7 +66,7 @@ export const getUsersSearch = createAsyncThunk(
 				return;
 			}
 			showAlert(err.response.data.error, 'error');
-			return rejectWithValue(searchData);
+			return rejectWithValue(users);
 		}
 	}
 );
@@ -100,17 +100,17 @@ const userSlice = createSlice({
 	reducers: {},
 	extraReducers: {
 		[getUsersSearch.pending]: (state) => {
-			state.searchData.loading = true;
+			state.users.loading = true;
 		},
 		[getUsersSearch.rejected]: (state) => {
-			state.searchData.loading = false;
+			state.users.loading = false;
 		},
 		[getUsersSearch.fulfilled]: (state, { payload }) => {
-			state.searchData.data = {
-				...state.searchData.data,
+			state.users.data = {
+				...state.users.data,
 				...payload,
 			};
-			state.searchData.loading = false;
+			state.users.loading = false;
 		},
 		[fetchCurrentUser.pending]: (state) => {
 			state.loading = true;
@@ -150,7 +150,7 @@ export const selectUserForHeader = (state) => {
 	};
 };
 
-export const selectDataUsersFound = (state) => state.user.searchData;
+export const selectDataUsersFound = (state) => state.user.users;
 
 export const selectCurrentUserId = (state) => state.user.data.id;
 

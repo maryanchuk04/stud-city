@@ -28,11 +28,9 @@ export default function CreateChatModal({ handleClose }) {
 			title: nameGroup,
 			imageUrl: avatar
 		}))
+		handleClose();
 	}
 
-	useEffect(() => {
-		console.log(avatar)
-	}, [avatar])
 	const handleChangeName = ({ target }) => {
 		setNameGroup(target.value);
 	}
@@ -62,6 +60,7 @@ export default function CreateChatModal({ handleClose }) {
 			setErrorMessageWhenButtonDisabled("The name of the group is at least 3 characters long and at least two users are selected")
 		}
 	}
+
 
 	return <div className='w-[550px] h-[700px] relative'>
 		{
@@ -119,7 +118,7 @@ export default function CreateChatModal({ handleClose }) {
 							</Button>
 							<Button
 								className='w-fit py-2 px-3 mx-0 mt-0 mr-5'
-								onClick={() => { handleClick(); handleClose(); }}
+								onClick={handleClick}
 								disabled={isDisabledCreateButton}
 							>
 								Create
@@ -128,5 +127,5 @@ export default function CreateChatModal({ handleClose }) {
 					</div>
 				</div>
 		}
-	</div>;
+	</div >;
 }
