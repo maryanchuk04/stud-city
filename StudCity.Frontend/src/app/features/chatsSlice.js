@@ -62,9 +62,11 @@ export const createChat = createAsyncThunk(
 			const data = await roomService.createChat(chatData);
 			return fulfillWithValue(data);
 		} catch (err) {
-			if (!err.response) {
-				showAlert('Something went wrong!', 'error');
+			if (err.response) {
+				showAlert(err.response.data.error, 'error');
 				return;
+			} else {
+				showAlert('Something went wrong!', 'error');
 			}
 			return rejectWithValue(chatData);
 		}
