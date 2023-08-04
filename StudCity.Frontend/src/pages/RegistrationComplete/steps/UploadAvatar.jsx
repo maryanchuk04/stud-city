@@ -75,7 +75,7 @@ function UploadAvatar({ avatar = "", setAvatar, className, title = "" }) {
 				) : (
 					<div className="w-[90%] h-full flex flex-col justify-evenly mx-auto">
 						<Avatar src={imgAfterCrop} className="h-80 w-80" />
-						<div className="w-full flex justify-center gap-10">
+						<div className="w-full flex justify-center gap-8">
 							<IconButton
 								onClick={() => setCurrentPage("crop-img")}
 							>
