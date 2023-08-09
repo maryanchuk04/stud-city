@@ -6,7 +6,7 @@ import { EDIT_PROFILE_SIDEBAR } from "../../../utils/constants"
 import { selectCurrentUser } from "../../../app/features/userSlice";
 import Container from "../../../components/Container";
 import ProfileSettings from "./ProfileSettings";
-import Scroller from "../../../components/Scroller";
+import ScrollerWithPadding from "../../../components/ScrollerWithPadding";
 
 function EditProfile() {
 	const { data } = useSelector(selectCurrentUser);
@@ -34,9 +34,9 @@ function EditProfile() {
 					<div className="w-[18%] h-full ">
 						<ProfileSidebar items={EDIT_PROFILE_SIDEBAR} menuState={menuState} setMenuState={setMenuState} />
 					</div>
-					<Scroller className="w-[82%] h-full flex flex-col">
+					<ScrollerWithPadding className="w-[82%] h-full flex flex-col">
 						{renderSections()}
-					</Scroller>
+					</ScrollerWithPadding>
 				</div>
 			</Container>
 		</div>
