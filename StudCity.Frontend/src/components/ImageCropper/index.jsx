@@ -34,7 +34,7 @@ function ImageCropper({ image, onCropDone, onCropCancel }) {
 				}}
 			/>
 
-			<div className="mx-auto h-fit gap-5  mb-10 flex flex-wrap">
+			<div className="mx-auto h-fit gap-5 mb-6 flex flex-wrap">
 				<SliderControll
 					className="flex-auto w-full"
 					min={1}

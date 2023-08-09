@@ -255,3 +255,5 @@ export const OPTIONS_FOR_SELECTOR_GROUPS = [
 	'Descending of popularity',
 	'Ascending of popularity',
 ];
+
+export const LABELS_USERS_GROUPS = ['Users', 'Groups'];

@@ -1,17 +1,16 @@
-import { BaseService } from "./baseService";
-import { showAlert } from "./showAlert";
+import { BaseService } from './baseService';
+import { showAlert } from './showAlert';
 
 export class UserService {
 	constructor() {
 		this.service = new BaseService();
-		this.apiUrl = "/user"
+		this.apiUrl = '/user';
 	}
 
 	async getCurrentUser() {
 		try {
 			return await this.service.get(this.apiUrl);
-		}
-		catch (err) {
+		} catch (err) {
 			throw Error(err);
 		}
 	}
@@ -25,25 +24,25 @@ export class UserService {
 
 	async getUserById(id) {
 		try {
-			const { data } = await this.service.get(`${this.apiUrl}/${id}`)
+			const { data } = await this.service.get(`${this.apiUrl}/${id}`);
 			return data;
-		}
-		catch (err) {
-			showAlert("User not found", "error");
+		} catch (err) {
+			showAlert('User not found', 'error');
 		}
 	}
 
-	async getUsers({ page = 1, pageSize = 10, searchWord = ''  }) {
+	async getUsers({ page = 1, pageSize = 10, searchWord = '' }) {
 		try {
-			const { data } = await this.service.get(`${this.apiUrl}/search/?page=${page}&pageSize=${pageSize}&searchWord=${searchWord}`);
+			const { data } = await this.service.get(
+				`${this.apiUrl}/search/?page=${page}&pageSize=${pageSize}&searchWord=${searchWord}`
+			);
 			return data;
-		}
-		catch (err) {
+		} catch (err) {
 			if (!err.response) {
-				showAlert(err.response.message, "error");
-				return;	
+				showAlert(err.response.message, 'error');
+				return;
 			}
-			showAlert("Something went wrong!", "error");
+			showAlert('Something went wrong!', 'error');
 		}
 	}
 

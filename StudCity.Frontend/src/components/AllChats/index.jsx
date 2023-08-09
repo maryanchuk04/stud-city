@@ -9,12 +9,13 @@ export function AllChats() {
 	return (
 		<div className="flex h-5/6 flex-col overflow-y-scroll mt-5 scroll-none">
 			{
-				chats.map(item => (
+				chats?.map(item => (
 					<UserMessages
 						id={item.id}
 						title={item.title}
 						message={item.message}
 						key={item.id}
+						avatar={item.image}
 					/>
 				))
 			}
