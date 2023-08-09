@@ -15,6 +15,7 @@ import AuthRoute from '../components/AuthRoute';
 import Chat from './Chat';
 import { Welcome } from './Welcome';
 import Groups from './Groups';
+import Group from './Group';
 
 export const routes = [
 	{
@@ -60,6 +61,10 @@ export const routes = [
 	{
 		path: '/chats/:chatId',
 		element: <AuthRoute component={<Chat />} />,
+	},
+	{
+		path: '/groups/:groupId',
+		element: <AuthRoute component={<Group />} />,
 	},
 	{
 		path: '/contact-us',

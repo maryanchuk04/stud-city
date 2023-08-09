@@ -6,7 +6,7 @@ const allContainer = "w-fit h-fit max-w-[80%] flex items-center";
 const displayText = "w-fit flex justify-between";
 const styleDateText = "text-xs text-[#6d6d6d]";
 const styleFullNameText = "text-sm font-bold"
-const avatarStyle = "w-12 h-12 mx-0"
+const avatarStyle = "w-12 h-12"
 const styleMessageText = "mt-3 w-fit rounded-tl-xl rounded-br-xl rounded-bl-2xl p-2"
 
 export default function Message({ userId, content, when, fullName, image, id }) {
@@ -27,10 +27,12 @@ export default function Message({ userId, content, when, fullName, image, id }) 
 				</div>
 			) : (
 				<div className={`${allContainer} mr-auto ml-10`}>
-					<Avatar
-						className={`${avatarStyle}`}
-						src={image}
-					/>
+					<div className="h-full flex mt-2 mb-auto">
+						<Avatar
+							className={`${avatarStyle} `}
+							src={image}
+						/>
+					</div>
 					<div className="w-fit">
 						<div className={`ml-5 ${displayText} mt-2`}>
 							<span className={`${styleFullNameText}`}>{fullName}</span>

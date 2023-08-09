@@ -2,7 +2,7 @@ import React from 'react'
 import GridCard from './GridCard'
 import ListCard from './ListCard'
 
-const GroupCard = ({ group, handleClick, viewMode }) => {
+const GroupCard = ({ group, handleClick, viewMode = 'grid' }) => {
 
 	const stylesContainerCardMode = {
 		grid: "duration-200 hover:scale-90 h-60",
