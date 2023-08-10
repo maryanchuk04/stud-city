@@ -15,7 +15,7 @@ export function UserMessages({ id, title, message, avatar }) {
 						<span className="text-sm font-bold text-ellipsis w-full">{title}</span>
 						{message && <span className="text-xs text-[#6d6d6d]">{formatDateOrTime(message.when)}</span>}
 					</div>
-					<span className="text-sm text-[#6d6d6d] text-ellipsis" >{message ? message.content : "Write first message"}</span>
+					<span className="text-sm text-[#6d6d6d] truncate" >{message ? message.content : "Write first message"}</span>
 				</div>
 			</NavLink>
 			<hr className="w-full my-2" />

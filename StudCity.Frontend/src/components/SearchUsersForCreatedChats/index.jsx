@@ -1,79 +1,27 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Tabs from "../Tabs";
 import { LABELS_USERS_GROUPS } from "../../utils/constants";
-import Scroller from "../Scroller";
 import { selectDataUsersFound, getUsersSearch } from "../../app/features/userSlice";
 import TextField from "../../UI/fields/TextField";
-import Spinner from "../Spinner";
 import Avatar from "../../UI/Avatar";
+import ScrollerPagination from "../ScrollerPagination";
 
 export default function UserGroupSearch({ setSelectedUsers, selectedUsers }) {
 	const [tabIndex, setTabIndex] = useState(0);
 	const dispatch = useDispatch();
-	const [users, setUsers] = useState([]);
 	const [searchData, setSearchData] = useState('');
-	const [totalItemsCount, setTotalItemsCount] = useState(0);
 	const { data, loading } = useSelector(selectDataUsersFound);
-	const [indexPage, setIndexPage] = useState(1);
-	const containerRef = useRef(null);
-
-	useEffect(() => {
-		if (containerRef.current) {
-			containerRef.current.addEventListener('scroll', handleScroll);
-		}
-		return () => {
-			if (containerRef.current) {
-				containerRef.current.removeEventListener('scroll', handleScroll);
-			}
-		};
-
-	}, [containerRef.current, loading])
-
-	useEffect(() => {
-
-		if (data.items?.length > 0) {
-			setUsers(prev => [...prev, ...data.items])
-		}
-		if (data.items?.length > 0 && indexPage === 1) {
-			setUsers(data.items)
-			setTotalItemsCount(data.pageViewModel.totalItemsCount)
-		}
-		if (data?.items?.length === 0) {
-			setUsers([])
-		}
-	}, [data.items])
-
-	useEffect(() => {
-		dispatch(getUsersSearch({
-			page: 1,
-			searchWord: searchData
-		}))
-	}, [searchData])
-
-	useEffect(() => {
-
-		if (indexPage > 1 && (totalItemsCount / (10 * (indexPage - 1))) > 1) {
-			dispatch(getUsersSearch({
-				page: indexPage,
-				searchWord: searchData
-			}))
-		}
-	}, [indexPage])
 
 	const handleSearch = ({ target }) => {
 		setSearchData(target.value);
-		setUsers([])
-		setIndexPage(1)
 	}
-
-	const handleScroll = () => {
-		if (containerRef.current) {
-			if ((containerRef.current.clientHeight + containerRef.current.scrollTop > containerRef.current.scrollHeight - 1) && !loading) {
-				setIndexPage((prev) => prev + 1);
-			}
-		}
-	};
+	const handleDispatch = (indexPage, searchData) => {
+		dispatch(getUsersSearch({
+			page: indexPage,
+			searchWord: searchData
+		}))
+	}
 
 	const handleClick = (user) => {
 		setSelectedUsers(prev => {
@@ -105,35 +53,23 @@ export default function UserGroupSearch({ setSelectedUsers, selectedUsers }) {
 					</div>
 				</div>
 				<div className="h-[320px] max-h-5/6 w-full flex pt-2" >
-					<Scroller parentRef={containerRef}>
-						{indexPage === 1 && loading
-							? <Spinner />
-							: (
-								users?.length > 0
-									? <div className="h-fit">
-										{users?.map((elem) => (
-											<User
-												user={elem}
-												key={elem.id}
-												onClick={handleClick}
-												className={selectedUsers?.some(item => item.id === elem.id) ? 'bg-customGreen' : ''}
-											/>
-										))}
-										{indexPage > 1 && loading && (<div className="h-24 flex w-full">
-											<Spinner />
-										</div>)}
-									</div>
-									: <div className="w-full h-full flex"><p className="m-auto">Nothing found</p></div>
-							)
-						}
-					</Scroller>
+					<ScrollerPagination
+						loading={loading}
+						data={data}
+						handleDispatch={handleDispatch}
+						handleClick={handleClick}
+						searchData={searchData}
+						ItemComponent={User}
+						selectedItems={selectedUsers}
+					>
+					</ScrollerPagination>
 				</div>
 			</div>
 		</div>
 	)
 }
 
-function User({ user, onClick, className }) {
+function User({ user, onClick, className = '' }) {
 	return (
 		<div
 			className={`w-[97%] border rounded-md my-2 p-3 cursor-pointer h-20 flex last:my-0 last:mt-2 first:mt-2 hover:bg-customGreen duration-200 ${className}`}
