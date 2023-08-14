@@ -22,6 +22,14 @@ function HeaderEditProfile({ user, setUser, handleSave, handleCancel }) {
 		});
 	}, [avatar, backgroundImage]);
 
+	const handleCloseDialogAvatar = () => {
+		setShowDialogForAvatar(false)
+	}
+
+	const handleCloseDialogBackground = () => {
+		setShowDialogForBackground(false)
+	}
+
 	return (
 		<div className="w-full p-2">
 			<div className="h-52 w-full overflow-hidden rounded-tl-[60px] mt-6 shadow-form relative">
@@ -78,7 +86,7 @@ function HeaderEditProfile({ user, setUser, handleSave, handleCancel }) {
 			</div>
 			{
 				showDialogForAvatar &&
-				<CustomDialog handleClose={setShowDialogForAvatar}>
+				<CustomDialog handleClose={handleCloseDialogAvatar}>
 					<UploadAvatar
 						className={"w-[800px] h-[600px]"}
 						setAvatar={setAvatar}
@@ -88,7 +96,7 @@ function HeaderEditProfile({ user, setUser, handleSave, handleCancel }) {
 			}
 			{
 				showDialogForBackground &&
-				<CustomDialog handleClose={setShowDialogForBackground}>
+				<CustomDialog handleClose={handleCloseDialogBackground}>
 					<div className="w-[1000px] h-[600px] flex ">
 						<div className="w-4/5 h-[90%] overflow-y-auto grid grid-cols-2 m-auto gap-10">
 							{

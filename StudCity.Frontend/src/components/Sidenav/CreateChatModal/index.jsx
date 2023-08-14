@@ -18,8 +18,9 @@ export default function CreateChatModal({ handleClose }) {
 	const [idsUsers, setIdsUsers] = useState([]);
 	const [selectedUsers, setSelectedUsers] = useState([]);
 	const dispatch = useDispatch();
-	const handleCloseUploadAvatar = (closed) => {
-		setShowDialogForAvatar(closed)
+
+	const handleCloseUploadAvatar = () => {
+		setShowDialogForAvatar(false)
 	}
 
 	const handleClick = () => {
@@ -112,7 +113,7 @@ export default function CreateChatModal({ handleClose }) {
 						<div className="">
 							<Button
 								className='bg-white mx-0 mt-0 py-2 px-3 border-primaryAuthentication border mr-5 w-fit text-primaryAuthentication'
-								onClick={() => handleClose(false)}
+								onClick={handleClose}
 							>
 								Cancel
 							</Button>

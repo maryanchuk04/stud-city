@@ -7,11 +7,11 @@ import ChatModal from "../ChatModal";
 export default function HeaderChat({ title, users, avatar }) {
 	const [open, setOpen] = useState(false);
 
-	const handleClose = () => {
+	const handleCloseModal = () => {
 		setOpen(false);
 	}
 
-	const handleOpen = () => {
+	const handleOpenModal = () => {
 		setOpen(true);
 	}
 
@@ -25,12 +25,12 @@ export default function HeaderChat({ title, users, avatar }) {
 				</div>
 			</div>
 			<div className="">
-				<IconButton className=" bg-transparent hover:bg-black/10" onClick={handleOpen}>
+				<IconButton className=" bg-transparent hover:bg-black/10" onClick={handleOpenModal}>
 					<i className="fa-solid fa-ellipsis text-black text-3xl"></i>
 				</IconButton>
 			</div>
 			{open && (
-				<CustomDialog handleClose={handleClose}>
+				<CustomDialog handleClose={handleCloseModal}>
 					<ChatModal />
 				</CustomDialog>
 			)}
