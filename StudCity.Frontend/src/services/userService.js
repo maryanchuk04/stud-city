@@ -33,9 +33,9 @@ export class UserService {
 
 	async getUsers({ page = 1, pageSize = 10, searchWord = '' }) {
 		try {
-			const { data } = await this.service.get(`${this.apiUrl}/search`, {
-				params: { page, pageSize, searchWord },
-			});
+			const { data } = await this.service.get(
+				`${this.apiUrl}/search/?page=${page}&pageSize=${pageSize}&searchWord=${searchWord}`
+			);
 			return data;
 		} catch (err) {
 			if (!err.response) {

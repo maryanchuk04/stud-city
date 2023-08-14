@@ -7,7 +7,7 @@ import { DEFAULT_AVATAR_URL } from '../../../utils/constants';
 import CustomDialog from '../../../UI/CustomDialog';
 import { createChat } from '../../../app/features/chatsSlice';
 import TextField from '../../../UI/fields/TextField';
-import SearchUsersForCreatedChats from '../../SearchUsersForCreatedChats';
+import SearchUsersForCreatedChats from '../../UserGroupSearch';
 
 export default function CreateChatModal({ handleClose }) {
 	const [showDialogForAvatar, setShowDialogForAvatar] = useState(false);
@@ -29,7 +29,7 @@ export default function CreateChatModal({ handleClose }) {
 			title: nameGroup,
 			imageUrl: avatar
 		}))
-		handleClose(false);
+		handleClose();
 	}
 
 	const handleChangeName = ({ target }) => {

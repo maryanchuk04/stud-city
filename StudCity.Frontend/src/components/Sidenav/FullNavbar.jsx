@@ -12,8 +12,8 @@ const FullNavbar = ({ active, activeName }) => {
 		setIsOpenCreateChatModal(true);
 	}
 
-	const handleCloseModal = (isClose) => {
-		setIsOpenCreateChatModal(isClose);
+	const handleCloseModal = () => {
+		setIsOpenCreateChatModal(false);
 	}
 
 	return (
