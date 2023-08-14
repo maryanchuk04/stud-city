@@ -29,7 +29,7 @@ export default function Message({ userId, content, when, fullName, image, id }) 
 				<div className={`${allContainer} mr-auto ml-10`}>
 					<div className="h-full flex mt-2 mb-auto">
 						<Avatar
-							className={`${avatarStyle} `}
+							className={avatarStyle}
 							src={image}
 						/>
 					</div>

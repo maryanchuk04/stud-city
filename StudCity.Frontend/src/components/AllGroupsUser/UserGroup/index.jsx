@@ -5,7 +5,10 @@ export default function UserGroup({ group }) {
 	const baseLinkStyles = 'w-full mx-auto h-24 cursor-pointer flex flex-col hover:bg-customGreen rounded-md pl-3'
 	return (
 		<div className="">
-			<NavLink to={`/groups/${group.id}`} className={({ isActive }) => { return isActive ? `${baseLinkStyles} bg-customGreen` : baseLinkStyles }}>
+			<NavLink
+				to={`/groups/${group.id}`}
+				className={({ isActive }) => (isActive ? `${baseLinkStyles} bg-customGreen` : baseLinkStyles)}
+			>
 				<div className="flex w-full h-full">
 					<div className='h-16 w-16 m-auto rounded-xl overflow-hidden mr-1'>
 						<img src={group.image} alt={group.name} className='h-full w-full object-cover' />

@@ -6,14 +6,14 @@ import CustomDialog from '../../UI/CustomDialog'
 import CreateChatModal from './CreateChatModal';
 
 const FullNavbar = ({ active, activeName }) => {
-	const [isOpenCreateChatModal, setIsOpenCreateChatModal] = useState(false);
+	const [handleOpenModel, setHandleOpenModel] = useState(false);
 
 	const handleClick = () => {
-		setIsOpenCreateChatModal(true);
+		setHandleOpenModel(true);
 	}
 
 	const handleClose = (isClose) => {
-		setIsOpenCreateChatModal(isClose);
+		setHandleOpenModel(isClose);
 	}
 
 	return (
@@ -32,7 +32,7 @@ const FullNavbar = ({ active, activeName }) => {
 				<Switch active={active} components={MenuComponents} />
 			</div>
 			{
-				isOpenCreateChatModal &&
+				handleOpenModel &&
 				<CustomDialog
 					withCloseButton={false}
 				>
