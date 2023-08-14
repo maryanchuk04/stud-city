@@ -61,26 +61,25 @@ export default function UserGroupSearch({ setSelectedUsers, selectedUsers }) {
 						searchData={searchData}
 						ItemComponent={User}
 						selectedItems={selectedUsers}
-					>
-					</ScrollerPagination>
+					/>
 				</div>
 			</div>
 		</div>
 	)
 }
 
-function User({ user, onClick, className = '' }) {
+function User({ item, onClick, className = '' }) {
 	return (
 		<div
 			className={`w-[97%] border rounded-md my-2 p-3 cursor-pointer h-20 flex last:my-0 last:mt-2 first:mt-2 hover:bg-customGreen duration-200 ${className}`}
-			onClick={() => onClick(user)}
+			onClick={() => onClick(item)}
 		>
 			<div className="flex items-center">
-				<Avatar className="w-16 h-16" src={user?.avatar} />
+				<Avatar className="w-16 h-16" src={item?.avatar} />
 			</div>
 			<div className="ml-5 flex flex-col justify-center">
-				<p className="font-bold">{user?.fullName}</p>
-				<p className="text-gray-500">{user?.lastSeen || "last seen 5 minutes ago"}</p>
+				<p className="font-bold">{item?.fullName}</p>
+				<p className="text-gray-500">{item?.lastSeen || "last seen 5 minutes ago"}</p>
 			</div>
 		</div>
 	)

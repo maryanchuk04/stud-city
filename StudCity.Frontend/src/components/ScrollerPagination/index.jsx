@@ -12,7 +12,7 @@ const ScrollerPagination = ({
 }) => {
 	const containerRef = useRef(null);
 	const [indexPage, setIndexPage] = useState(1);
-	const [datas, setDatas] = useState([]);
+	const [items, setItems] = useState([]);
 	const [totalItemsCount, setTotalItemsCount] = useState(0);
 
 	useEffect(() => {
@@ -34,19 +34,19 @@ const ScrollerPagination = ({
 	}, [indexPage])
 
 	useEffect(() => {
-		setDatas([])
+		setItems([])
 		setIndexPage(1)
 		handleDispatch(1, searchData)
 	}, [searchData])
 
 	useEffect(() => {
 		if (data?.items?.length === 0) {
-			setDatas([])
+			setItems([])
 		}
 		if (data.items?.length > 0) {
-			setDatas(prev => [...prev, ...data.items])
+			setItems(prev => [...prev, ...data.items])
 			if (indexPage === 1) {
-				setDatas(data.items)
+				setItems(data.items)
 				setTotalItemsCount(data.pageViewModel.totalItemsCount)
 			}
 		}
@@ -54,7 +54,8 @@ const ScrollerPagination = ({
 
 	const handleScroll = () => {
 		if (containerRef.current) {
-			if ((containerRef.current.clientHeight + containerRef.current.scrollTop > containerRef.current.scrollHeight - 1) && !loading) {
+			const { clientHeight, scrollTop, scrollHeight } = containerRef.current;
+			if ((clientHeight + scrollTop > scrollHeight - 1) && !loading) {
 				setIndexPage((prev) => prev + 1);
 			}
 		}
@@ -64,11 +65,11 @@ const ScrollerPagination = ({
 			{indexPage === 1 && loading
 				? <Spinner />
 				: (
-					datas?.length > 0
+					items?.length > 0
 						? <div className="h-fit">
-							{datas?.map((elem) => (
+							{items?.map((elem) => (
 								<ItemComponent
-									user={elem}
+									item={elem}
 									key={elem.id}
 									onClick={() => handleClick(elem)}
 									className={selectedItems?.some(item => item.id === elem.id) ? 'bg-customGreen' : ''}

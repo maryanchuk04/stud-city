@@ -5,25 +5,20 @@ const ScrollerWithPadding = ({ children, className = '' }) => {
 
 	useEffect(() => {
 		const containerElement = containerRef.current;
-		const observer = new ResizeObserver((entries) => {
-			for (const entry of entries) {
-				const hasScrollbar = entry.target.scrollHeight > entry.target.clientHeight;
-				if (!hasScrollbar) {
-					entry.target.style.paddingRight = '15px';
-				} else {
-					entry.target.style.paddingRight = '0';
-				}
-			}
-		});
-
+		const observer = new ResizeObserver(handleResize);
 		observer.observe(containerElement);
 
 		return () => {
 			observer.unobserve(containerElement);
 		};
-
 	}, []);
-
+	const handleResize = (entries) => {
+		for (const entry of entries) {
+			const { target } = entry;
+			const hasScrollbar = target.scrollHeight > target.clientHeight;
+			target.style.paddingRight = hasScrollbar ? '0' : '15px';
+		}
+	};
 
 	return (
 		<div ref={containerRef} className={`h-full w-full overflow-y-auto ${className}`}>
