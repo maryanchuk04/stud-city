@@ -4,9 +4,10 @@ import ToggleContainerText from '../../../../UI/ToggleContainerText';
 import Accordion from '../../../../UI/Accordion';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeLanguage, selectUserLanguage } from '../../../../app/features/userSlice';
+import { updateUserSettings, selectUserLanguage } from '../../../../app/features/userSlice';
 
 import { supportedLanguages } from '../../../../utils/constants';
+import { showAlert } from '../../../../services/showAlert';
 
 export default function ProfileSettings() {
 	const dispatch = useDispatch();
@@ -14,7 +15,13 @@ export default function ProfileSettings() {
 	const language = useSelector(selectUserLanguage);
 
 	const handleLanguageChange = ({ target }) => {
-		dispatch(changeLanguage(target.value));
+		dispatch(updateUserSettings({ language: target.value }))
+			.then(() => {
+				showAlert(t('alert.warning.data_updating'));
+			})
+			.catch(() => {
+				showAlert(t('alert.error.something_wrong'));
+			});
 	};
 
 	return (

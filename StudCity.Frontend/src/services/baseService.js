@@ -5,16 +5,15 @@ const tokenService = new TokenService();
 
 export class BaseService {
 	constructor() {
-		
 		this.axios = axios.create({
 			baseURL: process.env.REACT_APP_BASE_API_URL,
 			withCredentials: true,
 			headers: {
-				Authorization: `Bearer ${tokenService.getToken() || ""}`
-			}
-		}) 
+				Authorization: `Bearer ${tokenService.getToken() || ''}`,
+			},
+		});
 	}
-	
+
 	post(url, data) {
 		return this.axios.post(url, data);
 	}
@@ -29,5 +28,9 @@ export class BaseService {
 
 	delete(url) {
 		return this.axios.delete(url);
+	}
+
+	patch(url, data) {
+		return this.axios.patch(url, data);
 	}
 }

@@ -27,5 +27,5 @@ public class CurrentUserViewModel
 
     public string Role { get; set; }
 
-    public SettingsDto Settings { get; set; }
+    public SettingsViewModel Settings { get; set; }
 }

@@ -17,7 +17,7 @@ const initialState = {
 		gender: '',
 		settings: {
 			theme: '',
-			language: '',
+			language: supportedLanguages[0],
 			backgroundImage: '',
 		},
 	},
@@ -25,7 +25,6 @@ const initialState = {
 		loading: false,
 		data: [],
 	},
-	language: supportedLanguages[0],
 	loading: false,
 };
 
@@ -44,6 +43,26 @@ export const fetchCurrentUser = createAsyncThunk(
 
 			showAlert(err.response.data.error, 'error');
 			return rejectWithValue();
+		}
+	}
+);
+
+export const updateUserSettings = createAsyncThunk(
+	'user/settings',
+	async (settings, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
+		try {
+			const { language } = settings;
+
+			const data = await userService.updateUserSettings({ language: language });
+
+			return fulfillWithValue(data);
+		} catch (err) {
+			if (!err.response) {
+				showAlert('Something went wrong', 'error');
+				return;
+			}
+			showAlert(err.response.data.error, 'error');
+			return rejectWithValue(null);
 		}
 	}
 );
@@ -87,11 +106,7 @@ export const saveCurrentUser = createAsyncThunk(
 const userSlice = createSlice({
 	name: 'user',
 	initialState: initialState,
-	reducers: {
-		changeLanguage: (state, { payload }) => {
-			state.language = payload;
-		},
-	},
+	reducers: {},
 	extraReducers: {
 		[getUsersSearch.pending]: (state) => {
 			state.users.loading = true;
@@ -126,6 +141,9 @@ const userSlice = createSlice({
 		[saveCurrentUser.rejected]: (state) => {
 			state.loading = false;
 		},
+		[updateUserSettings.fulfilled]: (state, { payload }) => {
+			state.data.settings = payload;
+		},
 	},
 });
 
@@ -148,8 +166,6 @@ export const selectDataUsersFound = (state) => state.user.users;
 
 export const selectCurrentUserId = (state) => state.user.data.id;
 
-export const selectUserLanguage = (state) => state.user.language;
-
-export const { changeLanguage } = userSlice.actions;
+export const selectUserLanguage = (state) => state.user.data.settings.language;
 
 export default userSlice.reducer;

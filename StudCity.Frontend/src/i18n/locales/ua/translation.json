@@ -1,0 +1,152 @@
+{
+	"alert": {
+		"error": {
+			"incorrect_data": "Будь ласка введіть коректні данні!",
+			"something_wrong": "Щось пішло не так!"
+		},
+		"success": {},
+		"warning": {
+			"reset_data": "Данні було скинуто!",
+			"data_updating": "Ваші налаштування було оновлено!"
+		}
+	},
+	"base": {
+		"cancel": "Скасувати",
+		"save": "Зберегти"
+	},
+	"form": {
+		"continue_with_google": "Продовжити з Google",
+		"email": "Емейл",
+		"forgot_password": "Забули пароль?",
+		"or": "aбо",
+		"password": "Пароль",
+		"placeholder": {
+			"email": "Введіть свій емейл",
+			"password": "Введіть свій пароль",
+			"repeat_password": "Повторіть пароль"
+		},
+		"repeat_password": "Повторіть пароль",
+		"submit": "Підтвердити",
+		"validators": {
+			"empty_email": "Поле емейлу не може бути пустим.",
+			"empty_password": "Пароль пустий",
+			"invalid_email": "Емейл повинен містити символ @ та домейн імʼя.",
+			"min_8_characters": "Мінімум 8 символів.",
+			"one_digit": "Хочаб одна цифра.",
+			"one_lowercase": "Хочаб одна літера нижнього регістру.",
+			"one_spec_symbol": "Мінімум один спеціальний смвол.",
+			"one_uppercase": "Хочаб одна літера верхнього регістру.",
+			"password_arent_matches": "Паролі не співпавдають"
+		}
+	},
+	"links": {
+		"feeds": "Популярне",
+		"groups": "Спільноти",
+		"profile": "Профіль",
+		"users": "Користувачі"
+	},
+	"login": {
+		"dont_have_account": "У вас ще немає аккаунту?",
+		"sign_up": "Зареєструватись",
+		"title": "З поверненням!"
+	},
+	"months": {
+		"april": "Квітень",
+		"august": "Серпень",
+		"december": "Грудень",
+		"february": "Лютий",
+		"january": "Січень",
+		"july": "Липень",
+		"june": "Червень",
+		"march": "Березень",
+		"may": "Травень",
+		"november": "Листопад",
+		"october": "Жовтень",
+		"september": "Вересень"
+	},
+	"navbar": {
+		"chats": "Чати",
+		"my_groups": "Мої спільноти",
+		"notification": "Сповіщення"
+	},
+	"profile": {
+		"details": {
+			"label": {
+				"birthday": "Дата народження",
+				"first_name": "Імʼя",
+				"gender": "Стать",
+				"last_name": "Прізвище",
+				"phone": "Мобільний номер",
+				"user_name": "Нік нейм"
+			},
+			"placeholder": {
+				"first_name": "Введіть імʼя",
+				"last_name": "Введіть прізвище",
+				"phone": "Введіть мобільний номер",
+				"user_name": "Введіть нік нейм"
+			},
+			"update_your_details": "Оновіть інформацію про себе"
+		},
+		"security": {},
+		"settings": {
+			"email": {
+				"send": "Отримувати листи",
+				"title": "Емейл:"
+			},
+			"language": {
+				"title": "Мова інтерфейсу:"
+			},
+			"notification": {
+				"show_on_screen": "Показувати на екрані",
+				"text_messages": "Текст повідомлень",
+				"title": "Сповіщення:"
+			},
+			"theme": {
+				"autochange_theme": "Автозміна теми",
+				"dark_mode": "Темна тема",
+				"title": "Налаштування теми:"
+			}
+		},
+		"submenu": {
+			"details": "Деталі",
+			"security": "Безпека",
+			"settings": "Налаштування"
+		}
+	},
+	"register_complete": {
+		"steps": {
+			"groups": {
+				"description": "You can immediately apply to be added to different groups.",
+				"title": "Groups"
+			},
+			"upload_avatar": {
+				"description": "In order to successfully complete the registration, you need to upload your profile picture.",
+				"title": "Upload avatar"
+			},
+			"user_info": {
+				"description": "Enter all your necessary data so that other users can get to know you better.",
+				"title": "User information"
+			}
+		}
+	},
+	"registration": {
+		"have_account": "У вас вже є аккаунт?",
+		"pls_enter_details": "Будь ласка заповніть деталі про себе!",
+		"sign_in": "Увійти!",
+		"title": "Ласкаво просимо!"
+	},
+	"sort_groups": {
+		"asc_pop": "За зростанням популярності",
+		"default": "По замовчуванню",
+		"desc_pop": "За спаданням популярності"
+	},
+	"welcome": {
+		"menu": {
+			"contact": "Звʼязатись з нами",
+			"join_now": "Приєднатись",
+			"login": "Увійти"
+		},
+		"sub_title": "З нами, твоє студентське життя стане цікавіше!",
+		"title": "Ласкаво просимо до StudCity"
+	}
+}
