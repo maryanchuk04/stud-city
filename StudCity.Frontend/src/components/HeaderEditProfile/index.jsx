@@ -31,6 +31,14 @@ function HeaderEditProfile({ user, setUser, handleSave, handleCancel }) {
 		});
 	}, [avatar, backgroundImage]);
 
+	const handleCloseDialogAvatar = () => {
+		setShowDialogForAvatar(false)
+	}
+
+	const handleCloseDialogBackground = () => {
+		setShowDialogForBackground(false)
+	}
+
 	return (
 		<div className='w-full p-2'>
 			<div className='h-52 w-full overflow-hidden rounded-tl-[60px] mt-6 shadow-form relative'>
@@ -81,36 +89,38 @@ function HeaderEditProfile({ user, setUser, handleSave, handleCancel }) {
 					</div>
 				</div>
 			</div>
-			{showDialogForAvatar && (
-				<CustomDialog handleClose={setShowDialogForAvatar}>
+			{
+				showDialogForAvatar &&
+				<CustomDialog handleClose={handleCloseDialogAvatar}>
 					<UploadAvatar
 						className={'w-[800px] h-[600px]'}
 						setAvatar={setAvatar}
 						avatar={avatar}
 					/>
 				</CustomDialog>
-			)}
-			{showDialogForBackground && (
-				<CustomDialog handleClose={setShowDialogForBackground}>
-					<div className='w-[1000px] h-[600px] flex '>
-						<div className='w-4/5 h-[90%] overflow-y-auto grid grid-cols-2 m-auto gap-10'>
-							{SELECT_BACKGROUND_URLS.map((element) => (
-								<div
-									className='rounded-tl-[60px] overflow-hidden w-full  h-56'
-									key={element}
-								>
-									<img
-										src={element}
-										alt=''
-										className='w-full h-full object-cover'
-										onClick={() => setBackgroundImage(element)}
-									/>
-								</div>
-							))}
+			}
+			{
+				showDialogForBackground &&
+				<CustomDialog handleClose={handleCloseDialogBackground}>
+					<div className="w-[1000px] h-[600px] flex ">
+						<div className="w-4/5 h-[90%] overflow-y-auto grid grid-cols-2 m-auto gap-10">
+							{
+								SELECT_BACKGROUND_URLS.map((element) => (
+									<div className="rounded-tl-[60px] overflow-hidden w-full  h-56" key={element}>
+										<img
+											src={element}
+											alt=""
+											className="w-full h-full object-cover"
+											onClick={() => setBackgroundImage(element)}
+										/>
+									</div>
+								)
+								)
+							}
 						</div>
 					</div>
 				</CustomDialog>
-			)}
+			}
 		</div>
 	);
 }

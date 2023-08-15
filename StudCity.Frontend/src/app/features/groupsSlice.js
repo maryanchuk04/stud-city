@@ -5,6 +5,13 @@ export const groupsSlice = createSlice({
 	initialState: {
 		viewMode: 'grid',
 	},
+	group: {
+		id: null,
+		posts: [],
+		users: [],
+		title: null,
+		image: null,
+	},
 	reducers: {
 		changeViewMode: (state, { payload }) => {
 			state.viewMode = payload;

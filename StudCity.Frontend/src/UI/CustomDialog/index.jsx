@@ -8,7 +8,7 @@ function CustomDialog({ children, handleClose, className = "", withCloseButton =
 				{children}
 				{withCloseButton && <IconButton
 					className="absolute w-10 h-10 top-3 right-3 rounded-full hover:bg-black/10 bg-transparent"
-					onClick={() => handleClose(false)}
+					onClick={handleClose}
 				>
 					<i className="fa-solid fa-xmark text-2xl text-black"></i>
 				</IconButton>}

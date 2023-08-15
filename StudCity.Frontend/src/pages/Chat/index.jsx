@@ -40,10 +40,14 @@ export default function Chat() {
 		<Spinner />
 	) : (
 		<div className="w-full h-full flex flex-col justify-between bg-elephantBone" >
-			<HeaderChat title={chat.title} users={chat.users} />
+			<HeaderChat
+				title={chat.title}
+				users={chat.users}
+				avatar={chat.image}
+			/>
 			<div className="h-[calc(100%-10rem)] w-full overflow-y-auto scroll-none">
 				{
-					chat.messages.map((message, index) => (
+					chat?.messages.map((message, index) => (
 						<Message
 							id={id}
 							userId={message.user.id}
