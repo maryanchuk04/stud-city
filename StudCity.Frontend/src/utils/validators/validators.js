@@ -1,6 +1,3 @@
-// const PHONE_EMPTY_MESSAGE = "The phone number cannot be empty";
-// const PHONE_LENGTH_MESSAGE = "The length of the phone number should not exceed 7 characters";
-
 export const passwordValidation = (password) => {
 	const passwordInputValue = password.trim();
 	const uppercaseRegExp = /(?=.*?[A-Z])/;
@@ -14,29 +11,29 @@ export const passwordValidation = (password) => {
 	const digitsPassword = digitsRegExp.test(passwordInputValue);
 	const specialCharPassword = specialCharRegExp.test(passwordInputValue);
 	const minLengthPassword = minLengthRegExp.test(passwordInputValue);
-	let errMsg = "";
+	let errMsg = '';
 	if (passwordLength === 0) {
-		errMsg = "Password is empty";
+		errMsg = 'form.validators.empty_password';
 	} else if (!uppercasePassword) {
-		errMsg = "At least one Uppercase";
+		errMsg = 'form.validators.one_uppercase';
 	} else if (!lowercasePassword) {
-		errMsg = "At least one Lowercase";
+		errMsg = 'form.validators.one_lowercase';
 	} else if (!digitsPassword) {
-		errMsg = "At least one digit";
+		errMsg = 'form.validators.one_digit';
 	} else if (!specialCharPassword) {
-		errMsg = "At least one Special Characters";
+		errMsg = 'form.validators.one_spec_symbol';
 	} else if (!minLengthPassword) {
-		errMsg = "At least minumum 8 characters";
+		errMsg = 'form.validators.min_8_characters';
 	}
 	return errMsg;
 };
 
 export const passwordMatchValidation = (password, confirmPassword) => {
-	return password !== confirmPassword ? "Passwords aren`t matches" : "";
-}
+	return password !== confirmPassword ? 'form.validators.password_arent_matches' : '';
+};
 
 export const numberValidation = (number) => {
-	const numberRegex = new RegExp("^[0-9]*$");
+	const numberRegex = new RegExp('^[0-9]*$');
 
 	if (numberRegex.test(number)) {
 		return number;
@@ -54,18 +51,17 @@ export const phoneNumberValidator = (value) => {
 };
 
 export const emailValidator = (value) => {
-	if (value.trim() === "")
-		return "Email must be not empty";
+	if (value.trim() === '') return 'form.validators.empty_email';
 
 	if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-		return "Email must contain @ and domain";
+		return 'form.validators.invalid_email';
 	}
 
-	return "";
-}
+	return '';
+};
 
 export const isNumber = (value) => {
-    if (typeof value === "string") {
-        return !isNaN(value);
-    }
-}
+	if (typeof value === 'string') {
+		return !isNaN(value);
+	}
+};

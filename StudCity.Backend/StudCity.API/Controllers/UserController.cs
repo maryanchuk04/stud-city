@@ -1,10 +1,12 @@
 using AutoMapper;
 using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudCity.API.Extensions;
 using StudCity.API.Policies;
 using StudCity.API.ViewModels;
+using StudCity.Application.CommandHandlers;
 using StudCity.Core.DTOs;
 using StudCity.Core.Exceptions;
 using StudCity.Core.Interfaces;
@@ -21,13 +23,19 @@ public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
     private readonly IMapper _mapper;
+    private readonly IMediator _mediator;
     private readonly IValidator<CurrentUserViewModel> _currentUserValidator;
 
-    public UserController(IUserService userService, IMapper mapper, IValidator<CurrentUserViewModel> currentUserValidator)
+    public UserController(
+        IUserService userService,
+        IMapper mapper,
+        IValidator<CurrentUserViewModel> currentUserValidator,
+        IMediator mediator)
     {
         _userService = userService;
         _mapper = mapper;
         _currentUserValidator = currentUserValidator;
+        _mediator = mediator;
     }
 
     /// <summary>
@@ -78,6 +86,26 @@ public class UserController : ControllerBase
 
             await _userService.UpdateUserInfoAsync(_mapper.Map<CurrentUserViewModel, UserDto>(userViewModel));
             return NoContent();
+        }
+        catch (UserNotFoundException e)
+        {
+            return NotFound(new ErrorResponseModel(e.Message));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new ErrorResponseModel("Update user error", e.Message));
+        }
+    }
+
+    [HttpPatch("settings")]
+    public async Task<ActionResult> UpdateUserSettings(SettingsViewModel settingsViewModel)
+    {
+        try
+        {
+            var result =
+                await _mediator.Send(new UpdateUserSettingsCommand(_mapper.Map<SettingsDto>(settingsViewModel)));
+
+            return Ok(_mapper.Map<SettingsViewModel>(result));
         }
         catch (UserNotFoundException e)
         {

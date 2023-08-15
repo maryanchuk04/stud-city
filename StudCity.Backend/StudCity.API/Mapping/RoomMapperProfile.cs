@@ -1,6 +1,7 @@
 using AutoMapper;
 using StudCity.Core.DTOs;
 using StudCity.Core.Entities;
+using StudCity.Core.Enums;
 
 namespace StudCity.API.Mapping;
 

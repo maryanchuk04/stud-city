@@ -2,6 +2,6 @@ namespace StudCity.Core.Enums;
 
 public enum InterfaceLanguage
 {
-    En = 1,
-    Ua = 2,
+    ua = 0,
+    en = 1,
 }

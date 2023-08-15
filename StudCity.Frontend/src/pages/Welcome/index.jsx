@@ -6,24 +6,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchCurrentUser, selectCurrentUserData } from '../../app/features/userSlice';
 import Avatar from '../../UI/Avatar';
 import { TokenService } from '../../services/tokenService';
+import { useTranslation } from 'react-i18next';
 
 const tokenService = new TokenService();
-
-const NavItem = ({ children, to }) => {
-	return (
-		<Link
-			className='mr-10  last:mr-0 text-primaryAuthentication drop-shadow-2xl text-3xl font-extrabold hover:text-white duration-300'
-			to={`/${to}`}
-		>
-			{children}
-		</Link>
-	);
-};
 
 export const Welcome = () => {
 	const dispatch = useDispatch();
 	const user = useSelector(selectCurrentUserData);
 	const navigate = useNavigate();
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		tokenService.getToken() && dispatch(fetchCurrentUser());
@@ -41,7 +32,7 @@ export const Welcome = () => {
 							<img src='/logo.png' alt='' className='w-full h-full' />
 						</div>
 						<div className='flex w-fit items-center'>
-							<NavItem to='contact-us'>Contact</NavItem>
+							<NavItem to='contact-us'>{t('welcome.menu.contact')}</NavItem>
 							{user?.id ? (
 								<div
 									onClick={() => navigate('/profile')}
@@ -57,12 +48,12 @@ export const Welcome = () => {
 								</div>
 							) : (
 								<React.Fragment>
-									<NavItem to='authenticate'>Login</NavItem>
+									<NavItem to='authenticate'>{t('welcome.menu.login')}</NavItem>
 									<button
 										onClick={() => navigate('/registration')}
 										className='animate-pulse text-2xl font-extrabold text-white p-3 bg-primaryAuthentication rounded-[50px] shadow-lg px-10 hover:bg-primaryRegistration duration-300'
 									>
-										Join now
+										{t('welcome.menu.join_now')}
 									</button>
 								</React.Fragment>
 							)}
@@ -73,15 +64,25 @@ export const Welcome = () => {
 						<div className='absolute w-40 h-40 rounded-full shadow-lg bottom-10 animate-bounce  left-40 backdrop-blur-xl '></div>
 						<div className='absolute animate-bounce  w-32 h-32 rounded-full shadow-lg bottom-80 left-56 backdrop-blur-xl '></div>
 						<h1 className=' text-9xl font-extrabold text-primaryAuthentication drop-shadow-xl w-fit'>
-							Welcome To <br />
-							StudCity
+							{t('welcome.title')}
 							<h4 className='text-5xl mt-12 text-primaryAuthentication font-light'>
-								With us, your studies will become more comfortable!
+								{t('welcome.sub_title')}
 							</h4>
 						</h1>
 					</div>
 				</Container>
 			</div>
 		</div>
+	);
+};
+
+const NavItem = ({ children, to }) => {
+	return (
+		<Link
+			className='mr-10  last:mr-0 text-primaryAuthentication drop-shadow-2xl text-3xl font-extrabold hover:text-white duration-300'
+			to={`/${to}`}
+		>
+			{children}
+		</Link>
 	);
 };
