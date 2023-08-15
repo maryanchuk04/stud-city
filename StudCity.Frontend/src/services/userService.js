@@ -46,6 +46,19 @@ export class UserService {
 		}
 	}
 
+	async updateUserSettings({ language, theme, backgroundImage }) {
+		try {
+			const { data } = await this.service.patch(`${this.apiUrl}/settings`, {
+				language,
+				theme,
+				backgroundImage,
+			});
+			return data;
+		} catch (err) {
+			throw Error(err);
+		}
+	}
+
 	// /** I will think about this
 	// * @param query - Example "?firstName='maks'"
 	// */

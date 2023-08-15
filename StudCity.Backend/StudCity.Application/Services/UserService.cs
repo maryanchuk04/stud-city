@@ -35,8 +35,17 @@ public class UserService : IUserService
         user.FullName = $"{userDto.FirstName} {userDto.LastName}";
         user.PhoneNumber = userDto.PhoneNumber;
         user.DateOfBirthday = userDto.DateOfBirthday;
-        user.Settings.Language = userDto.Settings.Language;
-        user.Settings.Theme = userDto.Settings.Theme;
+
+        if (userDto.Settings.Language != null)
+        {
+            user.Settings.Language = userDto.Settings.Language.Value;
+        }
+
+        if (userDto.Settings.Theme != null)
+        {
+            user.Settings.Theme = userDto.Settings.Theme.Value;
+        }
+
         user.Image.ImageUrl = userDto.Avatar;
         if (user.Settings.BackgroundImage == null)
         {
@@ -58,9 +67,9 @@ public class UserService : IUserService
         var user = await _context.Users
             .Include(x => x.Image)
             .Include(x => x.Account)
-                .ThenInclude(x => x.AccountRoles)
+            .ThenInclude(x => x.AccountRoles)
             .Include(x => x.Settings)
-                .ThenInclude(x => x.BackgroundImage)
+            .ThenInclude(x => x.BackgroundImage)
             .FirstOrDefaultAsync(x => x.Id == id);
 
         if (user == null)
@@ -83,7 +92,7 @@ public class UserService : IUserService
         var usersQuery = _context.Users.AsQueryable();
 
         usersQuery = !string.IsNullOrEmpty(filterParameters.SearchWord)
-            ? usersQuery.Where(x => x.FullName.Contains(filterParameters.SearchWord) 
+            ? usersQuery.Where(x => x.FullName.Contains(filterParameters.SearchWord)
                                     || x.UserName.Contains(filterParameters.SearchWord))
             : usersQuery;
 
@@ -98,11 +107,7 @@ public class UserService : IUserService
             .Take(filterParameters.PageSize)
             .ToListAsync();
 
-        return new PaginationModel<UserDto>
-        {
-            Items = _mapper.Map<UserDto[]>(users),
-            Count = count,
-        };
+        return new PaginationModel<UserDto> {Items = _mapper.Map<UserDto[]>(users), Count = count,};
     }
 
     private async Task<User> GetUserAsync()

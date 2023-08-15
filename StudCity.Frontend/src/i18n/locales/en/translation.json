@@ -1,0 +1,152 @@
+{
+	"alert": {
+		"error": {
+			"incorrect_data": "Please input valid data",
+			"something_wrong": "Something went wrong!"
+		},
+		"success": {},
+		"warning": {
+			"reset_data": "Your data has been reset!",
+			"data_updating": "Your settings was updated!"
+		}
+	},
+	"base": {
+		"cancel": "Cancel",
+		"save": "Save"
+	},
+	"form": {
+		"continue_with_google": "Continue with Google",
+		"email": "Email",
+		"forgot_password": "Forgot password?",
+		"or": "or",
+		"password": "Password",
+		"placeholder": {
+			"email": "Enter your email",
+			"password": "Enter your password",
+			"repeat_password": "Repeat your password"
+		},
+		"repeat_password": "Repeat password",
+		"submit": "Submit",
+		"validators": {
+			"empty_email": "Email must be not empty",
+			"empty_password": "Password is empty",
+			"invalid_email": "Email must contain @ and domain",
+			"min_8_characters": "At least minumum 8 characters",
+			"one_digit": "At least one digit",
+			"one_lowercase": "At least one Lowercase",
+			"one_spec_symbol": "At least one Special Characters",
+			"one_uppercase": "At least one Uppercase",
+			"password_arent_matches": "Passwords aren`t matches"
+		}
+	},
+	"links": {
+		"feeds": "Feeds",
+		"groups": "Groups",
+		"profile": "Profile",
+		"users": "Users"
+	},
+	"login": {
+		"dont_have_account": "Don`t have an account?",
+		"sign_up": "Sign up",
+		"title": "Welcome back!"
+	},
+	"months": {
+		"april": "April",
+		"august": "August",
+		"december": "December",
+		"february": "February",
+		"january": "January",
+		"july": "July",
+		"june": "June",
+		"march": "March",
+		"may": "May",
+		"november": "November",
+		"october": "October",
+		"september": "September"
+	},
+	"navbar": {
+		"chats": "Chats",
+		"my_groups": "My Groups",
+		"notification": "Notification"
+	},
+	"profile": {
+		"details": {
+			"label": {
+				"birthday": "Birthday",
+				"first_name": "First name",
+				"gender": "Gender",
+				"last_name": "Last name",
+				"phone": "Phone number",
+				"user_name": "User name"
+			},
+			"placeholder": {
+				"first_name": "Enter first name",
+				"last_name": "Enter last name",
+				"phone": "Enter phone number",
+				"user_name": "Enter user name"
+			},
+			"update_your_details": "Update your details"
+		},
+		"security": {},
+		"settings": {
+			"email": {
+				"send": "Recived messages",
+				"title": "Email:"
+			},
+			"language": {
+				"title": "Interface language"
+			},
+			"notification": {
+				"show_on_screen": "Show on screen",
+				"text_messages": "Text messages",
+				"title": "Notification:"
+			},
+			"theme": {
+				"autochange_theme": "Autochange theme",
+				"dark_mode": "Dark mode",
+				"title": "Theme:"
+			}
+		},
+		"submenu": {
+			"details": "My details",
+			"security": "Security",
+			"settings": "Settings"
+		}
+	},
+	"register_complete": {
+		"steps": {
+			"groups": {
+				"description": "You can immediately apply to be added to different groups.",
+				"title": "Groups"
+			},
+			"upload_avatar": {
+				"description": "In order to successfully complete the registration, you need to upload your profile picture.",
+				"title": "Upload avatar"
+			},
+			"user_info": {
+				"description": "Enter all your necessary data so that other users can get to know you better.",
+				"title": "User information"
+			}
+		}
+	},
+	"registration": {
+		"have_account": "If you have account?",
+		"pls_enter_details": "Please enter your details!",
+		"sign_in": "Sign in!",
+		"title": "Welcome To StudCity"
+	},
+	"sort_groups": {
+		"asc_pop": "Aescending by popularity",
+		"default": "Default",
+		"desc_pop": "Descending by popularity"
+	},
+	"welcome": {
+		"menu": {
+			"contact": "Contact",
+			"join_now": "Join now",
+			"login": "Login"
+		},
+		"sub_title": "With us, your studies will become more comfortable!",
+		"title": "Welcome To StudCity"
+	}
+}

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { UserService } from '../../services/userService';
 import { showAlert } from '../../services/showAlert';
+import { supportedLanguages } from '../../utils/constants';
 
 const initialState = {
 	data: {
@@ -16,7 +17,7 @@ const initialState = {
 		gender: '',
 		settings: {
 			theme: '',
-			language: '',
+			language: supportedLanguages[0],
 			backgroundImage: '',
 		},
 	},
@@ -29,11 +30,7 @@ const initialState = {
 
 export const fetchCurrentUser = createAsyncThunk(
 	'user/getCurrentUser',
-	async (
-		_,
-		{ fulfillWithValue, rejectWithValue },
-		userService = new UserService()
-	) => {
+	async (_, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
 		try {
 			const { data } = await userService.getCurrentUser();
 
@@ -50,13 +47,29 @@ export const fetchCurrentUser = createAsyncThunk(
 	}
 );
 
+export const updateUserSettings = createAsyncThunk(
+	'user/settings',
+	async (settings, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
+		try {
+			const { language } = settings;
+
+			const data = await userService.updateUserSettings({ language: language });
+
+			return fulfillWithValue(data);
+		} catch (err) {
+			if (!err.response) {
+				showAlert('Something went wrong', 'error');
+				return;
+			}
+			showAlert(err.response.data.error, 'error');
+			return rejectWithValue(null);
+		}
+	}
+);
+
 export const getUsersSearch = createAsyncThunk(
 	'user/getUsersSearch',
-	async (
-		users,
-		{ fulfillWithValue, rejectWithValue },
-		userService = new UserService()
-	) => {
+	async (users, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
 		try {
 			const data = await userService.getUsers(users);
 			return fulfillWithValue(data);
@@ -73,11 +86,7 @@ export const getUsersSearch = createAsyncThunk(
 
 export const saveCurrentUser = createAsyncThunk(
 	'user/saveCurrentUser',
-	async (
-		userData,
-		{ fulfillWithValue, rejectWithValue },
-		userService = new UserService()
-	) => {
+	async (userData, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
 		try {
 			await userService.editCurrentUser(userData);
 			showAlert('User data has been saved', 'success');
@@ -132,6 +141,9 @@ const userSlice = createSlice({
 		[saveCurrentUser.rejected]: (state) => {
 			state.loading = false;
 		},
+		[updateUserSettings.fulfilled]: (state, { payload }) => {
+			state.data.settings = payload;
+		},
 	},
 });
 
@@ -153,5 +165,7 @@ export const selectUserForHeader = (state) => {
 export const selectDataUsersFound = (state) => state.user.users;
 
 export const selectCurrentUserId = (state) => state.user.data.id;
+
+export const selectUserLanguage = (state) => state.user.data.settings.language;
 
 export default userSlice.reducer;

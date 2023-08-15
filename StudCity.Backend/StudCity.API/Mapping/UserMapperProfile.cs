@@ -18,6 +18,8 @@ public class UserMapperProfile : Profile
             .ForMember(x => x.Avatar, opts => opts.MapFrom(src => src.Image.ImageUrl));
 
         CreateMap<UserDto, CurrentUserViewModel>()
+            .ForPath(x => x.Settings.Language, opts => opts.MapFrom(x => MapLanguage(x.Settings.Language)))
+            .ForMember(x => x.Settings, opts => opts.MapFrom(x => x.Settings))
             .ForMember(x => x.Gender, opts => opts.MapFrom(src => GenderConverter(src.Gender)));
 
         CreateMap<CurrentUserViewModel, UserDto>()
@@ -37,6 +39,17 @@ public class UserMapperProfile : Profile
     private static string RoleResolver(IEnumerable<AccountRole> accountRoles)
     {
         return accountRoles.First(x => x.RoleId != Role.User).RoleId.ToString();
+    }
+
+
+    private string MapLanguage(InterfaceLanguage? language)
+    {
+        return language switch
+        {
+            InterfaceLanguage.en => "en",
+            InterfaceLanguage.ua => "ua",
+            _ => "ua"
+        };
     }
 
     private static string GenderConverter(Gender gender)

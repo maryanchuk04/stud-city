@@ -1,9 +1,6 @@
 export const DEFAULT_AVATAR_URL = '/images/defaultAvatar.png';
 export const DEFAULT_BACKGROUND_URL = '/images/ChnuBackground.png';
-export const SELECT_BACKGROUND_URLS = [
-	'/images/background1.jpeg',
-	'/images/FlagUkraine.jpeg',
-];
+export const SELECT_BACKGROUND_URLS = ['/images/background1.jpeg', '/images/Flaguaaine.jpeg'];
 export const REGISTER_COMPLETE_STEPS_COUNT = 3;
 
 export const GENDERS = ['male', 'female', 'other'];
@@ -77,19 +74,16 @@ export const TEST_ARRAY_MESSAGES = [
 
 export const REGISTER_COMPLETE_STEPS = [
 	{
-		title: 'User information',
-		description:
-			'Enter all your necessary data so that other users can get to know you better.',
+		title: 'register_complete.steps.user_info.title',
+		description: 'register_complete.steps.user_info.description',
 	},
 	{
-		title: 'Upload avatar',
-		description:
-			'In order to successfully complete the registration, you need to upload your profile picture.',
+		title: 'register_complete.steps.upload_avatar.title',
+		description: 'register_complete.steps.upload_avatar.description',
 	},
 	{
-		title: 'Groups',
-		description:
-			'You can immediately apply to be added to different groups.',
+		title: 'register_complete.steps.groups.title',
+		description: 'register_complete.steps.groups.description',
 	},
 ];
 
@@ -185,15 +179,15 @@ export const GROUP_MOCK = [
 
 export const EDIT_PROFILE_SIDEBAR = [
 	{
-		title: 'My details',
+		title: 'profile.submenu.details',
 		icon: 'fa-solid fa-address-card',
 	},
 	{
-		title: 'Settings',
+		title: 'profile.submenu.settings',
 		icon: 'fa-duotone fa-gear',
 	},
 	{
-		title: 'Security',
+		title: 'profile.submenu.security',
 		icon: 'fa-solid fa-shield-halved',
 	},
 ];
@@ -210,34 +204,34 @@ export const USER_PROFILE_ICONS = [
 export const HEADER_LINKS = [
 	{
 		path: '/feeds',
-		name: 'Feeds',
+		name: 'links.feeds',
 	},
 	{
 		path: '/profile',
-		name: 'Profile',
+		name: 'links.profile',
 	},
 	{
 		path: '/groups',
-		name: 'Groups',
+		name: 'links.groups',
 	},
 	{
 		path: '/users',
-		name: 'Users',
+		name: 'links.users',
 	},
 ];
 
 export const ICON_NAVBAR_ICONS = [
 	{
 		icon: 'fa-sharp fa-regular fa-bell',
-		name: 'Notification',
+		name: 'navbar.notification',
 	},
 	{
 		icon: 'fa-regular fa-comments',
-		name: 'Chats',
+		name: 'navbar.chats',
 	},
 	{
 		icon: 'fa-light fa-screen-users',
-		name: 'My Groups',
+		name: 'navbar.my_groups',
 	},
 ];
 export const VIEW_MODE_ICONS = [
@@ -251,9 +245,11 @@ export const VIEW_MODE_ICONS = [
 	},
 ];
 export const OPTIONS_FOR_SELECTOR_GROUPS = [
-	'Default',
-	'Descending of popularity',
-	'Ascending of popularity',
+	'sort_groups.default',
+	'sort_groups.desc_pop',
+	'sort_groups.asc_pop',
 ];
 
 export const LABELS_USERS_GROUPS = ['Users', 'Groups'];
+
+export const supportedLanguages = ['en', 'ua'];
