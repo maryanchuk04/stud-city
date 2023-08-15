@@ -6,7 +6,7 @@ import { EDIT_PROFILE_SIDEBAR } from '../../../utils/constants';
 import { selectCurrentUser } from '../../../app/features/userSlice';
 import Container from '../../../components/Container';
 import ProfileSettings from './ProfileSettings';
-import Scroller from '../../../components/Scroller';
+import ScrollerWithPadding from '../../../components/ScrollerWithPadding';
 import { useTranslation } from 'react-i18next';
 
 function EditProfile() {
@@ -42,7 +42,9 @@ function EditProfile() {
 							setMenuState={setMenuState}
 						/>
 					</div>
-					<Scroller className='w-[82%] h-full flex flex-col'>{renderSections()}</Scroller>
+					<ScrollerWithPadding className='w-[82%] h-full flex flex-col'>
+						{renderSections()}
+					</ScrollerWithPadding>
 				</div>
 			</Container>
 		</div>
