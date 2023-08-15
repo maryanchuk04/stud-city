@@ -97,6 +97,7 @@
 				"title": "Interface language"
 			},
 			"notification": {
+				"hiden_text": "Message",
 				"show_on_screen": "Show on screen",
 				"text_messages": "Text messages",
 				"title": "Notification:"

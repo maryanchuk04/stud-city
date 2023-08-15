@@ -97,6 +97,7 @@
 				"title": "Мова інтерфейсу:"
 			},
 			"notification": {
+				"hiden_text": "Повідомлення",
 				"show_on_screen": "Показувати на екрані",
 				"text_messages": "Текст повідомлень",
 				"title": "Сповіщення:"
