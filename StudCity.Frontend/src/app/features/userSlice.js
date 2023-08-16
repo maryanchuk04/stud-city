@@ -19,6 +19,7 @@ const initialState = {
 			theme: '',
 			language: supportedLanguages[0],
 			backgroundImage: '',
+			textMessage: true,
 		},
 	},
 	users: {
@@ -30,7 +31,11 @@ const initialState = {
 
 export const fetchCurrentUser = createAsyncThunk(
 	'user/getCurrentUser',
-	async (_, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
+	async (
+		_,
+		{ fulfillWithValue, rejectWithValue },
+		userService = new UserService()
+	) => {
 		try {
 			const { data } = await userService.getCurrentUser();
 
@@ -49,11 +54,17 @@ export const fetchCurrentUser = createAsyncThunk(
 
 export const updateUserSettings = createAsyncThunk(
 	'user/settings',
-	async (settings, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
+	async (
+		settings,
+		{ fulfillWithValue, rejectWithValue },
+		userService = new UserService()
+	) => {
 		try {
 			const { language } = settings;
 
-			const data = await userService.updateUserSettings({ language: language });
+			const data = await userService.updateUserSettings({
+				language: language,
+			});
 
 			return fulfillWithValue(data);
 		} catch (err) {
@@ -69,7 +80,11 @@ export const updateUserSettings = createAsyncThunk(
 
 export const getUsersSearch = createAsyncThunk(
 	'user/getUsersSearch',
-	async (users, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
+	async (
+		users,
+		{ fulfillWithValue, rejectWithValue },
+		userService = new UserService()
+	) => {
 		try {
 			const data = await userService.getUsers(users);
 			return fulfillWithValue(data);
@@ -86,7 +101,11 @@ export const getUsersSearch = createAsyncThunk(
 
 export const saveCurrentUser = createAsyncThunk(
 	'user/saveCurrentUser',
-	async (userData, { fulfillWithValue, rejectWithValue }, userService = new UserService()) => {
+	async (
+		userData,
+		{ fulfillWithValue, rejectWithValue },
+		userService = new UserService()
+	) => {
 		try {
 			await userService.editCurrentUser(userData);
 			showAlert('User data has been saved', 'success');
@@ -106,7 +125,11 @@ export const saveCurrentUser = createAsyncThunk(
 const userSlice = createSlice({
 	name: 'user',
 	initialState: initialState,
-	reducers: {},
+	reducers: {
+		toggleTextMessage: (state) => {
+			state.data.settings.textMessage = !state.data.settings.textMessage;
+		},
+	},
 	extraReducers: {
 		[getUsersSearch.pending]: (state) => {
 			state.users.loading = true;
@@ -162,10 +185,16 @@ export const selectUserForHeader = (state) => {
 	};
 };
 
+export const { toggleTextMessage } = userSlice.actions;
+
 export const selectDataUsersFound = (state) => state.user.users;
 
 export const selectCurrentUserId = (state) => state.user.data.id;
 
 export const selectUserLanguage = (state) => state.user.data.settings.language;
+
+export const selectUserTextMessage = (state) => {
+	return state.user.data.settings.textMessage;
+};
 
 export default userSlice.reducer;
