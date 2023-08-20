@@ -12,14 +12,15 @@ public class UserMapperProfile : Profile
     public UserMapperProfile()
     {
         CreateMap<User, UserDto>()
+            .ForPath(x => x.Settings.Language, opts => opts.MapFrom(src => src.Settings.Language))
+            .ForPath(x => x.Settings.Theme, opts => opts.MapFrom(src => src.Settings.Theme))
             .ForMember(x => x.Email, opts => opts.MapFrom(src => src.Account.Email))
             .ForMember(x => x.Role, opts => opts.MapFrom(src => RoleResolver(src.Account.AccountRoles)))
             .ForPath(x => x.Settings.BackgroundImage, opts => opts.MapFrom(src => src.Settings.BackgroundImage == null ? string.Empty : src.Settings.BackgroundImage.ImageUrl))
             .ForMember(x => x.Avatar, opts => opts.MapFrom(src => src.Image.ImageUrl));
 
         CreateMap<UserDto, CurrentUserViewModel>()
-            .ForPath(x => x.Settings.Language, opts => opts.MapFrom(x => MapLanguage(x.Settings.Language)))
-            .ForMember(x => x.Settings, opts => opts.MapFrom(x => x.Settings))
+            .ForMember(x => x.Settings, opts => opts.MapFrom(x => MapSettings(x.Settings)))
             .ForMember(x => x.Gender, opts => opts.MapFrom(src => GenderConverter(src.Gender)));
 
         CreateMap<CurrentUserViewModel, UserDto>()
@@ -41,8 +42,26 @@ public class UserMapperProfile : Profile
         return accountRoles.First(x => x.RoleId != Role.User).RoleId.ToString();
     }
 
+    private static SettingsViewModel MapSettings(SettingsDto settingsDto)
+    {
+        var theme = "light";
+        var language = "en";
 
-    private string MapLanguage(InterfaceLanguage? language)
+        if (settingsDto.Theme.HasValue)
+        {
+            theme = settingsDto.Theme == Theme.Light ? "light" : "dark";
+        }
+
+        if (settingsDto.Language.HasValue)
+        {
+            language = settingsDto.Language == InterfaceLanguage.en ? "en" : "ua";
+        }
+
+        return new SettingsViewModel(theme, language, settingsDto.BackgroundImage);
+    }
+
+
+    private static string MapLanguage(InterfaceLanguage? language)
     {
         return language switch
         {
