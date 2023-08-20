@@ -1,12 +1,12 @@
 namespace StudCity.Core.Entities;
 
-public class UserGroup : BaseEntity
+public class UserPublic : BaseEntity
 {
     public User User { get; set; }
 
     public Guid UserId { get; set; }
 
-    public Group Group { get; set; }
+    public Public Public { get; set; }
 
-    public Guid GroupId { get; set; }
+    public Guid PublicId { get; set; }
 }

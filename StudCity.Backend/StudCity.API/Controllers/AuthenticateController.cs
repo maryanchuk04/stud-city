@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudCity.API.Extensions;
 using StudCity.API.ViewModels;
-using StudCity.Core.CommandHandlers;
+using StudCity.Application.CommandHandlers.Authenticate;
 using StudCity.Core.DTOs;
 using StudCity.Core.Exceptions;
 using StudCity.Core.Interfaces;
