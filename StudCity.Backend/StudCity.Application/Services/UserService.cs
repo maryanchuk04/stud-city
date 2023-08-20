@@ -114,17 +114,15 @@ public class UserService : IUserService
     {
         var userId = _securityContext.GetCurrentUserId();
 
-        if (await _context.Users.AnyAsync(x => x.Id == userId))
-        {
-            return await _context.Users
+        var user = await _context.Users
                 .Include(x => x.Image)
                 .Include(x => x.Account)
                 .ThenInclude(x => x.AccountRoles)
                 .Include(x => x.Settings)
                 .ThenInclude(x => x.BackgroundImage)
-                .FirstAsync(x => x.Id == userId);
-        }
+                .AsSplitQuery()
+                .FirstOrDefaultAsync(x => x.Id == userId) ??  throw new UserNotFoundException();
 
-        throw new UserNotFoundException();
+        return user;
     }
 }

@@ -49,7 +49,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            return Ok(_mapper.Map<UserDto, CurrentUserViewModel>(await _userService.GetCurrentUserAsync()));
+            return Ok(_mapper.Map<CurrentUserViewModel>(await _userService.GetCurrentUserAsync()));
         }
         catch (UserNotFoundException e)
         {
