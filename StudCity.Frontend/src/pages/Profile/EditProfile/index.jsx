@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ProfileDetails from './ProfileDetails';
 import ProfileSidebar from './ProfileSidebar';
@@ -12,6 +12,11 @@ import { useTranslation } from 'react-i18next';
 function EditProfile() {
 	const { t } = useTranslation();
 	const { data } = useSelector(selectCurrentUser);
+
+	useEffect(() => {
+		// TODO: Do this only 1 time and add ability to change permission on profile settings
+		if (Notification.permission !== 'granted') Notification.requestPermission();
+	}, []);
 
 	const [menuState, setMenuState] = useState(0);
 

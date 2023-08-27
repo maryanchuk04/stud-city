@@ -10,6 +10,7 @@ import {
 	handleTyping,
 	restoreHandleTyping,
 } from '../app/features/chatsSlice';
+import { showNotification } from './NotificationService';
 
 const tokenService = new TokenService();
 
@@ -37,6 +38,8 @@ export class HubService {
 		this.#hubConnection.on('JoinToRoom', () => {});
 
 		this.#hubConnection.on('ReceiveMessage', (message) => {
+			showNotification(message?.user?.fullName, message?.content);
+
 			if (window.location.href.includes(message.roomId)) {
 				store.dispatch(addMessageAction(message));
 			} else {
