@@ -10,6 +10,7 @@ import {
 	handleTyping,
 	restoreHandleTyping,
 } from '../app/features/chatsSlice';
+import { showNotification } from './NotificationService';
 
 const tokenService = new TokenService();
 
@@ -40,6 +41,13 @@ export class HubService {
 			if (window.location.href.includes(message.roomId)) {
 				store.dispatch(addMessageAction(message));
 			} else {
+				// show desktop notification
+				if (!window.location.href.includes(process.env.REACT_APP_FRONTEND_PATH)) {
+					showNotification(message?.user?.fullName, message?.content);
+					return;
+				}
+
+				// show studcity notification
 				store.dispatch(addMessageNotification(message));
 				setTimeout(() => {
 					store.dispatch(removeMessageNotification(message.id));
