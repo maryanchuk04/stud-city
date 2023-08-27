@@ -1,6 +1,5 @@
 const defaultOptions = {
-	icon: '/logo.png',
-	dir: 'ltr',
+	icon: './logo.png',
 	body: 'Notification Body',
 };
 
@@ -8,12 +7,13 @@ export const startRecieveNotification = () => {
 	if (!('Notification' in window)) {
 		console.info('Browser does not support desktop notification');
 	} else {
-		Notification.requestPermission();
+		if (Notification.permission !== 'granted') Notification.requestPermission();
 	}
 };
 
 export const showNotification = (title, subTitle) => {
-	return new Notification(title, { body: subTitle, ...defaultOptions });
+	// eslint-disable-next-line no-unused-vars
+	const notification = new Notification(title, { body: subTitle, ...defaultOptions });
 };
 /**
  * Close notification -> VOID

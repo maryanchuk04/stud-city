@@ -8,6 +8,7 @@ import Container from '../../../components/Container';
 import ProfileSettings from './ProfileSettings';
 import ScrollerWithPadding from '../../../components/ScrollerWithPadding';
 import { useTranslation } from 'react-i18next';
+import { startRecieveNotification } from '../../../services/NotificationService';
 
 function EditProfile() {
 	const { t } = useTranslation();
@@ -15,7 +16,7 @@ function EditProfile() {
 
 	useEffect(() => {
 		// TODO: Do this only 1 time and add ability to change permission on profile settings
-		if (Notification.permission !== 'granted') Notification.requestPermission();
+		startRecieveNotification();
 	}, []);
 
 	const [menuState, setMenuState] = useState(0);
