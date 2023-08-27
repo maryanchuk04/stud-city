@@ -13,7 +13,7 @@ export const startRecieveNotification = () => {
 
 export const showNotification = (title, subTitle) => {
 	// eslint-disable-next-line no-unused-vars
-	const notification = new Notification(title, { body: subTitle, ...defaultOptions });
+	return new Notification(title, { body: subTitle, ...defaultOptions });
 };
 /**
  * Close notification -> VOID
