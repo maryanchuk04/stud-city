@@ -12,7 +12,7 @@ namespace StudCity.API.Controllers;
 public class PublicController : ControllerBase
 {
     private readonly IMediator _mediator;
-    
+
     public PublicController(IMediator mediator)
     {
         _mediator = mediator;
@@ -32,7 +32,7 @@ public class PublicController : ControllerBase
             return BadRequest(new ErrorResponseModel("Something went wrong during Getting all Public`s", e.Message));
         }
     }
-    
+
     [HttpGet]
     [Route("{id:guid}")]
     public async Task<IActionResult> GetPublicAsync(Guid id)
@@ -48,10 +48,9 @@ public class PublicController : ControllerBase
             return BadRequest(new ErrorResponseModel("Something went wrong during Getting Public", e.Message));
         }
     }
-    
+
     [HttpGet]
     [Route("user")]
-    [Authorize]
     public async Task<IActionResult> GetUserPublicById([FromQuery] Guid? userId)
     {
         try

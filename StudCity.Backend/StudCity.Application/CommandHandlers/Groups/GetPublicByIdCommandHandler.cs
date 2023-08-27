@@ -29,6 +29,7 @@ public class GetPublicByIdCommandHandler : IRequestHandler<GetPublicByIdCommand,
     public async Task<PublicDto> Handle(GetPublicByIdCommand request, CancellationToken cancellationToken)
     {
         var pb = await _db.Publics
+            .AsSplitQuery()
             .Include(x => x.User)
             .ThenInclude(x => x.Image)
             .Include(x => x.UserPublics)

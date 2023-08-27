@@ -6,9 +6,7 @@ using StudCity.Db.Context;
 
 namespace StudCity.Application.CommandHandlers.Groups;
 
-public class GetPublicsCommand : IRequest<List<PublicDto>>
-{
-}
+public class GetPublicsCommand : IRequest<List<PublicDto>> { }
 
 public class GetPublicsCommandHandler : IRequestHandler<GetPublicsCommand, List<PublicDto>>
 {
@@ -24,6 +22,7 @@ public class GetPublicsCommandHandler : IRequestHandler<GetPublicsCommand, List<
     public async Task<List<PublicDto>> Handle(GetPublicsCommand request, CancellationToken cancellationToken)
     {
         var publics = await _db.Publics
+            .AsSplitQuery()
             .Include(x => x.User)
             .ThenInclude(x => x.Image)
             .Include(x => x.UserPublics)
