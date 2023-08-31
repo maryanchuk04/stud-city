@@ -1,6 +1,7 @@
 using System;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using StudCity.Core.Exceptions;
 using StudCity.Core.Interfaces;
 
 namespace StudCity.Db.Bridge;
@@ -32,7 +33,7 @@ public class SecurityContext : ISecurityContext
 
         if (guidClaim == null || !Guid.TryParse(guidClaim.Value, out var result))
         {
-            throw new Exception("User not found");
+            throw new UserNotFoundException();
         }
 
         return result;

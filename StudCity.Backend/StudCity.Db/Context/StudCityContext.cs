@@ -40,6 +40,17 @@ public class StudCityContext : DbContext
 
     public virtual DbSet<Message> Messages { get; set; }
 
-//    public virtual DbSet<UserGroup> UserGroups { get; set; }
-//    public virtual DbSet<Group> Groups { get; set; }
+    public virtual DbSet<UserPublic> UserPublics { get; set; }
+
+    public virtual DbSet<Public> Publics { get; set; }
+
+    public virtual DbSet<Like> Likes { get; set; }
+
+    public virtual DbSet<Publication> Publications { get; set; }
+
+    public virtual DbSet<PublicAdmin> PublicAdmins { get; set; }
+
+    public virtual DbSet<PublicationImage> PublicationImages { get; set; }
+
+    public virtual DbSet<Comment> Comments { get; set; }
 }
